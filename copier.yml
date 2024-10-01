@@ -12,17 +12,27 @@ project_name:
     {% if not project_name %} You must provide a name for the project. {% endif
     %}
 
+host:
+  type: str
+  help: Where would you like to host your code?
+  choices:
+    - gitlab.ewi.tudelft.nl
+    - gitlab.tudelft.nl
+    - github.com
+  default: gitlab.ewi.tudelft.nl
+
 org:
   type: str
-  help: What GitHub user is this project under?
+  help: What {{host}} user is this project under? For gitlab, this is your netid.
   validator: >-
     {% if not org %} You must provide a org for the project. It might just be
     your user name on the site (like GitHub) you are targeting. {% endif %}
 
 url:
   type: str
-  help: Provide/modify the url to your GitHub repository if needed.
-  default: "https://github.com/{{org}}/{{project_name}}"
+  help: Provide/modify the url to the {{host}} repository if needed.
+  default: https://{{host}}/{{org}}/{{project_name}}
+    
 
 python_name:
   type: str
@@ -40,7 +50,7 @@ full_name:
 email:
   type: str
   help: What's their email?
-  placeholder: me@email.com
+  placeholder: email@tudelft.nl
   validator: >-
     {% if not (email | regex_search('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')) %}
     You must provide a valid email to place in
@@ -84,3 +94,28 @@ coc:
   choices:
     "I'll use/modify the basic Code of Conduct.": our_coc
     "I'll write my own Code of Conduct.": their_coc
+
+_message_after_copy: |
+    Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
+
+        Next steps:
+
+            - Below are the commands to put your Python package under using git:
+
+                cd {{ _copier_conf.dst_path }}
+                git init
+                git add --all
+                git commit -m "first commit"
+                git branch -M main
+                git remote add origin {{ repository }}.git
+
+            - Push the initial commit to a new repo on {{host}}
+
+                Go to {% if host=='github.com' %}https://github.com/new{% endif %}{% if not host=='gitlab.com' %}https://{{host}}/projects/new{% endif %}                
+                and create a new repository named `{{ package_name }}` as an empty repository, then push your commits to {{host}}:
+
+                git push --set-upstream origin main
+          
+            - Project layout explained
+
+                For an explanation of what files are there, and what each of these do, please refer to {{ _copier_conf.dst_path }}/project_setup.md
