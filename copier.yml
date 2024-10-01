@@ -115,7 +115,3 @@ _message_after_copy: |
                 and create a new repository named `{{ project_name }}` as an empty repository, then push your commits to {{host}}:
 
                 git push --set-upstream origin main
-          
-            - Project layout explained
-
-                For an explanation of what files are there, and what each of these do, please refer to {{ _copier_conf.dst_path }}/project_setup.md
