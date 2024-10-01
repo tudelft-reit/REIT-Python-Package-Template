@@ -107,12 +107,12 @@ _message_after_copy: |
                 git add --all
                 git commit -m "first commit"
                 git branch -M main
-                git remote add origin {{ repository }}.git
+                git remote add origin {{ url }}.git
 
             - Push the initial commit to a new repo on {{host}}
 
                 Go to {% if host=='github.com' %}https://github.com/new{% endif %}{% if not host=='gitlab.com' %}https://{{host}}/projects/new{% endif %}                
-                and create a new repository named `{{ package_name }}` as an empty repository, then push your commits to {{host}}:
+                and create a new repository named `{{ project_name }}` as an empty repository, then push your commits to {{host}}:
 
                 git push --set-upstream origin main
           
