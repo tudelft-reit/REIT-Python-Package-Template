@@ -48,9 +48,6 @@ dev = [
 
 [project.urls]
 Homepage = "{{ url }}"
-"Bug Tracker" = "{{ url }}/issues"
-Discussions = "{{ url }}/discussions"
-Changelog = "{{ url }}/releases"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
