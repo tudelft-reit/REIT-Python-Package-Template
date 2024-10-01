@@ -93,8 +93,5 @@ line-length = 120  # how long you want lines to be
 [tool.ruff.format]
 docstring-code-format = true  # code snippets in docstrings will be formatted
 
-[tool.isort]
-profile = "black"
-line-length = 120
-known_first_party = ["{{python_name}}"]
-
+[tool.ruff.lint]
+select = ["I"] # isort
