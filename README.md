@@ -17,7 +17,6 @@ Based on the [Alan Turing Institute Python project template](https://github.com/
 - [Using your new project](#using-your-new-project)
 - [Migrating an existing project](#migrating-an-existing-project)
 - [Python environment management](#python-environment-management)
-- [Installing your package in editable mode](#installing-your-package-in-editable-mode)
 - [Wrtiting code and running tests](#writing-code-and-running-tests)
 - [Formatting and checking your code](#formatting-and-checking-your-code)
 - [Publishing your package](#publishing-your-package)
@@ -178,10 +177,13 @@ The tools for formatting and linting your code for errors are all bundled with [
 - [mypy](https://mypy.readthedocs.io/en/stable/) (static type checking)
 - various other small fixes and checks (see the [`.pre-commit-config.yaml`](project_template/.pre-commit-config.yaml) file for more information)
 
-To have pre-commit check your files before you commit them, you can run the following command:
-
+To have pre-commit check your files before you commit them, you can run the following command for uv:
 ```bash
 uv run pre-commit install
+```
+or with pixi
+```bash
+pixi run -e dev pre-commit install
 ```
 
 This will set up pre-commit to run the checks automatically on your files before you commit them. It's possible that pre-commit will make changes to your files when it runs the checks, so you should add those changes to your commit before you commit your code. A typical workflow would look like this:
@@ -196,10 +198,13 @@ git commit -m "My commit message"
 # if your commit fails again here, you have to fix the issues manually (not everything can be fixed automatically).
 ```
 
-One thing that is worth knowing is how to lint your files outside of the context of a commit. You can run the checks manually by running the following command:
-
+One thing that is worth knowing is how to lint your files outside of the context of a commit. You can run the checks manually by running the following command with uv:
 ```bash
 uv run pre-commit run --all-files
+```
+or with pixi
+```bash
+pixi run -e dev pre-commit run --all-files
 ```
 
 This will run the checks on all files in your git project, regardless of whether they're staged for commit or not.
@@ -208,6 +213,8 @@ This will run the checks on all files in your git project, regardless of whether
 
 If you're ready to publish your package to [PyPI](https://pypi.org/) (i.e. you want to be able to run `pip install my-package-name` from anywhere), follow the [uv instructions](https://docs.astral.sh/uv/guides/publish/).
 In short, they boil down to running `uv build` and `uv publish`.
+
+Pixi does not support yet building and publishing conda packages.
 
 ## Updating your project when the template changes
 
