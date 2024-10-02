@@ -7,7 +7,7 @@ _skip_if_exists:
 # PROMPT --------------------------------
 project_name:
   type: str
-  help: Please provide the name of your project.
+  help: Please provide the name of your project (do not use spaces).
   validator: >-
     {% if not project_name %} You must provide a name for the project. {% endif
     %}
@@ -19,11 +19,10 @@ host:
     - gitlab.ewi.tudelft.nl
     - gitlab.tudelft.nl
     - github.com
-  default: gitlab.ewi.tudelft.nl
 
 org:
   type: str
-  help: What {{host}} user is this project under? For gitlab, this is your netid.
+  help: What {{host}} user is this project under? For gitlab, this is your netid or group.
   validator: >-
     {% if not org %} You must provide a org for the project. It might just be
     your user name on the site (like GitHub) you are targeting. {% endif %}
@@ -66,10 +65,10 @@ license:
   type: str
   help: Select a license
   choices:
+    - GPL
     - BSD
     - Apache
     - MIT
-    - GPL
 
 min_python_version:
   type: str
@@ -82,10 +81,10 @@ min_python_version:
 
 environment_manager:
   type: str
-  help: Select which virtual environment manager to use
+  help: Select which virtual environment manager to use. Choose uv unless you need conda dependencies.
   choices:
-    "uv (pure python project - pip only)": uv
-    "pixi (conda)": pixi
+    "uv   (pip dependencies only)": uv
+    "pixi (conda and pip dependencies)": pixi
 
 typing:
   type: str
