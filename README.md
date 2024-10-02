@@ -1,4 +1,4 @@
-# Template for Python projects
+# REIT template for Python projects
 
 This template is designed to help you get started with a new Python project, or migrate an existing codebase. It includes:
 
