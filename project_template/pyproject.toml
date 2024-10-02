@@ -28,9 +28,13 @@ classifiers = [
 {%- endif %}
 ]
 dependencies = []
-
+{% if environment_manager=='pixi' %}
 [project.optional-dependencies]
 dev = [
+{%- elif environment_manager=='uv' %}
+[tool.uv]
+dev-dependencies = [
+{%- endif %}
   "pytest >=6",
   "pytest-cov >=3",
   "pre-commit",
