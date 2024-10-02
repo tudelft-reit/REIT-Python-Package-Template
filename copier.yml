@@ -128,3 +128,10 @@ _message_after_copy: |
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
                 {% endif %}
+
+            - Install pre-commit
+                {% if environment_manager=='uv' %}
+                uv run pre-commit install
+                {%- elif environment_manager=='pixi' %}
+                {% endif %}
+              
