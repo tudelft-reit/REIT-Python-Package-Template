@@ -123,7 +123,7 @@ _message_after_copy: |
 
                 git push --set-upstream origin main
 
-            - Setup a new virtual environment
+            - Create a new virtual environment, install the dependencies and your project in editable mode
                 {% if environment_manager=='uv' %}
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
