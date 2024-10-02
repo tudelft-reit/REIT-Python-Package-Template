@@ -124,22 +124,34 @@ We recommend using [`uv`](https://astral.sh/uv) or [`pixi`](https://pixi.sh/).
 Instructions for setting up both are shown when the template setup is finished.
 
 ## Adding dependencies
-               
+
+### UV
 Add dependencies by running
-To install
-{% if environment_manager=='uv' %}
 ```bash
 uv add numpy
 ```
-{%- elif environment_manager=='pixi' %}
-{% endif %}
 if you want to install torch with CUDA support, you can do it via:
-{% if environment_manager=='uv' %}
 ```bash
 uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
 ```
-{%- elif environment_manager=='pixi' %}
-{% endif %}
+
+###
+Add dependencies by running
+```bash
+pixi add --pypi numpy
+```
+or as a conda package
+```bash
+pixi add numpy
+```
+
+if you want to install torch with CUDA support, add the following line to the `pyproject.toml` under `[tool.pixi.project]`
+`pypi-options = { extra-index-urls = ["https://download.pytorch.org/whl/cu121"] }`
+then run
+```bash
+pixi add --pypi torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121
+```
+to install pytorch as a conda package check https://pixi.sh/latest/advanced/channel_priority/#use-case-pytorch-and-nvidia-with-conda-forge
 
 ## Writing code and running tests
 
