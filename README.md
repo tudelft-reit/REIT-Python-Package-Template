@@ -78,7 +78,7 @@ my-package-name/
 │   └── my_package_name/
 │       └── __init__.py
 └── tests/
-    └── __init__.py
+    └── test_my_module.py
 ```
 
 Here's a brief overview of the files and directories that have been created:
