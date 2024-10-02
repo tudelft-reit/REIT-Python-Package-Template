@@ -135,23 +135,31 @@ if you want to install torch with CUDA support, you can do it via:
 uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
 ```
 
-###
+### Pixi
+
+### Pypi packages
 Add dependencies by running
 ```bash
 pixi add --pypi numpy
 ```
-or as a conda package
-```bash
-pixi add numpy
-```
-
 if you want to install torch with CUDA support, add the following line to the `pyproject.toml` under `[tool.pixi.project]`
 `pypi-options = { extra-index-urls = ["https://download.pytorch.org/whl/cu121"] }`
 then run
 ```bash
 pixi add --pypi torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121
 ```
-to install pytorch as a conda package check https://pixi.sh/latest/advanced/channel_priority/#use-case-pytorch-and-nvidia-with-conda-forge
+
+### Conda packages
+Add dependencies by running
+```bash
+pixi add numpy
+```
+to install pytorch with cuda support as a conda package add the additional channels to the `pyproject.toml` under `[tool.pixi.project]`
+`channels = ["nvidia", "conda-forge", "pytorch"]`
+then run 
+ ```bash
+pixi add pytorch torchvision torchaudio pytorch-cuda=12.1
+```
 
 ## Writing code and running tests
 
