@@ -49,6 +49,7 @@ You will be prompted for the following information:
 
 - `project_name`: The name of your project. This will be used to name the
   project directory, the Python package, and the GitHub repository.
+- `host`: where to host your code: either `gitlab` or `github`
 - `project_short_description`: A short description of your project.
 - `license`: The license to use for your project — PRs for other choices are welcome! The current supported options include:
   - `MIT`
@@ -58,6 +59,7 @@ You will be prompted for the following information:
 - `python_name`: The name of your project when you do `import name` (and potentially `pip install name`). This should be a valid Python package name (use underscores instead of hyphens, for example).
 - `typing`: Whether to use `mypy` for type checking. If you're not sure, I'd recommend basic checks (second option).
 - `python_version_range`: The range of Python versions to support. This will be used to set the `python_requires` field in `pyproject.toml`. Defaults to `>=3.10`.
+- `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
 
 Great! Copier will have now created a new project in the directory you specified by replacing `my-package-name`, and customized it based on the information you provided.
 
@@ -65,6 +67,7 @@ Your new project will have been set up with the following structure:
 
 ```
 my-package-name/
+├── .copier-answers.yml
 ├── .gitignore
 ├── .pre-commit-config.yaml
 ├── CONTRIBUTING.md
@@ -81,6 +84,7 @@ my-package-name/
 
 Here's a brief overview of the files and directories that have been created:
 
+- `.copier-answers.yml`: A file containing all your answers to copier.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
 - `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
 - `CONTRIBUTING.md`: A guide for people who want to contribute to your project, which has a lot of the same advice as this README.
@@ -102,7 +106,7 @@ If you're taking code you've already written and want to use this template, you'
 - Add your dependencies to the relevant section of the `pyproject.toml` file under the `install_requires` field. Dependencies are formatted like this:
     ```
     [project]
-    install_requires = [
+    dependencies = [
         "numpy >= 1.20",
         "pandas == 1.2.3",
         "scipy",
@@ -121,7 +125,7 @@ Instructions for setting up both are shown when the template setup is finished.
 
 ## Writing code and running tests
 
-You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with the  `pytest` command to make sure everything is working as expected. Settings for `pytest` are included in the `pyproject.toml` file.
+You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with the `pytest` command to make sure everything is working as expected. Settings for `pytest` are included in the `pyproject.toml` file.
 
 Additionally, the automated CI pipeline will run the tests for you, but it's a good idea to run them locally as well to catch any issues before you push your code.
 
@@ -167,10 +171,10 @@ In short, they boil down to running `uv build` and `uv publish`.
 
 Copier has [instructions on how to update a template to the latest version](https://copier.readthedocs.io/en/stable/updating/), which I'll repeat here for completeness.
 
-If you want to update your project with the latest version of this template, you can run the following command (ensuring that your current project is committed and that you have no uncommitted changes, since the update will overwrite some files!):
+If you want to update your project with the latest version of this template, you can run the following command at the root folder of your repository (ensuring that your current project is committed and that you have no uncommitted changes, since the update will overwrite some files!):
 
 ```bash
-copier update
+uvx copier update
 ```
 
 Note that this is the purpose of the `.copier-answers.yml` file in the root of your project. This file is used by Copier to keep track of the answers you gave when you first created the project, allowing it to update the project correctly when you run `copier update`.
