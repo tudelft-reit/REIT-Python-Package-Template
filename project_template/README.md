@@ -20,24 +20,47 @@ Install [uv](https://docs.astral.sh/uv/):
     powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
     ```
 
-Install the dependencies
+Install the dependencies, including the dev dependencies
     ```bash
     uv sync
     ```
-or with if you do not want the dev dependencies
+or install only the runtime dependencies
     ```bash
     uv sync --no-dev
     ```
 {%- elif environment_manager=='pixi' %}
+Install [pixi](https://pixi.sh):
+
+- Linux and MacOS
+    ```bash
+    curl -fsSL https://pixi.sh/install.sh | bash
+    ```
+- Windows (powershell)
+    ```bash
+    iwr -useb https://pixi.sh/install.ps1 | iex
+    ```
+
+Install the dependencies, including the dev dependencies
+    ```bash
+    pixi install --all
+    ```
+or install only the runtime dependencies
+    ```bash
+    pixi install --environment default
+    ```
 {% endif %}
 
 ## Usage
 
+Execute the main script with
 {% if environment_manager=='uv' %}
-```bash
-uv run my_file.py
-```
+    ```bash
+    uv run my_file.py
+    ```
 {%- elif environment_manager=='pixi' %}
+    ```bash
+    pixi run python my_file.py
+    ```
 {% endif %}
 
 ## Contributing

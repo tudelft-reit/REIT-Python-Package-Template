@@ -127,11 +127,14 @@ _message_after_copy: |
                 {% if environment_manager=='uv' %}
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
+                pixi init
+                pixi install --all
                 {% endif %}
 
-            - Install pre-commit
+            - Install the pre-commit hook
                 {% if environment_manager=='uv' %}
                 uv run pre-commit install
                 {%- elif environment_manager=='pixi' %}
+                pixi run --environment dev pre-commit install
                 {% endif %}
               
