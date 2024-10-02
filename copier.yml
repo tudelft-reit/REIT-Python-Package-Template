@@ -80,6 +80,13 @@ min_python_version:
     Please supply a valid Python 3 version (e.g. 3.11).
     {% endif %}
 
+environment_manager:
+  type: str
+  help: Select which virtual environment manager to use
+  choices:
+    "uv (pure python project - pip only)": uv
+    "pixi (conda)": pixi
+
 typing:
   type: str
   help: Would you like to use static type checking? (This configures mypy.)
@@ -115,3 +122,10 @@ _message_after_copy: |
                 and create a new repository named `{{ project_name }}` as an empty repository, then push your commits to {{host}}:
 
                 git push --set-upstream origin main
+
+            - Setup a new virtual environment
+                {% if environment_manager=='uv' %}
+                uv venv 
+                {% endif %}
+                {% if environment_manager=='pixi' %}
+                {% endif %}
