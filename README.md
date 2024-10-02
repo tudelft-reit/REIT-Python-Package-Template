@@ -137,7 +137,7 @@ uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --ex
 
 ### Pixi
 
-### Pypi packages
+#### Pypi packages
 Add dependencies by running
 ```bash
 pixi add --pypi numpy
@@ -149,7 +149,7 @@ then run
 pixi add --pypi torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121
 ```
 
-### Conda packages
+#### Conda packages
 Add dependencies by running
 ```bash
 pixi add numpy
