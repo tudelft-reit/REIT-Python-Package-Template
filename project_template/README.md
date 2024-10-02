@@ -8,27 +8,37 @@
 
 ## Installation
 
-```bash
-python -m pip install {{ python_name }}
-```
+{% if environment_manager=='uv' %}
+Install [uv](https://docs.astral.sh/uv/):
 
-From source:
-{% if backend == "poetry" -%}
-```bash
-git clone {{ url }}
-cd {{ project_name }}
-poetry install
-```
-{% else -%}
-```bash
-git clone {{ url }}
-cd {{ project_name }}
-python -m pip install .
-```
-{%- endif %}
+- Linux and MacOS
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+- Windows
+    ```bash
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
+
+Install the dependencies
+    ```bash
+    uv sync
+    ```
+or with if you do not want the dev dependencies
+    ```bash
+    uv sync --no-dev
+    ```
+{%- elif environment_manager=='pixi' %}
+{% endif %}
 
 ## Usage
 
+{% if environment_manager=='uv' %}
+```bash
+uv run my_file.py
+```
+{%- elif environment_manager=='pixi' %}
+{% endif %}
 
 ## Contributing
 
