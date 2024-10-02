@@ -1,15 +1,15 @@
 # Template for Python projects
 
-This setuptools-based template is designed to help you get started with a new Python project, or migrate an existing codebase. It includes:
+This template is designed to help you get started with a new Python project, or migrate an existing codebase. It includes:
 
 - The recommended `src/` layout for a Python package
 - A pre-configured `pyproject.toml` that controls your project metadata
 - Linting + formatting via `ruff` and `pre-commit`
-- `pytest` set up to run automatically on your commits through GitHub Actions
-- Semi-automated releases to PyPI via GitHub tags + GitHub Actions
+- `pytest` set up to run automatically on your commits through pre-commit
+- Version updates via git tags
 - Opt-in typing support via `mypy`
 
-Based on the [Scientific Python project template](https://github.com/scientific-python/cookie).
+Based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
 
 ## Sections in this README
 
@@ -26,16 +26,21 @@ Based on the [Scientific Python project template](https://github.com/scientific-
 
 ## Setting up a new project
 
-To use, install `copier` in your Python environment:
+To use, install [uv](https://docs.astral.sh/uv/):
 
-```
-python -m pip install copier
-```
+- Linux and MacOS
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
+- Windows
+    ```bash
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
 
 Then, run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
 
 ```
-copier copy gh:alan-turing-institute/python-project-template my-package-name
+uvx copier copy git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
 ```
 
 The output will be created in a folder called `my-package-name`, and will be created if it doesn't exist.
@@ -60,10 +65,6 @@ Your new project will have been set up with the following structure:
 
 ```
 my-package-name/
-├── .github/
-│   └── workflows/
-│       └── ci.yml
-│      └── cd.yml
 ├── .gitignore
 ├── .pre-commit-config.yaml
 ├── CONTRIBUTING.md
@@ -80,8 +81,6 @@ my-package-name/
 
 Here's a brief overview of the files and directories that have been created:
 
-- `.github/workflows/ci.yml`: A GitHub Actions workflow that runs your tests on every push to the repository.
-- `.github/workflows/cd.yml`: A GitHub Actions workflow that publishes your package to PyPI on every new version tag made through the GitHub interface.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
 - `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
 - `CONTRIBUTING.md`: A guide for people who want to contribute to your project, which has a lot of the same advice as this README.
@@ -116,78 +115,11 @@ Once you've set up your new project, you can start developing your package. Ther
 
 ## Python environment management
 
-_Note: I will not be covering Conda environments in this section. Conda is great when your project has dependencies outside of Python packages that you want to manage! If you're using Conda, you can still use this template – these are just recommendations for managing Python environments that don't affect the package itself._
+Every project should have a Python environment set up to manage dependencies.
+We recommend using [`uv`](https://astral.sh/uv) or [`pixi`](https://pixi.sh/).
+Instructions for setting up both are shown when the template setup is finished.
 
-Every project should have a Python environment set up to manage dependencies. You can use the built-in Python tool `venv` to create a new environment in the root of your project. To create an environment called `.venv`, run the following command in your terminal:
-
-```
-python -m venv .venv
-```
-
-Then, activate the environment:
-
-- On Windows:
-
-  ```
-  .venv\Scripts\activate
-  ```
-
-- On Unix or MacOS:
-  ```
-  source .venv/bin/activate
-  ```
-
-Your version of python should now point to the one in the `.venv` directory. You can check this by running: `which python`, which should return a path to the python executable in the `.venv` directory (e.g. `my-package-name/.venv/bin/python`).
-
-Before installing your package to work on, I would also recommend upgrading `pip` and `setuptools` in your environment to the latest versions, which could potentially avoid issues with installing dependencies later on. You can do this by running the following command in your terminal while the environment is activated:
-
-```
-pip install --upgrade pip setuptools
-```
-
-
-### Aside: Using `uv` for environment management
-
-There's also the environment manager [`uv`](https://astral.sh/uv), which has gained a lot of traction through being really fast, including some fun extras (e.g. [this one](https://twitter.com/HenrySchreiner3/status/1788801151686631584) that could save your old projects that no longer work with newer package versions).
-
-To install `uv`, [follow the install instructions on the GitHub page](https://github.com/astral-sh/uv?tab=readme-ov-file#getting-started), then run the following command in your terminal from the root of your project:
-
-```bash
-uv venv --seed
-```
-
-This will create a new virtual environment in the `.venv` directory, with the `--seed` option upgrading `pip` and `setuptools` to the latest versions automatically.
-
-Activating the environment is the same as with `venv`:
-
-- On Windows:
-
-  ```bash
-  .venv\Scripts\activate
-  ```
-
-- On Unix or MacOS:
-  ```bash
-  source .venv/bin/activate
-  ```
-
-Then, to benefit from `uv`'s speed, you install your dependencies with:
-
-```bash
-uv pip install ...  # as you would with pip!
-```
-
-## Installing your package in editable mode
-
-After your environment is set up, you can then install your project in editable mode (so that changes you make to the code are reflected in the installed package) by running:
-
-```bash
-pip install -e .  # or uv pip install -e . if you're using uv
-```
-
-This will install your package in editable mode, so you can import it in other Python code through `import my_package_name` and access methods as if it were any other package. The editable part means that if you make changes to the code in the `src` directory, they will be reflected in the installed package, so your changes will be immediately available to any code that uses your package that you're working on.
-
-## Wrtiting code and running tests
+## Writing code and running tests
 
 You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with the  `pytest` command to make sure everything is working as expected. Settings for `pytest` are included in the `pyproject.toml` file.
 
@@ -228,23 +160,8 @@ This will run the checks on all files in your git project, regardless of whether
 
 ## Publishing your package
 
-If you're ready to publish your package to [PyPI](https://pypi.org/) (i.e. you want to be able to run `pip install my-package-name` from anywhere), the template includes a GitHub Actions workflow that will automatically publish your package to PyPI when you create a new release on GitHub. The workflow is defined in the [`.github/workflows/cd.yml`](project_template/.github/workflows/cd.yml) file within the `project_template` folder.
-
-First, if you don't already have a PyPI account, we'll follow these first steps from the [python packaging user guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/#uploading-the-distribution-archives):
-
->The first thing you’ll need to do is register an account on TestPyPI, which is a separate instance of the package index intended for testing and experimentation. It’s great for things like this tutorial where we don’t necessarily want to upload to the real index. To register an account, go to https://test.pypi.org/account/register/ and complete the steps on that page. You will also need to verify your email address before you’re able to upload any packages. For more details, see Using TestPyPI.
-
-Notice how the instructions mention TestPyPI, which is a testing environment for PyPI. This is a good place to start, since you can test publishing your package without affecting the real PyPI index. Once you're ready to publish to the real PyPI, you can follow the same steps again — just replace `https://test.pypi.org` with `https://pypi.org`.
-
-We'll then need to set up trusted publishing, which allows us to publish to PyPI without the need for a username/password or API token. This template uses the [PyPA GitHub action for publishing to PyPI](https://github.com/pypa/gh-action-pypi-publish/tree/release/v1.9?tab=readme-ov-file), which gives us the following instructions:
-
-> This action supports PyPI's [trusted publishing](https://docs.pypi.org/trusted-publishers/) implementation, which allows authentication to PyPI without a manually configured API token or username/password combination. To perform trusted publishing with this action, your project's publisher must already be [configured on PyPI](https://docs.pypi.org/trusted-publishers/adding-a-publisher/).
-
-After following these steps, we're basically there! You can now create a new release on GitHub using the "Releases" tab on the right-hand side, and the GitHub Actions workflow will automatically publish your package to PyPI using the commit associated with the release. **Note: you'll need to update the version number in the `pyproject.toml` file before creating a new release, since PyPI won't allow you to publish the same version twice!**
-
-Make sure to follow [semantic versioning](https://semver.org/) when updating the version number. If it's your first version of the package, I'd recommend starting at 0.1.0, with the major release 1.0.0 being the production-ready product. Use minor versions (0.X.0) for breaking changes, and patch versions (0.0.X) for backwards-compatible bug fixes.
-
-If this was your first time publishing, you will then  be able to install your package from PyPI with `pip install my-package-name`. Yay!
+If you're ready to publish your package to [PyPI](https://pypi.org/) (i.e. you want to be able to run `pip install my-package-name` from anywhere), follow the [uv instructions](https://docs.astral.sh/uv/guides/publish/).
+In short, they boil down to running `uv build` and `uv publish`.
 
 ## Updating your project when the template changes
 
@@ -261,6 +178,6 @@ Note that this is the purpose of the `.copier-answers.yml` file in the root of y
 
 ## Inspiration
 
-This template heavily draws upon the [Scientific Python template](https://github.com/scientific-python/cookie) to motivate choices for default options for linters, backends etc. If you haven't worked with any of the tools in this repo (e.g. pre-commit, ruff, mypy, pytest) or want to know more about Python project setup in general, then you'll benefit from reading the fantastic [Scientific Python Development Guidelines](https://learn.scientific-python.org/development/).
-
-It's worth noting that the original template also has support for many more backends, including the use of compiled extensions (e.g. in Rust or C++). The only reason this is not a fork is that I wanted to both simplify the options available, and make the hard switch to [copier](https://copier.readthedocs.io/en/stable/) instead of [cookiecutter](https://cookiecutter.readthedocs.io/en/stable/) as a templating engine, since it lets you [natively update your project in-place to the latest template](https://copier.readthedocs.io/en/stable/updating/), even after you've worked on it for a while.
+This template heavily draws upon the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
+For more advance use cases, check out the [Netherlands eScience Center Python Template](https://github.com/NLeSC/python-template).
+This includes badges, citation, github/gitlab actions, automatic code quality and more.
