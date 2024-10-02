@@ -123,6 +123,24 @@ Every project should have a Python environment set up to manage dependencies.
 We recommend using [`uv`](https://astral.sh/uv) or [`pixi`](https://pixi.sh/).
 Instructions for setting up both are shown when the template setup is finished.
 
+## Adding dependencies
+               
+Add dependencies by running
+To install
+{% if environment_manager=='uv' %}
+```bash
+uv add numpy
+```
+{%- elif environment_manager=='pixi' %}
+{% endif %}
+if you want to install torch with CUDA support, you can do it via:
+{% if environment_manager=='uv' %}
+```bash
+uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+```
+{%- elif environment_manager=='pixi' %}
+{% endif %}
+
 ## Writing code and running tests
 
 You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with the `pytest` command to make sure everything is working as expected. Settings for `pytest` are included in the `pyproject.toml` file.
