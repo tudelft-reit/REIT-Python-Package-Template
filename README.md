@@ -166,9 +166,14 @@ pixi add pytorch torchvision torchaudio pytorch-cuda=12.1
 
 ## Writing code and running tests
 
-You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with the `pytest` command to make sure everything is working as expected. Settings for `pytest` are included in the `pyproject.toml` file.
-
-Additionally, the automated CI pipeline will run the tests for you, but it's a good idea to run them locally as well to catch any issues before you push your code.
+You're now ready to start developing your package! Add code to the `src` directory, tests to the `tests` directory, and run your tests with 
+```
+uv run pytest
+```
+or
+```
+pixi run -d dev pytest
+```
 
 ## Formatting and checking your code
 
