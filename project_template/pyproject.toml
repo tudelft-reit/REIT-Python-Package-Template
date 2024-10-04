@@ -1,6 +1,6 @@
 [project]
 name = "{{ project_name }}"
-version = "0.1.0"
+dynamic = ["version"]
 authors = [
   { name = "{{ full_name }}", email = "{{ email }}" },
 ]
