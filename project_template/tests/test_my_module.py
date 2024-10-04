@@ -13,4 +13,3 @@ def test_my_function():
     # The my_function is not imported, so the expected result is a NameError
     with pytest.raises(NameError):
         assert my_function() == "my_output"
-
