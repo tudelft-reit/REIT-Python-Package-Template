@@ -23,9 +23,7 @@ repos:
       # first, lint + autofix
       - id: ruff
         types_or: [python, pyi, jupyter]
-        # Remove the "--exit-zero" and verbose: true to enforce the linting rules of each commit
-        args: ["--fix", "--show-fixes", "--exit-zero"]
-        verbose: true
+        args: ["--fix", "--show-fixes"]
       # then, format
       - id: ruff-format
 

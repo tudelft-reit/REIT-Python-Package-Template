@@ -104,27 +104,4 @@ line-length = 120  # how long you want lines to be
 docstring-code-format = true  # code snippets in docstrings will be formatted
 
 [tool.ruff.lint]
-select = ["ALL"]
-ignore = [
-    "ANN101", # Missing type annotation for `self` in method
-    "ANN102", # Missing type annotation for `cls` in classmethod
-    "ANN204", # Missing return type annotation for special (dunder) method
-    "FBT",    # Using boolean function arguments
-    "TD",     # TODOs
-    "FIX001", # Resolve FIXMEs
-    "FIX002", # Resolve TODOs
-    "B028",   # No explicit `stacklevel` keyword argument found in warning
-    # No docstrings required in the following cases
-    "D100", # Missing module docstring
-    "D104", # Missing public package docstring
-    "D105", # Missing docstring in magic method
-    "D107", # Missing docstring in `__init__`
-]
-
-[tool.ruff.lint.per-file-ignores]
-# Tests can ignore a few extra rules
-"tests/**.py" = [
-    "ANN201", # Missing return type annotation for public function
-    "PT011",  # Missing `match` parameter in `pytest.raises()`
-    "S101",   # Use of assert is detected
-]
+select = ["I"] # isort
