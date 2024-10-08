@@ -103,6 +103,9 @@ line-length = 120  # how long you want lines to be
 [tool.ruff.format]
 docstring-code-format = true  # code snippets in docstrings will be formatted
 
+[tool.ruff.pydocstyle]
+convention = "google"
+
 [tool.ruff.lint]
 # For more strict linting and code simplifications, replace this with
 # https://github.com/NLeSC/python-template/blob/main/template/pyproject.toml.jinja#L121-L136
