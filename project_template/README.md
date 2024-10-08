@@ -68,9 +68,11 @@ Execute the main script with
 See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to contribute.
 
 ## License
-
+{% if license=='No license' %}
+Distributed under the terms of the [copyright license](LICENSE).
+{% else %}
 Distributed under the terms of the [{{ license }} license](LICENSE).
-
+{% endif %}
 
 <!-- prettier-ignore-start -->
 [actions-badge]:            {{url}}/workflows/CI/badge.svg

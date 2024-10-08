@@ -69,6 +69,7 @@ license:
     - BSD
     - Apache
     - MIT
+    - No license (others may not use, share or modify the code)
 
 min_python_version:
   type: str
