@@ -1,0 +1,3 @@
+# {{ project_name }}
+::: {{ python_name }}
+::: {{ python_name }}.main
