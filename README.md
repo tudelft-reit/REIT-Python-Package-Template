@@ -7,6 +7,7 @@ This template is designed to help you get started with a new Python project, or 
 - Linting + formatting via `ruff` and `pre-commit`
 - `pytest` set up to run automatically on your commits through pre-commit
 - Version updates via git tags
+- Documentation generation via `mkdocs`
 - Opt-in typing support via `mypy`
 
 Based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
@@ -74,11 +75,15 @@ my-package-name/
 ├── LICENSE
 ├── README.md
 ├── pyproject.toml
+├── mkdocs.yml
 ├── src/
 │   └── my_package_name/
-│       └── __init__.py
-└── tests/
-    └── test_my_module.py
+│       ├── __init__.py
+│       └── main.py
+├── tests/
+│      └── test_my_module.py
+└── docs/
+       └── index.md
 ```
 
 Here's a brief overview of the files and directories that have been created:
@@ -91,8 +96,10 @@ Here's a brief overview of the files and directories that have been created:
 - `LICENSE`: A copy of the license you chose for your project.
 - `README.md`: An overview of your project, which comes with some badges (example: ![Badge](https://img.shields.io/badge/this_is-a_badge-blue)) for things like CI status, code coverage, and PyPI version.
 - `pyproject.toml`: A TOML file that contains metadata about your project, including its name, version, description, and dependencies.
+- `mkdocs.yml`: A configuration file for `mkdocs`, which generates documentation for your code.
 - `src/`: A directory that contains your Python package code.
 - `tests/`: A directory that contains your tests.
+- `docs/`: A directory that contains your tests.
 
 ### Migrating an existing project
 

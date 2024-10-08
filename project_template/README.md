@@ -63,6 +63,19 @@ Execute the main script with
     ```
 {% endif %}
 
+## Documentation
+
+Generate the documentation locally with
+{% if environment_manager=='uv' %}
+    ```bash
+    uv run mkdocs serve
+    ```
+{%- elif environment_manager=='pixi' %}
+    ```bash
+    pixi run python mkdocs serve
+    ```
+{% endif %}
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to contribute.
