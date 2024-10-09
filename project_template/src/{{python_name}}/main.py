@@ -1,9 +1,14 @@
+"""Short definition of my module.
+
+This module provides:
+- add: a function to add two numbers.
+"""
+
 from {{ python_name }} import __version__
 
 
 def add(a: int, b: int) -> int:
-    """
-    Adds two numbers together.
+    """Adds two numbers together.
 
     Args:
         a (int): The first number.
@@ -21,7 +26,7 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
-def main():
+def main():  # noqa: D103
     print(f"Running {{ python_name }} version {__version__}")
     print(f"Result is: 1+2 = {add(1, 2)}")
 
