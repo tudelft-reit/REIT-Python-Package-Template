@@ -68,11 +68,11 @@ Execute the main script with
 Generate the documentation locally with
 {% if environment_manager=='uv' %}
     ```bash
-    uv run mkdocs serve
+    uv run mkdocs serve --watch ./
     ```
 {%- elif environment_manager=='pixi' %}
     ```bash
-    pixi run -e mkdocs serve
+    pixi run -e mkdocs serve --watch ./
     ```
 {% endif %}
 
