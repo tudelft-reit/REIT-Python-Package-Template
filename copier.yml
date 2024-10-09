@@ -7,10 +7,13 @@ _skip_if_exists:
 # PROMPT --------------------------------
 project_name:
   type: str
-  help: Please provide the name of your project (do not use spaces).
+  help: Please provide the name of your project.
   validator: >-
-    {% if not project_name %} You must provide a name for the project. {% endif
-    %}
+    {% if not project_name %}
+      You must provide a name for the project.
+    {% elif ' ' in project_name %}
+      You must provide a project name without spaces.
+    {% endif %}
 
 host:
   type: str
