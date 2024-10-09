@@ -55,6 +55,9 @@ version-file = "_version.py"
 [project.urls]
 Homepage = "{{ url }}"
 
+[project.scripts]
+main_script = "{{ python_name }}.main:main"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
