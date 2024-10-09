@@ -26,7 +26,7 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
-def main():  # noqa: D103
+def main() -> None:
     print(f"Running {{ python_name }} version {__version__}")
     print(f"Result is: 1+2 = {add(1, 2)}")
 
