@@ -134,7 +134,8 @@ select = [
   "UP",          # pyupgrade
   "YTT",         # flake8-2020
   "EXE",         # flake8-executable
-  # "D",           # pydocstyle, uncomment to have the docstrings linted 
+  # "D",           # pydocstyle, uncomment to have the docstrings linted
+  # "ANN",         # flake8-annotations, uncomment to have type hint annotations linted
 ]
 ignore = [
   "PLR",    # Design related pylint codes
