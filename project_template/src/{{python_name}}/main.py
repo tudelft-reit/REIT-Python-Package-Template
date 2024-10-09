@@ -15,7 +15,7 @@ def add(a: int, b: int) -> int:
         b (int): The second number.
 
     Returns:
-        int: The sum of the two numbers.
+        sum: The sum of the two numbers.
 
     Raises:
         ValueError: If either a or b is not an integer.
