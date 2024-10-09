@@ -179,7 +179,7 @@ uv run pytest
 ```
 or
 ```
-pixi run -d dev pytest
+pixi run -e dev pytest
 ```
 
 ## Formatting and checking your code

@@ -72,7 +72,7 @@ Generate the documentation locally with
     ```
 {%- elif environment_manager=='pixi' %}
     ```bash
-    pixi run python mkdocs serve
+    pixi run -e mkdocs serve
     ```
 {% endif %}
 
