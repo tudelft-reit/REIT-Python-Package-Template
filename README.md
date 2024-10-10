@@ -22,6 +22,7 @@ Based on the [Alan Turing Institute Python project template](https://github.com/
 - [Formatting and checking your code](#formatting-and-checking-your-code)
 - [Publishing your package](#publishing-your-package)
 - [Updating your project when the template changes](#updating-your-project-when-the-template-changes)
+- [Project template development](#project-template-development)
 - [Inspiration](#inspiration)
 
 ## Setting up a new project
