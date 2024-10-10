@@ -241,6 +241,14 @@ uvx copier update
 Note that this is the purpose of the `.copier-answers.yml` file in the root of your project. This file is used by Copier to keep track of the answers you gave when you first created the project, allowing it to update the project correctly when you run `copier update`.
 
 
+## Project template development
+
+Clone the repository and test your local changes by generating a new project with
+
+```bash
+uvx copier copy -r HEAD ./python-project-template ./my-test-project
+```
+
 ## Inspiration
 
 This template heavily draws upon the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
