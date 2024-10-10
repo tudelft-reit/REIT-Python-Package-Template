@@ -224,7 +224,17 @@ This will run the checks on all files in your git project, regardless of whether
 ## Publishing your package
 
 If you're ready to publish your package to [PyPI](https://pypi.org/) (i.e. you want to be able to run `pip install my-package-name` from anywhere), follow the [uv instructions](https://docs.astral.sh/uv/guides/publish/).
-In short, they boil down to running `uv build` and `uv publish`.
+In short, they boil down to running:
+
+1. Build the wheel
+    ```bash
+    uv build
+    ```
+
+2. Upload the wheel to PyPI
+    ```bash
+    uv publish
+    ```
 
 Pixi does not support yet building and publishing conda packages.
 
