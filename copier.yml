@@ -127,6 +127,10 @@ _message_after_copy: |
 
                 git push --set-upstream origin main
 
+            {% if environment_manager=='pixi' %}
+            - Instal pixi, if you haven't already done so https://pixi.sh
+
+            {% endif %}
             - Create a new virtual environment, install the dependencies and your project in editable mode
                 {% if environment_manager=='uv' %}
                 uv sync 
