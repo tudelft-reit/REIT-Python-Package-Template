@@ -86,11 +86,3 @@ Distributed under the terms of the [copyright license](LICENSE).
 {% else %}
 Distributed under the terms of the [{{ license }} license](LICENSE).
 {% endif %}
-
-<!-- prettier-ignore-start -->
-[actions-badge]:            {{url}}/workflows/CI/badge.svg
-[actions-link]:             {{url}}/actions
-[pypi-link]:                https://pypi.org/project/{{project_name}}/
-[pypi-platforms]:           https://img.shields.io/pypi/pyversions/{{project_name}}
-[pypi-version]:             https://img.shields.io/pypi/v/{{project_name}}
-<!-- prettier-ignore-end -->
