@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Replace 'main' with your default branch name if necessary
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      {% if environment_manager=='pixi' -%}
+      - uses: prefix-dev/setup-pixi@v0.8.1
+        with:
+          pixi-version: v0.30.0
+          cache: true
+          auth-host: prefix.dev
+          auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
+      {%- elif environment_manager=='uv' -%}
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+      {%- endif %}
+
+      - name: Install the project and its dependencies
+        {% if environment_manager=='pixi' %}run: |
+        apt update && apt install -y git
+        pixi install -e dev
+        {%- elif environment_manager=='uv' %}run: uv sync{%- endif %}
+
+      - name: Build MkDocs site
+        {% if environment_manager=='pixi' %}run: pixi run -e dev mkdocs build --strict --verbose --site-dir public
+        {%- elif environment_manager=='uv' %}run: uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          publish_dir: ./public
