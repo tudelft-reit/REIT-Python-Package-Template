@@ -115,6 +115,7 @@ _message_after_copy: |
                 cd {{ _copier_conf.dst_path }}
                 git init
                 {% if _copier_conf.os in  ['linux', 'macos'] %}echo '_version.py' >> .gitignore {% else %}Add-Content .gitignore '_version.py'{% endif %}  
+                {% if environment_manager=='pixi' %}pixi init --format pyproject{% endif %}
                 git add --all
                 git commit -m "first commit"
                 git branch -M main
@@ -135,7 +136,6 @@ _message_after_copy: |
                 {% if environment_manager=='uv' %}
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
-                pixi init --format pyproject
                 pixi install --all
                 {% endif %}
 
