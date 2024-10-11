@@ -1,9 +1,5 @@
 # {{ project_name }}
 
-[![Actions Status][actions-badge]][actions-link]
-[![PyPI version][pypi-version]][pypi-link]
-[![PyPI platforms][pypi-platforms]][pypi-link]
-
 {{ project_short_description }}
 
 ## Installation
