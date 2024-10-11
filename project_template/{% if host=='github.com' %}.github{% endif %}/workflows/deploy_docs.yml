@@ -20,7 +20,7 @@ jobs:
           pixi-version: v0.30.0
           cache: true
           auth-host: prefix.dev
-          auth-token: ${{ secrets.PREFIX_DEV_TOKEN }}
+          auth-token: {% raw %}${{ secrets.PREFIX_DEV_TOKEN }}{% endraw %}
       {%- elif environment_manager=='uv' -%}
       - name: Install the latest version of uv
         uses: astral-sh/setup-uv@v3
@@ -29,10 +29,13 @@ jobs:
       {%- endif %}
 
       - name: Install the project and its dependencies
-        {% if environment_manager=='pixi' %}run: |
-        apt update && apt install -y git
-        pixi install -e dev
-        {%- elif environment_manager=='uv' %}run: uv sync{%- endif %}
+        {% if environment_manager=='pixi' -%}
+        run: |
+          apt update && apt install -y git
+          pixi install -e dev
+        {%- elif environment_manager=='uv' -%}
+        run: uv sync
+        {%- endif %}
 
       - name: Build and deploy with mkdocs
         {% if environment_manager=='pixi' -%}
