@@ -1,9 +1,16 @@
 ---
-site_name: "Documentation"
+site_name: Documentation
+nav:
+  - Home: index.md
 
-theme:
-  name: material
+theme: material
 
 plugins:
-- search
-- mkdocstrings
+  - autorefs:
+      resolve_closest: true
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_submodules: true
+
