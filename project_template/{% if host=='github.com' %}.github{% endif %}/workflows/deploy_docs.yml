@@ -34,12 +34,9 @@ jobs:
         pixi install -e dev
         {%- elif environment_manager=='uv' %}run: uv sync{%- endif %}
 
-      - name: Build MkDocs site
-        {% if environment_manager=='pixi' %}run: pixi run -e dev mkdocs build --strict --verbose --site-dir public
-        {%- elif environment_manager=='uv' %}run: uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          publish_dir: ./public
+      - name: Build and deploy with mkdocs
+        {% if environment_manager=='pixi' -%}
+        run: pixi run -e dev mkdocs gh-deploy --force
+        {%- elif environment_manager=='uv' -%}
+        run: uv run mkdocs gh-deploy --force
+        {%- endif %}
