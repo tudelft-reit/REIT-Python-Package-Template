@@ -39,7 +39,7 @@ jobs:
         {%- elif environment_manager=='uv' %}run: uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           publish_dir: ./public
