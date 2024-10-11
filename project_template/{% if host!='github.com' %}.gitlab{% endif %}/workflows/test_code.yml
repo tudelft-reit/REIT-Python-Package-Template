@@ -2,14 +2,20 @@
 pytest_commit:
   stage: test
   before_script:
-    {% if environment_manager=='pixi' %}- apt update && apt install -y git
+    {% if environment_manager=='pixi' -%}
+    - apt update && apt install -y git
     - pixi install -e dev
-    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
+    {%- elif environment_manager=='uv' -%}
+    - uv sync
+    {%- endif %}
   script:
-    {% if environment_manager=='pixi' %}- pixi run -e dev pre-commit run --all
+    {% if environment_manager=='pixi' -%}
+    - pixi run -e dev pre-commit run --all
     - pixi run -e dev pytest --cov=src --cov-report term ./tests
-    {%- elif environment_manager=='uv' %}- uv run pre-commit run --all
-    - uv run pytest --cov=src --cov-report term ./tests{%- endif %}
+    {%- elif environment_manager=='uv' -%}
+    - uv run pre-commit run --all
+    - uv run pytest --cov=src --cov-report term ./tests
+    {%- endif %}
 
 # Explicitly run pytest for merge request commits
 pytest_merge_request:

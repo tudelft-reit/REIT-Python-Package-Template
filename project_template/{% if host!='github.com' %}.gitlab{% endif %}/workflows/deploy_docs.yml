@@ -2,12 +2,18 @@
 pages:
   stage: deploy
   before_script:
-    {% if environment_manager=='pixi' %}- apt update && apt install -y git
+    {% if environment_manager=='pixi' -%}
+    - apt update && apt install -y git
     - pixi install -e dev
-    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
+    {%- elif environment_manager=='uv' -%}
+    - uv sync
+    {%- endif %}
   script:
-    {% if environment_manager=='pixi' %}- pixi run -e dev mkdocs build --strict --verbose --site-dir public
-    {%- elif environment_manager=='uv' %}- uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
+    {% if environment_manager=='pixi' -%}
+    - pixi run -e dev mkdocs build --strict --verbose --site-dir public
+    {%- elif environment_manager=='uv' -%}
+    - uv run mkdocs build --strict --verbose --site-dir public
+    {%- endif %}
   artifacts:
     paths:
       - public
