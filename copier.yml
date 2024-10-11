@@ -135,7 +135,7 @@ _message_after_copy: |
                 {% if environment_manager=='uv' %}
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
-                pixi init # Answer yes when asked to use the pyproject.toml
+                pixi init --format pyproject
                 pixi install --all
                 {% endif %}
 
