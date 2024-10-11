@@ -110,12 +110,22 @@ _message_after_copy: |
 
         Next steps:
 
+            {% if environment_manager=='pixi' -%}
+            - Instal pixi, if you haven't already done so https://pixi.sh
+
+            {% endif -%}
             - Below are the commands to put your Python package under using git:
 
                 cd {{ _copier_conf.dst_path }}
                 git init
-                {% if _copier_conf.os in  ['linux', 'macos'] %}echo '_version.py' >> .gitignore {% else %}Add-Content .gitignore '_version.py'{% endif %}  
-                {% if environment_manager=='pixi' %}pixi init --format pyproject{% endif %}
+                {% if _copier_conf.os in  ['linux', 'macos'] -%}
+                echo '_version.py' >> .gitignore
+                {%- else -%}
+                Add-Content .gitignore '_version.py'
+                {%- endif %}  
+                {%- if environment_manager=='pixi' -%}
+                pixi init --format pyproject
+                {%- endif %}
                 git add --all
                 git commit -m "first commit"
                 git branch -M main
@@ -127,20 +137,16 @@ _message_after_copy: |
                 and create a new repository named `{{ project_name }}` as an empty repository, then push your commits to {{host}}:
 
                 git push --set-upstream origin main
-
-            {% if environment_manager=='pixi' %}
-            - Instal pixi, if you haven't already done so https://pixi.sh
-
-            {% endif %}
+            
             - Create a new virtual environment, install the dependencies and your project in editable mode
-                {% if environment_manager=='uv' %}
+                {% if environment_manager=='uv' -%}
                 uv sync 
                 {%- elif environment_manager=='pixi' %}
                 pixi install --all
                 {% endif %}
 
             - Install the pre-commit hook
-                {% if environment_manager=='uv' %}
+                {% if environment_manager=='uv' -%}
                 uv run pre-commit install
                 {%- elif environment_manager=='pixi' %}
                 pixi run --environment dev pre-commit install
