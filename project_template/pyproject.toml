@@ -150,3 +150,9 @@ pydocstyle.convention = "google"
     "S101",   # Use of assert is detected
     "INP001", # Missing __init__.py file
 ]
+
+[tool.yamlfix]
+line_length = 88
+sequence_style = "keep_style"
+explicit_start = false
+whitelines = 1
