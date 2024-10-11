@@ -1,0 +1,15 @@
+# Deployment to GitLab Pages
+pages:
+  stage: deploy
+  before_script:
+    {% if environment_manager=='pixi' %}- apt update && apt install -y git
+    - pixi install -e dev
+    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
+  script:
+    {% if environment_manager=='pixi' %}- pixi run -e dev mkdocs build --strict --verbose --site-dir public
+    {%- elif environment_manager=='uv' %}- uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # Only run on the main branch

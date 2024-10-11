@@ -1,0 +1,16 @@
+# Run all the tests in the tests folder, including a coverage analysis
+pytest_commit:
+  stage: test
+  before_script:
+    {% if environment_manager=='pixi' %}- apt update && apt install -y git
+    - pixi install -e dev
+    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
+  script:
+    {% if environment_manager=='pixi' %}- pixi run -e dev pytest --cov=src --cov-report term ./tests
+    {%- elif environment_manager=='uv' %}- uv run pytest --cov=src --cov-report term ./tests{%- endif %}
+
+# Explicitly run pytest for merge request commits
+pytest_merge_request:
+  extends: pytest_commit
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

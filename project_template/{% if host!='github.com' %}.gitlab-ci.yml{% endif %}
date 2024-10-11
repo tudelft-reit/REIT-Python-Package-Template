@@ -1,34 +1,6 @@
+include:
+  - local: '.gitlab/workflows/test_code.yml'
+  - local: '.gitlab/workflows/deploy_docs.yml'
+
 {% if environment_manager=='pixi' %}image: ghcr.io/prefix-dev/pixi:latest
 {%- elif environment_manager=='uv' %}image: ghcr.io/astral-sh/uv:python{{min_python_version}}-bookworm{%- endif %}
-
-pytest_commit:
-  stage: test
-  before_script:
-    {% if environment_manager=='pixi' %}- apt update && apt install -y git
-    - pixi install -e dev
-    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
-  script:
-    {% if environment_manager=='pixi' %}- pixi run -e dev pytest --cov=src --cov-report term ./tests
-    {%- elif environment_manager=='uv' %}- uv run pytest --cov=src --cov-report term ./tests{%- endif %}
-
-# Explicitly run pytest for merge request commits
-pytest_merge_request:
-  extends: pytest_commit
-  rules:
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
-# Deployment to GitLab Pages
-pages:
-  stage: deploy
-  before_script:
-    {% if environment_manager=='pixi' %}- apt update && apt install -y git
-    - pixi install -e dev
-    {%- elif environment_manager=='uv' %}- uv sync{%- endif %}
-  script:
-    {% if environment_manager=='pixi' %}- pixi run -e dev mkdocs build --strict --verbose --site-dir public
-    {%- elif environment_manager=='uv' %}- uv run mkdocs build --strict --verbose --site-dir public{%- endif %}
-  artifacts:
-    paths:
-      - public
-  rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # Only run on the main branch
