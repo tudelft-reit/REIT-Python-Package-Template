@@ -18,4 +18,4 @@ pages:
     paths:
       - public
   rules:
-    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH # Only run on the main branch
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH  # Only run on the main branch

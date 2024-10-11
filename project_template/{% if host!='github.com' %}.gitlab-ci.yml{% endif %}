@@ -1,6 +1,6 @@
 include:
-  - local: '.gitlab/workflows/test_code.yml'
-  - local: '.gitlab/workflows/deploy_docs.yml'
+  - local: .gitlab/workflows/test_code.yml
+  - local: .gitlab/workflows/deploy_docs.yml
 
 {% if environment_manager=='pixi' %}image: ghcr.io/prefix-dev/pixi:latest
 {%- elif environment_manager=='uv' %}image: ghcr.io/astral-sh/uv:python{{min_python_version}}-bookworm{%- endif %}
