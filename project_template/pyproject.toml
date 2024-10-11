@@ -109,9 +109,6 @@ line-length = 88  # how long you want lines to be, 88 is black's default
 [tool.ruff.format]
 docstring-code-format = true  # code snippets in docstrings will be formatted
 
-[tool.ruff.pydocstyle]
-convention = "google"
-
 [tool.ruff.lint]
 # For more strict linting and code simplifications, replace this with
 # https://github.com/NLeSC/python-template/blob/main/template/pyproject.toml.jinja#L121-L136
@@ -142,6 +139,7 @@ ignore = [
   "PLR",    # Design related pylint codes
   "ISC001", # Conflicts with formatter
 ]
+pydocstyle.convention = "google"
 
 [tool.ruff.lint.per-file-ignores]
 # Tests can ignore a few extra rules
