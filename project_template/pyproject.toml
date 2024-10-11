@@ -28,10 +28,11 @@ classifiers = [
 {%- endif %}
 ]
 dependencies = []
-{% if environment_manager=='pixi' %}
+
+{% if environment_manager=='pixi' -%}
 [project.optional-dependencies]
 dev = [
-{%- elif environment_manager=='uv' %}
+{%- elif environment_manager=='uv' -%}
 [tool.uv]
 dev-dependencies = [
 {%- endif %}
