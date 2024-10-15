@@ -133,6 +133,12 @@ _message_after_copy: |
                 git branch -M main
                 git remote add origin {{ url }}.git
 
+            {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
+            - Fix the CI for non-linux platforms using pixi
+              Add "linux-64" to the platforms in [tool.pixi.project] in the pyproject.toml
+              Commit and push
+            {%- endif %}
+
             - Push the initial commit to a new repo on {{host}}
 
                 Go to {% if host=='github.com' %}https://github.com/new{% else %}https://{{host}}/projects/new{% endif %}                
