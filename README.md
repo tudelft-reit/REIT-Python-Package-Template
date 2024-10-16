@@ -159,6 +159,5 @@ uvx copier copy -r HEAD ./python-project-template ./my-test-project
 
 ## Inspiration
 
-This template heavily draws upon the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
 For more advance use cases, check out the [Netherlands eScience Center Python Template](https://github.com/NLeSC/python-template).
 This includes badges, citation, github/gitlab actions, automatic code quality and more.
