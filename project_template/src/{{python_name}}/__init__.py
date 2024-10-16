@@ -5,13 +5,16 @@
 from __future__ import annotations
 
 import json
+import sys
 from importlib.metadata import Distribution, version
 
 
 def _is_editable():
-    direct_url = Distribution.from_name("ati_template_test_2").read_text(
-        "direct_url.json"
-    )
+    dist = Distribution.from_name("{{ project_name }}")
+    if sys.version_info >= (3, 13):
+        return dist.origin.dir_info.editable
+
+    direct_url = dist.read_text("direct_url.json")
     return json.loads(direct_url).get("dir_info", {}).get("editable", False)
 
 
