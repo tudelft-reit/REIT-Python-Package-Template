@@ -108,7 +108,11 @@ coc:
 _message_after_copy: |
     Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
 
-        Next steps:
+        ###################################################
+        ---------------------------------------------------
+        RUN THE FOLLOWING COMMANDS TO FINISH UP THE SETUP
+        ---------------------------------------------------
+        ###################################################
 
             {% if environment_manager=='pixi' -%}
             - Instal pixi, if you haven't already done so https://pixi.sh
