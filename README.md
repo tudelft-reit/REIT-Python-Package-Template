@@ -18,7 +18,7 @@ Based on the [Alan Turing Institute Python project template](https://github.com/
 - [Using your new project](#using-your-new-project)
 - [Migrating an existing project](#migrating-an-existing-project)
 - [Python environment management](#python-environment-management)
-- [Wrtiting code and running tests](#writing-code-and-running-tests)
+- [Writing code and running tests](#writing-code-and-running-tests)
 - [Formatting and checking your code](#formatting-and-checking-your-code)
 - [Publishing your package](#publishing-your-package)
 - [Updating your project when the template changes](#updating-your-project-when-the-template-changes)
@@ -106,23 +106,33 @@ Here's a brief overview of the files and directories that have been created:
 
 If you're taking code you've already written and want to use this template, you'll need to perform the following steps:
 
-- Start by moving your library code into the `src/{{ python_name }}` directory.
+- Make sure there are no untracked changes in your repository
+- Run the copier command from the [setting up a new project](#setting-up-a-new-project) section making sure you select the folder where your project is located.
+  - **Do not run any of the commands that are shown the end**
+- If you were not using pixi or uv, install and setup according to the instructions shown in the previous step
+- Move your library code into the `src/{{ python_name }}` directory.
   - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
-- Copy over any tests you have into the `tests` directory.
+- Move any tests you have into the `tests` directory.
 - Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `version`, `authors`, `license`, and `classifiers` fields.
 - Add your dependencies to the relevant section of the `pyproject.toml` file under the `install_requires` field. Dependencies are formatted like this:
     ```
     [project]
     dependencies = [
-        "numpy >= 1.20",
+        "numpy >= 1.20,<3",
         "pandas == 1.2.3",
-        "scipy",
     ]
     ```
     where the first part is the package name, and the second part is the version specifier. You can find more information on version specifiers [here](https://www.python.org/dev/peps/pep-0440/#version-specifiers) to help you write these.
-
-Once you've set up your new project, you can start developing your package. There are some guidelines for development included in the [`CONTRIBUTING.md`](project_template/CONTRIBUTING.md) file generated in your project, but the main things are repeated below.
-
+- If you have conda dependencies, place them under the pixi section
+    ```
+    [tool.pixi.dependencies]
+    r-base = ">=4.4.1,<5"
+    ```
+- Commit your changes
+- Lint and format your whole repository 
+  - Install `pre-commit` via uv or pixi
+  - Format with `pre-commit run --all`
+  - If there are too many errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally
 
 ## Python environment management
 
