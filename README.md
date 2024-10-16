@@ -72,7 +72,6 @@ my-package-name/
 ├── .copier-answers.yml
 ├── .gitignore
 ├── .pre-commit-config.yaml
-├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE
 ├── README.md
@@ -93,7 +92,6 @@ Here's a brief overview of the files and directories that have been created:
 - `.copier-answers.yml`: A file containing all your answers to copier.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
 - `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
-- `CONTRIBUTING.md`: A guide for people who want to contribute to your project, which has a lot of the same advice as this README.
 - `CODE_OF_CONDUCT.md`: A code of conduct for your project, which sets out the standards of behaviour you expect from contributors. You will likely need to edit or extend this to suit your project.
 - `LICENSE`: A copy of the license you chose for your project.
 - `README.md`: An overview of your project, which comes with some badges (example: ![Badge](https://img.shields.io/badge/this_is-a_badge-blue)) for things like CI status, code coverage, and PyPI version.

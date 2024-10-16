@@ -72,10 +72,6 @@ Generate the documentation locally with
     ```
 {% endif %}
 
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to contribute.
-
 ## License
 {% if license=='No license' %}
 Distributed under the terms of the [copyright license](LICENSE).
