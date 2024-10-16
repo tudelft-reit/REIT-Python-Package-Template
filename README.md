@@ -93,12 +93,14 @@ Here's a brief overview of the files and directories that have been created:
 - `<.gitlab/github>/workflows/deploy_docs.yml`: A workflow for deploying your documentation in a Github/Gitlab workflow.
 - `CODE_OF_CONDUCT.md`: A code of conduct for your project, which sets out the standards of behaviour you expect from contributors. You will likely need to edit or extend this to suit your project.
 - `LICENSE`: A copy of the license you chose for your project.
-- `README.md`: An overview of your project, which comes with some badges (example: ![Badge](https://img.shields.io/badge/this_is-a_badge-blue)) for things like CI status, code coverage, and PyPI version.
+- `README.md`: An overview of your project and instructions on how to manage it.
 - `pyproject.toml`: A TOML file that contains metadata about your project, including its name, version, description, and dependencies.
 - `mkdocs.yml`: A configuration file for `mkdocs`, which generates documentation for your code.
 - `src/`: A directory that contains your Python package code.
 - `tests/`: A directory that contains your tests.
 - `docs/`: A directory that contains your tests.
+
+**Have a look at the README.md file that was generated. It contains important information about the project setup and management**
 
 ### Migrating an existing project
 
@@ -130,7 +132,9 @@ If you're taking code you've already written and want to use this template, you'
 - Lint and format your whole repository 
   - Install `pre-commit` via uv or pixi
   - Format with `pre-commit run --all`
-  - If there are too many errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally
+  - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally
+
+**Have a look at the README.md file that was generated. It contains important information about the project setup and management**
 
 ## Updating your project when the template changes
 
