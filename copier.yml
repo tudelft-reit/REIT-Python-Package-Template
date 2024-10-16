@@ -150,3 +150,5 @@ _message_after_copy: |
                 then push your commits to {{host}}:
 
                 git push --set-upstream origin main
+
+            - Have a look at the repository README.md file for additional information
