@@ -8,6 +8,7 @@ This template is designed to help you get started with a new Python project, or 
 - `pytest` set up to run automatically on your commits through pre-commit
 - Version updates via git tags
 - Documentation generation via `mkdocs`
+- Documentation deployment and pytest checks via CI/CD for Gitlab and Github
 - Opt-in typing support via `mypy`
 
 Based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
