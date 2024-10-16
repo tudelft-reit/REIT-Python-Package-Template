@@ -2,74 +2,210 @@
 
 {{ project_short_description }}
 
+## Sections in this README
+
+- [Installation](#installation)
+- [Running the main script](#running-the-main-script)
+- [Running test](#running-tests)
+- [Formatting and checking](#formatting-and-checking)
+- [Documentation](#documentation)
+- [Publishing your package](#publishing-the-package)
+- [Development](#development)
+- [License](#license)
+
+
 ## Installation
 
 {% if environment_manager=='uv' %}
 Install [uv](https://docs.astral.sh/uv/):
 
 - Linux and MacOS
+
     ```bash
     curl -LsSf https://astral.sh/uv/install.sh | sh
     ```
 - Windows
+
     ```bash
     powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
     ```
 
 Install the dependencies, including the dev dependencies
-    ```bash
-    uv sync
-    ```
+```bash
+uv sync
+```
 or install only the runtime dependencies
-    ```bash
-    uv sync --no-dev
-    ```
+```bash
+uv sync --no-dev
+```
 {%- elif environment_manager=='pixi' %}
 Install [pixi](https://pixi.sh):
 
 - Linux and MacOS
+
     ```bash
     curl -fsSL https://pixi.sh/install.sh | bash
     ```
 - Windows (powershell)
+
     ```bash
     iwr -useb https://pixi.sh/install.ps1 | iex
     ```
 
 Install the dependencies, including the dev dependencies
-    ```bash
-    pixi install --all
-    ```
+```bash
+pixi install --all
+```
 or install only the runtime dependencies
-    ```bash
-    pixi install --environment default
-    ```
+```bash
+pixi install --environment default
+```
 {% endif %}
 
-## Usage
+## Running the main script
 
 Execute the main script with
 {% if environment_manager=='uv' %}
-    ```bash
-    uv run my_file.py
-    ```
+```bash
+uv run main_script
+```
 {%- elif environment_manager=='pixi' %}
-    ```bash
-    pixi run python my_file.py
-    ```
+```bash
+pixi run main_script
+```
 {% endif %}
+
+## Adding dependencies
+
+{% if environment_manager=='uv' %}
+Add dependencies by running
+```bash
+uv add numpy
+```
+if you want to install torch with CUDA support, you can do it via:
+```bash
+uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+```
+
+{%- elif environment_manager=='pixi' %}
+
+### Pypi packages
+Add dependencies by running
+```bash
+pixi add --pypi numpy
+```
+if you want to install torch with CUDA support, add the following line to the `pyproject.toml` under `[tool.pixi.project]`
+```toml
+pypi-options = { extra-index-urls = ["https://download.pytorch.org/whl/cu121"] }
+```
+then run
+```bash
+pixi add --pypi torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121
+```
+
+### Conda packages
+Add dependencies by running
+```bash
+pixi add numpy
+```
+to install pytorch with cuda support as a conda package add the additional channels to the `pyproject.toml` under `[tool.pixi.project]`
+```toml
+channels = ["nvidia", "conda-forge", "pytorch"]
+```
+then run 
+ ```bash
+pixi add pytorch torchvision torchaudio pytorch-cuda=12.1
+```
+{% endif %}
+
+## Running tests
+
+Run your tests with
+{% if environment_manager=='uv' %}
+```bash
+uv run pytest --cov=src ./tests
+```
+{%- elif environment_manager=='pixi' %}
+```bash
+pixi run -e dev pytest --cov=src ./tests
+```
+{% endif %}
+
+## Formatting and checking
+
+The tools for formatting and linting your code for errors are all bundled with [pre-commit](https://pre-commit.com/). Included are:
+- [ruff](https://astral.sh/ruff) (linting + formatting)
+- [mypy](https://mypy.readthedocs.io/en/stable/) (static type checking)
+- various other small fixes and checks (see the [`.pre-commit-config.yaml`](project_template/.pre-commit-config.yaml) file for more information)
+
+To have pre-commit check your files before you commit them:
+{% if environment_manager=='uv' %}
+```bash
+uv run pre-commit install
+```
+{%- elif environment_manager=='pixi' %}
+```bash
+pixi run -e dev pre-commit install
+```
+{% endif %}
+
+This will set up pre-commit to run the checks automatically on your files before you commit them. It's possible that pre-commit will make changes to your files when it runs the checks, so you should add those changes to your commit before you commit your code. A typical workflow would look like this:
+
+```bash
+git add -u
+git commit -m "My commit message"
+# pre-commit will run the checks here; if it makes changes, you'll need to add them to your commit
+git add -u
+git commit -m "My commit message"
+# changes should have all been made by now and the commit should pass if there are no other issues
+# if your commit fails again here, you have to fix the issues manually (not everything can be fixed automatically).
+```
+
+One thing that is worth knowing is how to lint your files outside of the context of a commit. You can run the checks manually by running the following command:
+{% if environment_manager=='uv' %}
+```bash
+uv run pre-commit run --all-files
+```
+{%- elif environment_manager=='pixi' %}
+```bash
+pixi run -e dev pre-commit run --all-files
+```
+{% endif %}
+
+This will run the checks on all files in your git project, regardless of whether they're staged for commit or not.
 
 ## Documentation
 
 Generate the documentation locally with
 {% if environment_manager=='uv' %}
+```bash
+uv run mkdocs serve --watch ./
+```
+{%- elif environment_manager=='pixi' %}
+```bash
+pixi run -e dev mkdocs serve --watch ./
+```
+{% endif %}
+
+## Publishing the package
+
+{% if environment_manager=='uv' %}
+If you're ready to publish your package to [PyPI](https://pypi.org/) (i.e. you want to be able to run `pip install my-package-name` from anywhere), follow the [uv instructions](https://docs.astral.sh/uv/guides/publish/).
+In short, they boil down to running:
+
+1. Build the wheel
+
     ```bash
-    uv run mkdocs serve --watch ./
+    uv build
+    ```
+
+2. Upload the wheel to PyPI
+
+    ```bash
+    uv publish
     ```
 {%- elif environment_manager=='pixi' %}
-    ```bash
-    pixi run -e dev mkdocs serve --watch ./
-    ```
+Pixi does not support yet building and publishing conda packages.
 {% endif %}
 
 ## License
