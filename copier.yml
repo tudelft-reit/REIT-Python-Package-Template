@@ -19,9 +19,9 @@ host:
   type: str
   help: Where would you like to host your code?
   choices:
-    - gitlab.ewi.tudelft.nl
-    - gitlab.tudelft.nl
-    - github.com
+    gitlab.ewi.tudelft.nl [Recommended] : gitlab.ewi.tudelft.nl
+    gitlab.tudelft.nl: gitlab.tudelft.nl
+    github.com: github.com
 
 org:
   type: str
@@ -87,22 +87,22 @@ environment_manager:
   type: str
   help: Select which virtual environment manager to use. Choose uv unless you need conda dependencies.
   choices:
-    "uv   (pip dependencies only)": uv
+    "uv   (pip dependencies only) [Recommended]": uv
     "pixi (conda and pip dependencies)": pixi
 
 typing:
   type: str
   help: Would you like to use static type checking? (This configures mypy.)
   choices:
-    "No/I'll configure it myself.": no_typing
-    "Basic type checking (type annotations not required).": loose
-    "Full type checking (type annotations required).": strict
+    "No.   [Recommended]": no_typing
+    "Basic (mypy checks but type annotations not required).": loose
+    "Full  (mypy checks and type annotations required).": strict
 
 coc:
   type: str
   help: We provide a basic Code of Conduct that can be modified to suit the needs of your project. Would you like to use this, or write your own?
   choices:
-    "I'll use/modify the basic Code of Conduct.": our_coc
+    "I'll use/modify the basic Code of Conduct. [Recommended]": our_coc
     "I'll write my own Code of Conduct.": their_coc
 
 _message_after_copy: |
