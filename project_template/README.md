@@ -205,8 +205,9 @@ In short, they boil down to running:
     ```bash
     uv publish
     ```
-{%- elif environment_manager=='pixi' %}
+{%- elif environment_manager=='pixi' -%}
 Pixi does not support yet building and publishing conda packages.
+In the meantime, you can build and publish your package using [rattler-build](https://github.com/prefix-dev/rattler-build/) or [conda-build](https://docs.conda.io/projects/conda-build/en/latest/).
 {% endif %}
 
 ## License
