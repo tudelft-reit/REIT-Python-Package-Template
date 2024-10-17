@@ -151,8 +151,11 @@ Note that this is the purpose of the `.copier-answers.yml` file in the root of y
 
 ## Project template development
 
-Clone the repository and test your local changes by generating a new project with
-
+If you want to make your own changes to this template, clone the repository
+```bash
+git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
+```
+and test your local changes by generating a new project with
 ```bash
 uvx copier copy -r HEAD ./python-project-template ./my-test-project
 ```
