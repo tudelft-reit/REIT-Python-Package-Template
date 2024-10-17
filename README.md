@@ -5,11 +5,11 @@ This template is designed to help you get started with a new Python project, or 
 - The recommended `src/` layout for a Python package
 - A pre-configured `pyproject.toml` that controls your project metadata
 - Linting + formatting via `ruff` and `pre-commit`
-- `pytest` set up to run automatically on your commits through pre-commit
-- Version updates via git tags
+- `pytest` setup and configured
+- Automatic version number management with git tags via `hatch-vcs`
 - Documentation generation via `mkdocs`
-- Documentation deployment and pytest checks via CI/CD for Gitlab and Github
-- Opt-in typing support via `mypy`
+- Documentation deployment and pytest checks via CI/CD workflows for Gitlab and Github
+- Opt-in static type check via `mypy`
 
 Based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
 
