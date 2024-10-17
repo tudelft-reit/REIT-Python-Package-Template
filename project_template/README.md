@@ -6,11 +6,11 @@
 
 - [Installation](#installation)
 - [Running the main script](#running-the-main-script)
+- [Adding dependencies](#adding-dependencies)
 - [Running test](#running-tests)
 - [Formatting and checking](#formatting-and-checking)
 - [Documentation](#documentation)
 - [Publishing your package](#publishing-the-package)
-- [Development](#development)
 - [License](#license)
 
 ## Installation
