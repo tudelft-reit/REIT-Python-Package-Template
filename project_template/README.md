@@ -13,54 +13,65 @@
 - [Development](#development)
 - [License](#license)
 
-
 ## Installation
 
 {% if environment_manager=='uv' %}
-Install [uv](https://docs.astral.sh/uv/):
+1. Install [uv](https://docs.astral.sh/uv/):
 
-- Linux and MacOS
+    - Linux and MacOS
 
+        ```bash
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        ```
+    - Windows
+
+        ```bash
+        powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+        ```
+
+2. Install the dependencies, including the dev dependencies
     ```bash
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+    uv sync
     ```
-- Windows
-
+    or install only the runtime dependencies
     ```bash
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    uv sync --no-dev
     ```
-
-Install the dependencies, including the dev dependencies
-```bash
-uv sync
-```
-or install only the runtime dependencies
-```bash
-uv sync --no-dev
-```
 {%- elif environment_manager=='pixi' %}
-Install [pixi](https://pixi.sh):
+1. Install [pixi](https://pixi.sh):
 
-- Linux and MacOS
+    - Linux and MacOS
 
+        ```bash
+        curl -fsSL https://pixi.sh/install.sh | bash
+        ```
+    - Windows (powershell)
+
+        ```bash
+        iwr -useb https://pixi.sh/install.ps1 | iex
+        ```
+
+2. Install the dependencies, including the dev dependencies
     ```bash
-    curl -fsSL https://pixi.sh/install.sh | bash
+    pixi install --all
     ```
-- Windows (powershell)
-
+    or install only the runtime dependencies
     ```bash
-    iwr -useb https://pixi.sh/install.ps1 | iex
+    pixi install --environment default
     ```
-
-Install the dependencies, including the dev dependencies
-```bash
-pixi install --all
-```
-or install only the runtime dependencies
-```bash
-pixi install --environment default
-```
 {% endif %}
+
+3. Install the pre-commit hook.
+This will set up pre-commit to run the checks automatically on your files before you commit them.
+    {% if environment_manager=='uv' %}
+    ```bash
+    uv run pre-commit install
+    ```
+    {%- elif environment_manager=='pixi' %}
+    ```bash
+    pixi run -e dev pre-commit install
+    ```
+    {% endif %}
 
 ## Running the main script
 
@@ -86,9 +97,7 @@ if you want to install torch with CUDA support, you can do it via:
 ```bash
 uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
 ```
-
 {%- elif environment_manager=='pixi' %}
-
 ### Pypi packages
 Add dependencies by running
 ```bash
@@ -134,24 +143,14 @@ pixi run -e dev pytest --cov=src ./tests
 ## Formatting and checking
 
 The tools for formatting and linting your code for errors are all bundled with [pre-commit](https://pre-commit.com/). Included are:
-- [ruff](https://astral.sh/ruff) (linting + formatting)
+- [ruff](https://astral.sh/ruff) - linting and formatting
 {% if typing != "no_typing" -%}
-- [mypy](https://mypy.readthedocs.io/en/stable/) (static type checking)
+- [mypy](https://mypy.readthedocs.io/en/stable/) - static type checking
 {% endif -%}
-- various other small fixes and checks (see the [`.pre-commit-config.yaml`](project_template/.pre-commit-config.yaml) file for more information)
+- [yamlfix](https://github.com/lyz-code/yamlfix) - linting and formatting for .yaml files
+- various other small fixes and checks (see the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file for more information)
 
-To have pre-commit check your files before you commit them:
-{% if environment_manager=='uv' %}
-```bash
-uv run pre-commit install
-```
-{%- elif environment_manager=='pixi' %}
-```bash
-pixi run -e dev pre-commit install
-```
-{% endif %}
-
-This will set up pre-commit to run the checks automatically on your files before you commit them. It's possible that pre-commit will make changes to your files when it runs the checks, so you should add those changes to your commit before you commit your code. A typical workflow would look like this:
+It's possible that pre-commit will make changes to your files when it runs the checks, so you should add those changes to your commit before you commit your code. A typical workflow would look like this:
 
 ```bash
 git add -u
