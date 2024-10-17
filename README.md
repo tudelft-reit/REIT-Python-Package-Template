@@ -160,4 +160,4 @@ uvx copier copy -r HEAD ./python-project-template ./my-test-project
 ## Inspiration
 
 For more advance use cases, check out the [Netherlands eScience Center Python Template](https://github.com/NLeSC/python-template).
-This includes badges, citation, github/gitlab actions, automatic code quality and more.
+This includes badges, citation, github/gitlab actions for automatic code quality analysis and more.
