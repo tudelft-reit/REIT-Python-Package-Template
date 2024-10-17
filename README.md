@@ -92,8 +92,8 @@ Here's a brief overview of the files and directories that have been created:
 - `.copier-answers.yml`: A file containing all your answers to copier.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
 - `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
-- `<.gitlab/github>/workflows/test_code.yml`: A workflow for testing your code in a Github/Gitlab workflow.
-- `<.gitlab/github>/workflows/deploy_docs.yml`: A workflow for deploying your documentation in a Github/Gitlab workflow.
+- `<.gitlab/github>/workflows/test_code.yml`: A workflow for testing your code with a Github/Gitlab action.
+- `<.gitlab/github>/workflows/deploy_docs.yml`: A workflow for deploying your documentation with a Github/Gitlab action.
 - `CODE_OF_CONDUCT.md`: A code of conduct for your project, which sets out the standards of behaviour you expect from contributors. You will likely need to edit or extend this to suit your project.
 - `LICENSE`: A copy of the license you chose for your project.
 - `README.md`: An overview of your project and instructions on how to manage it.
@@ -101,7 +101,7 @@ Here's a brief overview of the files and directories that have been created:
 - `mkdocs.yml`: A configuration file for `mkdocs`, which generates documentation for your code.
 - `src/`: A directory that contains your Python package code.
 - `tests/`: A directory that contains your tests.
-- `docs/`: A directory that contains your tests.
+- `docs/`: A directory that contains your documentation.
 
 **Have a look at the README.md file that was generated. It contains important information about the project setup and management**
 
