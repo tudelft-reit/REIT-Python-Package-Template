@@ -11,7 +11,10 @@ This template is designed to help you get started with a new Python project, or 
 - Documentation deployment and pytest checks via CI/CD workflows for Gitlab and Github
 - Opt-in static type check via `mypy`
 
-Based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
+A course that explains in detail how to use this template is given by the REIT team.
+The course materials can be consulted [here](https://reit.pages.ewi.tudelft.nl/course-python-best-practices/outline.html).
+
+This template is based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
 
 ## Sections in this README
 
