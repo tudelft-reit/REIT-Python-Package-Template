@@ -30,10 +30,12 @@
         ```
 
 2. Install the dependencies, including the dev dependencies
+
     ```bash
     uv sync
     ```
     or install only the runtime dependencies
+
     ```bash
     uv sync --no-dev
     ```
@@ -52,10 +54,12 @@
         ```
 
 2. Install the dependencies, including the dev dependencies
+
     ```bash
     pixi install --all
     ```
     or install only the runtime dependencies
+
     ```bash
     pixi install --environment default
     ```
@@ -63,15 +67,15 @@
 
 3. Install the pre-commit hook.
 This will set up pre-commit to run the checks automatically on your files before you commit them.
-    {% if environment_manager=='uv' %}
+{% if environment_manager=='uv' %}
     ```bash
     uv run pre-commit install
     ```
-    {%- elif environment_manager=='pixi' %}
+{%- elif environment_manager=='pixi' %}
     ```bash
     pixi run -e dev pre-commit install
     ```
-    {% endif %}
+{% endif %}
 
 ## Running the main script
 
