@@ -9,12 +9,14 @@ import sys
 from importlib.metadata import Distribution, version
 
 
-def _is_editable():
+def _is_editable() -> bool:
     dist = Distribution.from_name("{{ project_name }}")
     if sys.version_info >= (3, 13):
         return dist.origin.dir_info.editable
 
     direct_url = dist.read_text("direct_url.json")
+    if direct_url is None:
+        return False
     return json.loads(direct_url).get("dir_info", {}).get("editable", False)
 
 
