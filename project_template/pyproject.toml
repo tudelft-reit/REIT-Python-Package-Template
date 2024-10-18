@@ -99,7 +99,7 @@ enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
 module = "{{ python_name }}.*"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
-{%- endif %}
+{% endif %}
 [[tool.mypy.overrides]]
 module = ["setuptools_scm"]
 ignore_missing_imports = true
