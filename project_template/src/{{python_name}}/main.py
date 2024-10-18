@@ -8,7 +8,7 @@ from {{ python_name }} import __version__
 
 
 def add(a: int, b: int) -> int:
-    """Adds two numbers together.
+    """Adds two positive numbers together.
 
     Args:
         a (int): The first number.
@@ -18,10 +18,10 @@ def add(a: int, b: int) -> int:
         sum: The sum of the two numbers.
 
     Raises:
-        ValueError: If either a or b is not an integer.
+        ValueError: If either a or b is negative.
     """
-    if not isinstance(a, int) or not isinstance(b, int):
-        msg = "Both arguments must be integers"
+    if a < 0 or b < 0:
+        msg = "Both arguments must be positive"
         raise ValueError(msg)
     return a + b
 
