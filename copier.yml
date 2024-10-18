@@ -94,8 +94,8 @@ typing:
   type: str
   help: Would you like to use static type checking? (This configures mypy.)
   choices:
-    "No.   [Recommended]": no_typing
-    "Basic (mypy checks but type annotations not required).": loose
+    "No.   (mypy is not used) [Recommended]": no_typing
+    "Basic (mypy checks but type annotations are not required).": loose
     "Full  (mypy checks and type annotations required).": strict
 
 coc:
