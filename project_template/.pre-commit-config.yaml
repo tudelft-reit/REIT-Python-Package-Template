@@ -38,7 +38,4 @@ repos:
     hooks:
       - id: mypy
         files: src
-        args: []
-        additional_dependencies:
-          - pytest
 {%- endif %}
