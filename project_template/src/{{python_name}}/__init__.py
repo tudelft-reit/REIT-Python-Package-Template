@@ -11,6 +11,7 @@ from importlib.metadata import Distribution, version
 
 def _is_editable() -> bool:
     dist = Distribution.from_name("{{ project_name }}")
+
     if sys.version_info >= (3, 13):
         editable = dist.origin.dir_info.editable{% if typing != "no_typing" %}  # type: ignore[attr-defined]{% endif %}
     else:
@@ -19,6 +20,7 @@ def _is_editable() -> bool:
             return False
 
         editable = json.loads(direct_url).get("dir_info", {}).get("editable", False)
+
     if not isinstance(editable, bool):
         return False
 
