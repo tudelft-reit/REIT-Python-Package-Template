@@ -12,13 +12,13 @@ from importlib.metadata import Distribution, version
 def _is_editable() -> bool:
     dist = Distribution.from_name("{{ project_name }}")
     if sys.version_info >= (3, 13):
-        return dist.origin.dir_info.editable
+        editable = dist.origin.dir_info.editable{% if typing != "no_typing" %}  # type: ignore[attr-defined]{% endif %}
+    else:
+        direct_url = dist.read_text("direct_url.json")
+        if direct_url is None:
+            return False
 
-    direct_url = dist.read_text("direct_url.json")
-    if direct_url is None:
-        return False
-
-    editable = json.loads(direct_url).get("dir_info", {}).get("editable", False)
+        editable = json.loads(direct_url).get("dir_info", {}).get("editable", False)
     if not isinstance(editable, bool):
         return False
 
