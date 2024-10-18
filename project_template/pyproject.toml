@@ -42,6 +42,7 @@ dev-dependencies = [
   "mkdocstrings[python]>=0.26.1,<1",
   "mkdocs-material>=9.5.39,<10",
   "setuptools-scm>=8.1.0,<9",
+  "mypy>=1.12.0,<2",
 ]
 
 [build-system]
@@ -99,6 +100,9 @@ module = "{{ python_name }}.*"
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 {%- endif %}
+[[tool.mypy.overrides]]
+module = ["setuptools_scm"]
+ignore_missing_imports = true
 {%- endif %}
 
 [tool.ruff]
