@@ -121,14 +121,21 @@ Add dependencies by running
 ```bash
 pixi add numpy
 ```
-to install pytorch with cuda support as a conda package add the additional channels to the `pyproject.toml` under `[tool.pixi.project]`
+to install pytorch with cuda support as a conda package add the additional channels to the `pyproject.toml`:
 ```toml
+[tool.pixi.project]
 channels = ["nvidia", "conda-forge", "pytorch"]
 ```
-then run 
- ```bash
-pixi add pytorch torchvision torchaudio pytorch-cuda=12.1
+and the add the dependencies manually with channel restrictions like so:
+ ```toml
+[tool.pixi.dependencies]
+pytorch = {version=">=2.5.1,<3", channel="pytorch"}
+torchvision = {version=">=0.20.1,<1", channel="pytorch"}
+torchaudio = {version=">=2.5.1,<3", channel="pytorch"}
+pytorch-cuda = "12.4.*"
 ```
+the run `pixi install` to download and install pytorch on the environment.
+For more information check out the [pixi channel logic section](https://pixi.sh/latest/advanced/channel_priority/#use-case-pytorch-and-nvidia-with-conda-forge).
 {% endif %}
 
 ## Running tests
