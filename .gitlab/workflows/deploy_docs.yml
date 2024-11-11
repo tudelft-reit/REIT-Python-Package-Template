@@ -1,0 +1,12 @@
+# Deployment to GitLab Pages
+pages:
+  stage: deploy
+  before_script:
+    - uv sync
+  script:
+    - uv run mkdocs build --strict --verbose --site-dir public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH  # Only run on the main branch

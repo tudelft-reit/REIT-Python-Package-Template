@@ -1,0 +1,5 @@
+include:
+  - local: .gitlab/workflows/test_code.yml
+  - local: .gitlab/workflows/deploy_docs.yml
+
+image: ghcr.io/astral-sh/uv:python3.10-bookworm

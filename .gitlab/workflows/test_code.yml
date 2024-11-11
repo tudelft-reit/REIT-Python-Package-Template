@@ -1,0 +1,14 @@
+# Run all the tests in the tests folder, including a coverage analysis
+pytest_commit:
+  stage: test
+  before_script:
+    - uv sync
+  script:
+    - uv run pre-commit run --all
+    - uv run pytest --cov=src --cov-report term ./tests
+
+# Explicitly run pytest for merge request commits
+pytest_merge_request:
+  extends: pytest_commit
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
