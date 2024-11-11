@@ -10,6 +10,7 @@
 - [Running test](#running-tests)
 - [Formatting and checking](#formatting-and-checking)
 - [Documentation](#documentation)
+- [Versions](#versions)
 - [Publishing your package](#publishing-the-package)
 - [License](#license)
 
@@ -198,6 +199,30 @@ uv run mkdocs serve --watch ./
 pixi run -e dev mkdocs serve --watch ./
 ```
 {% endif %}
+
+## Versions
+
+Versions are managed automatically via [hatch-vcs](https://github.com/ofek/hatch-vcs), which follows the versioning scheme from [setuptools-scm](https://setuptools-scm.readthedocs.io/en/latest/usage/#default-versioning-scheme).
+
+To create a new version, tag the code with `git tag <version>`, e.g. `git tag v0.1.0`, and push the tag with `git push --tags`.
+
+You can check the version by running
+{% if environment_manager=='uv' %}
+```bash
+uv run hatch version
+```
+{%- elif environment_manager=='pixi' %}
+```bash
+pixi run -e dev hatch version
+```
+{% endif %}
+
+In python you can see the version with
+```python
+from {{ python_name }} import __version__
+
+print(f"{{ python_name }} version is { __version__ }")
+```
 
 ## Publishing the package
 
