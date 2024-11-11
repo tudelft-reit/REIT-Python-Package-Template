@@ -116,7 +116,7 @@ If you're taking code you've already written and want to use this template, you'
 - Move your library code into the `src/{{ python_name }}` directory.
   - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
 - Move any tests you have into the `tests` directory.
-- Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `version`, `authors`, `license`, and `classifiers` fields.
+- Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `authors`, `license`, and `classifiers` fields.
 - Add your dependencies to the relevant section of the `pyproject.toml` file under the `install_requires` field. Dependencies are formatted like this:
     ```
     [project]
