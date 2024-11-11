@@ -1,0 +1,13 @@
+# Deployment to GitLab Pages
+pages:
+  stage: deploy
+  before_script:
+    - apt update && apt install -y git
+    - pixi install -e dev
+  script:
+    - pixi run -e dev mkdocs build --strict --verbose --site-dir public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH  # Only run on the main branch

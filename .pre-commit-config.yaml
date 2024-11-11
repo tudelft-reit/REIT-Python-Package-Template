@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: name-tests-test
+        args: [--pytest-test-first]
+      - id: trailing-whitespace
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      # first, lint + autofix
+      - id: ruff
+        types_or: [python, pyi, jupyter]
+        args: [--fix, --show-fixes]
+      # then, format
+      - id: ruff-format
+
+  - repo: https://github.com/lyz-code/yamlfix
+    rev: 1.16.1
+    hooks:
+      - id: yamlfix

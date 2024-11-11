@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier
+_commit: v0.2.10-1-gd88a134
+_src_path: ./
+coc: our_coc
+email: email@tudelft.nl
+environment_manager: pixi
+full_name: A name
+host: gitlab.ewi.tudelft.nl
+license: GPL
+min_python_version: '3.10'
+org: reit
+project_name: python-template-pixi-example
+project_short_description: A python template pixi example.
+python_name: python_template_pixi_example
+typing: no_typing
+url: https://gitlab.ewi.tudelft.nl/reit/python-template-pixi-example
