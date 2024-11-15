@@ -20,5 +20,5 @@ repos:
     rev: 1.16.1
     hooks:
       - id: yamlfix
-        exclude: .gitlab/workflows/ci.yml
+        exclude: .gitlab/workflows/test-project-generation.yml
         args: [--config-file, yamlfix-config.toml, --verbose]
