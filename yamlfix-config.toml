@@ -1,0 +1,5 @@
+line_length = 88
+sequence_style = "keep_style"
+explicit_start = false
+whitelines = 1
+section_whitelines = 1

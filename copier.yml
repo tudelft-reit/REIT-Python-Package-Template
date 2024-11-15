@@ -1,8 +1,9 @@
 # CONFIGURATION -------------------------
 _subdirectory: project_template
-_templates_suffix: ""
+
 _skip_if_exists:
   - CHANGELOG.md
+
 _jinja_extensions:
   - jinja2_shell_extension.ShellExtension
 
@@ -21,7 +22,7 @@ host:
   type: str
   help: Where would you like to host your code?
   choices:
-    gitlab.ewi.tudelft.nl [Recommended] : gitlab.ewi.tudelft.nl
+    gitlab.ewi.tudelft.nl [Recommended]: gitlab.ewi.tudelft.nl
     gitlab.tudelft.nl: gitlab.tudelft.nl
     github.com: github.com
 
@@ -36,7 +37,6 @@ url:
   type: str
   help: Provide/modify the url to the {{host}} repository if needed.
   default: https://{{host}}/{{org}}/{{project_name}}
-    
 
 python_name:
   type: str
@@ -56,7 +56,8 @@ email:
   help: What's their email?
   default: "{{ 'git config user.email' | shell() | trim }}"
   validator: >-
-    {% if not (email | regex_search('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')) %}
+    {% if not (email | regex_search('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'))
+    %}
     You must provide a valid email to place in
     your config files.
     {% endif %}
@@ -78,8 +79,9 @@ license:
 
 min_python_version:
   type: str
-  help: What is the minimum version of Python your project will support? (Defaults to minimum supported by NumPy)
-  default: "3.10"
+  help: What is the minimum version of Python your project will support? (Defaults to minimum
+    supported by NumPy)
+  default: '3.10'
   validator: >-
     {% if not (min_python_version | regex_search('[3][.][0-9]+')) %}
     Please supply a valid Python 3 version (e.g. 3.11).
@@ -89,76 +91,76 @@ environment_manager:
   type: str
   help: Select which virtual environment manager to use. Choose uv unless you need conda dependencies.
   choices:
-    "uv   (pip dependencies only) [Recommended]": uv
-    "pixi (conda and pip dependencies)": pixi
+    uv   (pip dependencies only) [Recommended]: uv
+    pixi (conda and pip dependencies): pixi
 
 typing:
   type: str
   help: Would you like to use static type checking? (This configures mypy.)
   choices:
-    "No.   (mypy is not used) [Recommended]": no_typing
-    "Basic (mypy checks but type annotations are not required).": loose
-    "Full  (mypy checks and type annotations required).": strict
+    No.   (mypy is not used) [Recommended]: no_typing
+    Basic (mypy checks but type annotations are not required).: loose
+    Full  (mypy checks and type annotations required).: strict
 
 coc:
   type: str
-  help: We provide a basic Code of Conduct that can be modified to suit the needs of your project. Would you like to use this, or write your own?
+  help: We provide a basic Code of Conduct that can be modified to suit the needs of your
+    project. Would you like to use this, or write your own?
   choices:
-    "I'll use/modify the basic Code of Conduct. [Recommended]": our_coc
-    "I'll write my own Code of Conduct.": their_coc
+    I'll use/modify the basic Code of Conduct. [Recommended]: our_coc
+    I'll write my own Code of Conduct.: their_coc
 
 _message_after_copy: |
-    Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
+  Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
 
-        ###################################################
-        ---------------------------------------------------
-        DO THE FOLLOWING MANUAL STEPS TO FINISH UP THE SETUP
-        ---------------------------------------------------
-        ###################################################
+      ###################################################
+      ---------------------------------------------------
+      DO THE FOLLOWING MANUAL STEPS TO FINISH UP THE SETUP
+      ---------------------------------------------------
+      ###################################################
 
-            {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
-            - Enable running on DAIC/DelftBlue and fix the CI
-              Add "linux-64" to the list of platforms in [tool.pixi.project] in the pyproject.toml
-              Commit and push
-            {%- endif %}
+          {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
+          - Enable running on DAIC/DelftBlue and fix the CI
+            Add "linux-64" to the list of platforms in [tool.pixi.project] in the pyproject.toml
+            Commit and push
+          {%- endif %}
 
-            - Push the initial commit to a new repo on {{host}}
+          - Push the initial commit to a new repo on {{host}}
 
-                Go to {% if host=='github.com' %}https://github.com/new{% else %}https://{{host}}/projects/new{% endif %}                
-                and create a new repository named `{{ project_name }}` as an empty repository,
-                then push your commits to {{host}}:
+              Go to {% if host=='github.com' %}https://github.com/new{% else %}https://{{host}}/projects/new{% endif %}
+              and create a new repository named `{{ project_name }}` as an empty repository,
+              then push your commits to {{host}}:
 
-                git push --set-upstream origin main
+              git push --set-upstream origin main
 
-            - Have a look at the repository README.md file for additional information
+          - Have a look at the repository README.md file for additional information
 
 _tasks:
-    - git init
-    
+  - git init
+
     ###
     # uv environment management
     ###
-    - command: uv sync
-      when: "{{ environment_manager=='uv' }}"
-    - command: uv run pre-commit install
-      when: "{{ environment_manager=='uv' }}"
-    
+  - command: uv sync
+    when: "{{ environment_manager=='uv' }}"
+  - command: uv run pre-commit install
+    when: "{{ environment_manager=='uv' }}"
 
     ###
     # pixi environment management
     ##
-    - command: pixi init --format pyproject
-      when: "{{ environment_manager=='pixi' }}"
-    - command: pixi install --all
-      when: "{{ environment_manager=='pixi' }}"
-    - command: pixi run --environment dev pre-commit install
-      when: "{{ environment_manager=='pixi' }}"
-    
+  - command: pixi init --format pyproject
+    when: "{{ environment_manager=='pixi' }}"
+  - command: pixi install --all
+    when: "{{ environment_manager=='pixi' }}"
+  - command: pixi run --environment dev pre-commit install
+    when: "{{ environment_manager=='pixi' }}"
+
     ###
     # Git repo setup
     ###
-    - git add --all
-    - git commit -m "REIT python template setup"
-    - git branch -M main
-    - command: git remote add origin {{ url }}.git
-      when: "{{ ('git remote' | shell(cwd=_copier_conf.dst_path)) != 'origin\n' }}"
+  - git add --all
+  - git commit -m "REIT python template setup"
+  - git branch -M main
+  - command: git remote add origin {{ url }}.git
+    when: "{{ ('git remote' | shell(cwd=_copier_conf.dst_path)) != 'origin\n' }}"

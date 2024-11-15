@@ -28,7 +28,7 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 1. Install [uv](https://docs.astral.sh/uv/):
     * Linux and MacOS
-    
+
         ```bash
         curl -LsSf https://astral.sh/uv/install.sh | sh
         ```
@@ -46,7 +46,7 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 3. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
     * Linux and MacOS
-    
+
         ```bash
         curl -fsSL https://pixi.sh/install.sh | bash
         ```
@@ -57,7 +57,7 @@ This template is based on the [Alan Turing Institute Python project template](ht
       ```
 
 4. Run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
-  
+
     ```bash
     copier copy --trust git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
     ```
@@ -151,7 +151,7 @@ If you're taking code you've already written and want to use this template, you'
     r-base = ">=4.4.1,<5"
     ```
 - Commit your changes
-- Lint and format your whole repository 
+- Lint and format your whole repository
   - Install `pre-commit` via uv or pixi
   - Format with `pre-commit run --all`
   - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally
@@ -173,14 +173,21 @@ Note that this is the purpose of the `.copier-answers.yml` file in the root of y
 
 ## Project template development
 
-If you want to make your own changes to this template, clone the repository
-```bash
-git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
-```
-and test your local changes by generating a new project with
-```bash
-copier copy --trust -r HEAD ./python-project-template ./my-test-project
-```
+If you want to make your own changes to this template:
+1. Clone the repository
+    ```bash
+    git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
+    ```
+2. Create a virtual environment and install pre-commit
+    ```bash
+    uv venv
+    uv pip install pre-commit
+    uv run pre-commit install
+    ```
+3. Test your local changes by generating a new project with
+    ```bash
+    copier copy --trust -r HEAD ./python-project-template ./my-test-project
+    ```
 
 ## Inspiration
 

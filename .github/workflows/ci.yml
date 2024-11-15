@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: 3.x
       - name: Install Dependencies
         run: |
           pip install copier pre-commit
@@ -66,7 +66,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: 3.x
       - name: Install Dependencies
         run: |
           pip install copier pre-commit
@@ -89,7 +89,7 @@ jobs:
             --vcs-ref HEAD \
             . my-project
       - name: Run formatting checks
-        run: |
+        run: |-
           cd my-project
           git init
           git config --global user.email "foo@example.com"
