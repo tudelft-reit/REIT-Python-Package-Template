@@ -6,7 +6,7 @@ test_project_generation:
   script:
       - export PATH="/root/.local/bin:$PATH"
       - |
-        copier copy
+        copier "copy
         -d coc=our_coc
         -d email=email@tudelft.nl
         -d environment_manager=uv
@@ -22,7 +22,7 @@ test_project_generation:
         -d url=https://gitlab.ewi.tudelft.nl/reit/python-template-uv-example
         --trust
         --vcs-ref HEAD
-        . python-template-uv-example
+        . python-template-uv-example"
       - cd python-template-uv-example
       - uv run pytest
 
