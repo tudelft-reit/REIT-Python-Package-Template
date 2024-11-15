@@ -2,9 +2,9 @@ test_project_generation:
   stage: test
   before_script:
     - uv venv
-    - uv tool install copier --with jinja2-shell-extension
+    - uv pip install copier --with jinja2-shell-extension
   script:
-      - copier copy \
+      - uv run copier copy \
         -d coc=our_coc \
         -d email=email@tudelft.nl \
         -d environment_manager=uv \
