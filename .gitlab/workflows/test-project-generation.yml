@@ -2,7 +2,6 @@ test_project_generation:
   stage: test
   before_script:
     - uv venv
-    - uv pip install pre-commit
     - uv tool install copier --with jinja2-shell-extension
   script:
       - copier copy \
@@ -24,3 +23,11 @@ test_project_generation:
         . python-template-uv-example
       - cd python-template-uv-example \
         uv run pytest
+
+test_pre_commit:
+  stage: test
+  before_script:
+    - uv venv
+    - uv pip install pre-commit
+  script:
+    - uv run
