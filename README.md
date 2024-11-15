@@ -26,21 +26,46 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 ## Setting up a new project
 
-To use, install [uv](https://docs.astral.sh/uv/):
+Install a python environment manager:
+* If your project depends only on python pip packages (Recommended option)
+  1. Install [uv](https://docs.astral.sh/uv/):
+      * Linux and MacOS
+      
+          ```bash
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          ```
+      * Windows
 
-- Linux and MacOS
-    ```bash
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    ```
-- Windows
-    ```bash
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-    ```
+          ```bash
+          powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+          ```
+  2. Install [copier](https://copier.readthedocs.io/en/stable/)
+
+      ```bash
+      uv tool install copier
+      ```
+* If your project has conda dependencies:
+  1. Install [pixi](https://pixi.sh)
+      * Linux and MacOS
+      
+          ```bash
+          curl -fsSL https://pixi.sh/install.sh | bash
+          ```
+      * Windows
+
+          ```bash
+          iwr -useb https://pixi.sh/install.ps1 | iex
+          ```
+  2. Install [copier](https://copier.readthedocs.io/en/stable/)
+
+      ```bash
+      pixi global install copier
+      ```
 
 Then, run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
 
 ```
-uvx copier copy git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
+copier copy git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
 ```
 
 The output will be created in a folder called `my-package-name`, and will be created if it doesn't exist.
@@ -146,7 +171,7 @@ Copier has [instructions on how to update a template to the latest version](http
 If you want to update your project with the latest version of this template, you can run the following command at the root folder of your repository (ensuring that your current project is committed and that you have no uncommitted changes, since the update will overwrite some files!):
 
 ```bash
-uvx copier update
+copier update
 ```
 
 Note that this is the purpose of the `.copier-answers.yml` file in the root of your project. This file is used by Copier to keep track of the answers you gave when you first created the project, allowing it to update the project correctly when you run `copier update`.
@@ -160,7 +185,7 @@ git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
 ```
 and test your local changes by generating a new project with
 ```bash
-uvx copier copy -r HEAD ./python-project-template ./my-test-project
+copier copy -r HEAD ./python-project-template ./my-test-project
 ```
 
 ## Inspiration

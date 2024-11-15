@@ -114,10 +114,6 @@ _message_after_copy: |
         ---------------------------------------------------
         ###################################################
 
-            {% if environment_manager=='pixi' -%}
-            - Instal pixi, if you haven't already done so https://pixi.sh
-
-            {% endif -%}
             - Create a virtual env, install your package with dependencies and commit to git:
 
                 cd {{ _copier_conf.dst_path }}
