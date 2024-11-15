@@ -30,4 +30,4 @@ test_pre_commit:
     - uv venv
     - uv pip install pre-commit
   script:
-    - uv run
+    - uv run pre-commit run --all
