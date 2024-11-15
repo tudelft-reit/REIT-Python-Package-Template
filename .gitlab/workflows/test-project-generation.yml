@@ -5,25 +5,26 @@ test_project_generation:
     - uv tool install copier --with jinja2-shell-extension
   script:
       - export PATH="/root/.local/bin:$PATH"
-      - copier copy \
-        -d coc=our_coc \
-        -d email=email@tudelft.nl \
-        -d environment_manager=uv \
-        -d full_name="A Name" \
-        -d host=gitlab.ewi.tudelft.nl \
-        -d license=GPL \
-        -d min_python_version='3.10' \
-        -d org=reit \
-        -d project_name=python-template-uv-example \
-        -d project_short_description="A python template uv example." \
-        -d python_name=python_template_uv_example \
-        -d typing=no_typing \
-        -d url=https://gitlab.ewi.tudelft.nl/reit/python-template-uv-example \
-        --trust \
-        --vcs-ref HEAD \
+      - |
+        copier copy
+        -d coc=our_coc
+        -d email=email@tudelft.nl
+        -d environment_manager=uv
+        -d full_name="A Name"
+        -d host=gitlab.ewi.tudelft.nl
+        -d license=GPL
+        -d min_python_version='3.10'
+        -d org=reit
+        -d project_name=python-template-uv-example
+        -d project_short_description="A python template uv example."
+        -d python_name=python_template_uv_example
+        -d typing=no_typing
+        -d url=https://gitlab.ewi.tudelft.nl/reit/python-template-uv-example
+        --trust
+        --vcs-ref HEAD
         . python-template-uv-example
-      - cd python-template-uv-example \
-        uv run pytest
+      - cd python-template-uv-example
+      - uv run pytest
 
 test_pre_commit:
   stage: test
