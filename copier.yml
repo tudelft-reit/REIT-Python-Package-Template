@@ -3,6 +3,8 @@ _subdirectory: project_template
 _templates_suffix: ""
 _skip_if_exists:
   - CHANGELOG.md
+_jinja_extensions:
+  - jinja2_shell_extension.ShellExtension
 
 # PROMPT --------------------------------
 project_name:
@@ -44,7 +46,7 @@ python_name:
 full_name:
   type: str
   help: Who's the main responsible for this code?
-  placeholder: My Name
+  default: "{{ 'git config user.name' | shell() | trim }}"
   validator: >-
     {% if not full_name %} You must provide a name (possibly yours) to place in
     your config files. {% endif %}
@@ -52,7 +54,7 @@ full_name:
 email:
   type: str
   help: What's their email?
-  placeholder: email@tudelft.nl
+  default: "{{ 'git config user.email' | shell() | trim }}"
   validator: >-
     {% if not (email | regex_search('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')) %}
     You must provide a valid email to place in
