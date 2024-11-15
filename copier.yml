@@ -134,8 +134,8 @@ _message_after_copy: |
                 git remote add origin {{ url }}.git
 
             {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
-            - Fix the CI for non-linux platforms using pixi
-              Add "linux-64" to the platforms in [tool.pixi.project] in the pyproject.toml
+            - Enable running on DAIC/DelftBlue and fix the CI
+              Add "linux-64" to the list of platforms in [tool.pixi.project] in the pyproject.toml
               Commit and push
             {%- endif %}
 
