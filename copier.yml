@@ -29,6 +29,14 @@ host:
 org:
   type: str
   help: What {{host}} user is this project under? For gitlab, this is your netid or group.
+  # Get the username of this computer, by expanding the system variables, _copier_conf
+  # is not available. So we manually check if the variable was expanded.
+  default: >-
+    {%- if "$USER" | expandvars != "$USER" -%}
+      {{ "$USER" | expandvars }}
+    {%- else -%}
+      {{ "$Env:UserName" | expandvars }}
+    {%- endif -%}
   validator: >-
     {% if not org %} You must provide a org for the project. It might just be
     your user name on the site (like GitHub) you are targeting. {% endif %}
