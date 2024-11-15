@@ -165,7 +165,7 @@ Copier has [instructions on how to update a template to the latest version](http
 If you want to update your project with the latest version of this template, you can run the following command at the root folder of your repository (ensuring that your current project is committed and that you have no uncommitted changes, since the update will overwrite some files!):
 
 ```bash
-copier update --trust
+copier update --trust --skip-tasks
 ```
 
 Note that this is the purpose of the `.copier-answers.yml` file in the root of your project. This file is used by Copier to keep track of the answers you gave when you first created the project, allowing it to update the project correctly when you run `copier update`.

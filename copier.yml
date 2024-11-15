@@ -112,28 +112,9 @@ _message_after_copy: |
 
         ###################################################
         ---------------------------------------------------
-        RUN THE FOLLOWING COMMANDS TO FINISH UP THE SETUP
+        DO THE FOLLOWING MANUAL STEPS TO FINISH UP THE SETUP
         ---------------------------------------------------
         ###################################################
-
-            - Create a virtual env, install your package with dependencies and commit to git:
-
-                cd {{ _copier_conf.dst_path }}
-                git init
-                {% if environment_manager=='pixi' -%}
-                pixi init --format pyproject
-                {%- endif %}
-                {%- if environment_manager=='uv' -%}
-                uv sync
-                uv run pre-commit install
-                {%- elif environment_manager=='pixi' %}
-                pixi install --all
-                pixi run --environment dev pre-commit install
-                {%- endif %}
-                git add --all
-                git commit -m "first commit"
-                git branch -M main
-                git remote add origin {{ url }}.git
 
             {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
             - Enable running on DAIC/DelftBlue and fix the CI
@@ -150,3 +131,34 @@ _message_after_copy: |
                 git push --set-upstream origin main
 
             - Have a look at the repository README.md file for additional information
+
+_tasks:
+    - git init
+    
+    ###
+    # uv environment management
+    ###
+    - command: uv sync
+      when: "{{ environment_manager=='uv' }}"
+    - command: uv run pre-commit install
+      when: "{{ environment_manager=='uv' }}"
+    
+
+    ###
+    # pixi environment management
+    ##
+    - command: pixi init --format pyproject
+      when: "{{ environment_manager=='pixi' }}"
+    - command: pixi install --all
+      when: "{{ environment_manager=='pixi' }}"
+    - command: pixi run --environment dev pre-commit install
+      when: "{{ environment_manager=='pixi' }}"
+    
+    ###
+    # Git repo setup
+    ###
+    - git add --all
+    - git commit -m "REIT python template setup"
+    - git branch -M main
+    - command: git remote add origin {{ url }}.git
+      when: "{{ ('git remote' | shell(cwd=_copier_conf.dst_path)) != 'origin\n' }}"
