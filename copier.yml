@@ -21,6 +21,7 @@ project_name:
 host:
   type: str
   help: Where would you like to host your code?
+  default: gitlab.ewi.tudelft.nl
   choices:
     gitlab.ewi.tudelft.nl [Recommended]: gitlab.ewi.tudelft.nl
     gitlab.tudelft.nl: gitlab.tudelft.nl
@@ -78,6 +79,7 @@ project_short_description:
 license:
   type: str
   help: Select a license
+  default: GPL
   choices:
     - GPL
     - BSD
@@ -98,6 +100,7 @@ min_python_version:
 environment_manager:
   type: str
   help: Select which virtual environment manager to use. Choose uv unless you need conda dependencies.
+  default: uv
   choices:
     uv   (pip dependencies only) [Recommended]: uv
     pixi (conda and pip dependencies): pixi
@@ -105,6 +108,7 @@ environment_manager:
 typing:
   type: str
   help: Would you like to use static type checking? (This configures mypy.)
+  default: no_typing
   choices:
     No.   (mypy is not used) [Recommended]: no_typing
     Basic (mypy checks but type annotations are not required).: loose
@@ -114,6 +118,7 @@ coc:
   type: str
   help: We provide a basic Code of Conduct that can be modified to suit the needs of your
     project. Would you like to use this, or write your own?
+  default: our_coc
   choices:
     I'll use/modify the basic Code of Conduct. [Recommended]: our_coc
     I'll write my own Code of Conduct.: their_coc
