@@ -1,5 +1,9 @@
 test_project_generation:
   stage: test
+  parallel:
+    matrix:
+      - TYPING: [no_typing, loose, strict]
+      - ENV_MANAGER: [uv, pixi]
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension
@@ -8,14 +12,26 @@ test_project_generation:
       - git config --global user.name "Python Template"
       - git config --global user.email "pyton-template@tudelft.nl"
       - >
+        if [ "$ENV_MANAGER" == "pixi" ]; then
+          curl -fsSL https://pixi.sh/install.sh | bash
+          export PATH="/root/.pixi/bin:$PATH"
+        fi
+      - >
           copier copy
           --defaults
           --trust
           --vcs-ref HEAD
           -d project_name=python-template-uv-example
+          -d typing=$TYPING
+          -d environment_manager=$ENV_MANAGER
           . python-template-uv-example
       - cd python-template-uv-example
-      - uv run pytest
+      - >
+        if [ "$ENV_MANAGER" == "uv" ]; then
+          uv run pytest
+        else
+          pixi run -e dev pytest
+        fi
 
 test_pre_commit:
   stage: test
