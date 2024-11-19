@@ -28,12 +28,8 @@ test_project_generation:
           -d environment_manager=$ENV_MANAGER
           . python-template-uv-example
       - cd python-template-uv-example
-      - >
-        if [ "$ENV_MANAGER" == "uv" ]; then
-          uv run pytest
-        else
-          pixi run -e dev pytest
-        fi
+      - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
+      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
 
 test_pre_commit:
   stage: test
