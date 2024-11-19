@@ -7,8 +7,10 @@ test_project_generation:
     matrix:
       - ENV_MANAGER: uv
         TYPING: [no_typing, loose, strict]
+        HOST: [gitlab.ewi.tudelft.nl, github.com]
       - ENV_MANAGER: pixi
         TYPING: [no_typing, loose, strict]
+        HOST: [gitlab.ewi.tudelft.nl, github.com]
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension
@@ -29,6 +31,7 @@ test_project_generation:
           -d project_name=python-template-uv-example
           -d typing=$TYPING
           -d environment_manager=$ENV_MANAGER
+          -d host=$HOST
           . python-template-uv-example
       - cd python-template-uv-example
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
