@@ -5,6 +5,8 @@ test_project_generation:
     - uv tool install copier --with jinja2-shell-extension
   script:
       - export PATH="/root/.local/bin:$PATH"
+      - git config --global user.name "Python Template"
+      - git config --global user.email "pyton-template@tudelft.nl"
       - >
           copier copy
           -d coc=our_coc
