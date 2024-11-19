@@ -2,8 +2,10 @@ test_project_generation:
   stage: test
   parallel:
     matrix:
-      - TYPING: [no_typing, loose, strict]
-      - ENV_MANAGER: [uv, pixi]
+      - ENV_MANAGER: uv
+        TYPING: [no_typing, loose, strict]
+      - ENV_MANAGER: pixi
+        TYPING: [no_typing, loose, strict]
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension
