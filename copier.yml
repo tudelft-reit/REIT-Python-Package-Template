@@ -138,11 +138,15 @@ _message_after_copy: |
             Commit and push
           {%- endif %}
 
-          - Push the initial commit to a new repo on {{host}}
+          - [Optional step] Set the remote to use ssh instead of https
+
+            git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
+
+          - Push the commit to a new repo on {{host}}
 
               Go to {% if host=='github.com' %}https://github.com/new{% else %}https://{{host}}/projects/new{% endif %}
               and create a new repository named `{{ project_name }}` as an empty repository,
-              then push your commits to {{host}}:
+              then push your commits with:
 
               git push --set-upstream origin main
 
