@@ -26,7 +26,9 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 ## Setting up a new project
 
-1. Install [uv](https://docs.astral.sh/uv/):
+1. Install and configure [Git](https://git-scm.com/). Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
+
+2. Install [uv](https://docs.astral.sh/uv/):
     * Linux and MacOS
 
         ```bash
@@ -38,13 +40,13 @@ This template is based on the [Alan Turing Institute Python project template](ht
         powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
         ```
 
-2. Install [copier](https://copier.readthedocs.io/en/stable/) and the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/)
+3. Install [copier](https://copier.readthedocs.io/en/stable/) and the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/)
 
     ```bash
     uv tool install copier --with jinja2-shell-extension
     ```
 
-3. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
+4. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
     * Linux and MacOS
 
         ```bash
@@ -56,7 +58,7 @@ This template is based on the [Alan Turing Institute Python project template](ht
         iwr -useb https://pixi.sh/install.ps1 | iex
       ```
 
-4. Run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
+5. Run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
 
     ```bash
     copier copy --trust git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
