@@ -1,6 +1,9 @@
+# Check that creating a new project using the template works.
+# This includes running pre-commit and pytest on the created project.
 test_project_generation:
   stage: test
   parallel:
+    # Test for all combinations of type checking and environment managers
     matrix:
       - ENV_MANAGER: uv
         TYPING: [no_typing, loose, strict]
@@ -31,6 +34,7 @@ test_project_generation:
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
       - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
 
+# Run pre-commit checks for the project template itself.
 test_pre_commit:
   stage: test
   before_script:
