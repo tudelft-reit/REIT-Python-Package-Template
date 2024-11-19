@@ -9,21 +9,10 @@ test_project_generation:
       - git config --global user.email "pyton-template@tudelft.nl"
       - >
           copier copy
-          -d coc=our_coc
-          -d email=email@tudelft.nl
-          -d environment_manager=uv
-          -d full_name="A Name"
-          -d host=gitlab.ewi.tudelft.nl
-          -d license=GPL
-          -d min_python_version='3.10'
-          -d org=reit
-          -d project_name=python-template-uv-example
-          -d project_short_description="A python template uv example."
-          -d python_name=python_template_uv_example
-          -d typing=no_typing
-          -d url=https://gitlab.ewi.tudelft.nl/reit/python-template-uv-example
+          --defaults
           --trust
           --vcs-ref HEAD
+          -d project_name=python-template-uv-example
           . python-template-uv-example
       - cd python-template-uv-example
       - uv run pytest
