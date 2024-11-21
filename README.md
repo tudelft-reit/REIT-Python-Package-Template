@@ -1,5 +1,8 @@
 # REIT template for Python projects
 
+
+[![pipeline status](https://gitlab.ewi.tudelft.nl/reit/python-package-template/badges/main/pipeline.svg)](https://gitlab.ewi.tudelft.nl/reit/python-package-template/-/commits/main) [![Latest Release](https://gitlab.ewi.tudelft.nl/reit/python-package-template/-/badges/release.svg)](https://gitlab.ewi.tudelft.nl/reit/python-package-template/-/releases)
+
 This template is designed to help you get started with a new Python project, or migrate an existing codebase. It includes:
 
 - The recommended `src/` layout for a Python package
