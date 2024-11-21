@@ -114,15 +114,6 @@ typing:
     Basic (mypy checks but type annotations are not required).: loose
     Full  (mypy checks and type annotations required).: strict
 
-coc:
-  type: str
-  help: We provide a basic Code of Conduct that can be modified to suit the needs of your
-    project. Would you like to use this, or write your own?
-  default: our_coc
-  choices:
-    I'll use/modify the basic Code of Conduct. [Recommended]: our_coc
-    I'll write my own Code of Conduct.: their_coc
-
 _message_after_copy: |
   Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
 
