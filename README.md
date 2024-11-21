@@ -30,6 +30,11 @@ This template is based on the [Alan Turing Institute Python project template](ht
 ## Setting up a new project
 
 1. Install and configure [Git](https://git-scm.com/). Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
+    * For Windows it is recommended to disable the LF to CRLF line ending conversion
+
+        ```bash
+        git config --global core.autocrlf false
+        ```
 
 2. Install [uv](https://docs.astral.sh/uv/):
     * Linux and MacOS
