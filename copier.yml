@@ -36,7 +36,7 @@ org:
     {%- if "$USER" | expandvars != "$USER" -%}
       {{ "$USER" | expandvars }}
     {%- else -%}
-      {{ "$Env:UserName" | expandvars }}
+      {{ "$UserName" | expandvars }}
     {%- endif -%}
   validator: >-
     {% if not org %} You must provide a org for the project. It might just be
