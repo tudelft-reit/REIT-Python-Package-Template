@@ -55,7 +55,7 @@ python_name:
 full_name:
   type: str
   help: Who's the main responsible for this code?
-  default: "{{ 'git config user.name' | shell(die_on_error=True) | trim }}"
+  default: "{{ 'git config user.name' | shell() | trim }}"
   validator: >-
     {% if not full_name %} You must provide a name (possibly yours) to place in
     your config files. {% endif %}
@@ -63,7 +63,7 @@ full_name:
 email:
   type: str
   help: What's their email?
-  default: "{{ 'git config user.email' | shell(die_on_error=True) | trim }}"
+  default: "{{ 'git config user.email' | shell() | trim }}"
   validator: >-
     {% if not (email | regex_search('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'))
     %}
@@ -170,4 +170,4 @@ _tasks:
   - git commit -m "REIT python template setup"
   - git branch -M main
   - command: git remote add origin {{ url }}.git
-    when: "{{ ('git remote' | shell(die_on_error=True, cwd=_copier_conf.dst_path)) | trim == '' }}"
+    when: "{{ ('git remote' | shell(cwd=_copier_conf.dst_path)) | trim == '' }}"
