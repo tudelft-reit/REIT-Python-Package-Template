@@ -156,9 +156,6 @@ pixi run -e dev pytest --cov=src ./tests
 
 The tools for formatting and linting your code for errors are all bundled with [pre-commit](https://pre-commit.com/). Included are:
 - [ruff](https://astral.sh/ruff) - linting and formatting
-{% if typing != "no_typing" -%}
-- [mypy](https://mypy.readthedocs.io/en/stable/) - static type checking
-{% endif -%}
 - [yamlfix](https://github.com/lyz-code/yamlfix) - linting and formatting for .yaml files
 - various other small fixes and checks (see the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file for more information)
 

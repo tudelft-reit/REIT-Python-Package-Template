@@ -23,9 +23,6 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Topic :: Scientific/Engineering",
-{%- if typing != "no_typing" %}
-  "Typing :: Typed",
-{%- endif %}
 ]
 dependencies = []
 
@@ -42,9 +39,6 @@ dev-dependencies = [
   "pytest-cov>=5.0.0,<6",
   "mkdocstrings[python]>=0.26.1,<1",
   "mkdocs-material>=9.5.39,<10",
-  {%- if typing != "no_typing" %}
-  "mypy>=1.12.0,<2",
-  {%- endif %}
   "setuptools-scm>=8.1.0,<9",
 ]
 
@@ -83,30 +77,6 @@ port.exclude_lines = [
   '\.\.\.',
   'if typing.TYPE_CHECKING:',
 ]
-
-{% if typing != "no_typing" -%}
-[tool.mypy]
-files = ["src", "tests"]
-python_version = "{{ min_python_version }}"
-warn_unreachable = true
-disallow_untyped_defs = false
-disallow_incomplete_defs = false
-check_untyped_defs = true
-{% if typing == "loose" -%}
-strict = false
-{% elif typing == "strict" -%}
-strict = true
-enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
-
-[[tool.mypy.overrides]]
-module = "{{ python_name }}.*"
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-{% endif %}
-[[tool.mypy.overrides]]
-module = ["setuptools_scm"]
-ignore_missing_imports = true
-{%- endif %}
 
 [tool.ruff]
 src = ["src"]

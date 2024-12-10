@@ -104,15 +104,6 @@ environment_manager:
     uv   (pip dependencies only) [Recommended]: uv
     pixi (conda and pip dependencies): pixi
 
-typing:
-  type: str
-  help: Would you like to use static type checking? (This configures mypy.)
-  default: no_typing
-  choices:
-    No.   (mypy is not used) [Recommended]: no_typing
-    Basic (mypy checks but type annotations are not required).: loose
-    Full  (mypy checks and type annotations required).: strict
-
 _message_after_copy: |
   Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
 

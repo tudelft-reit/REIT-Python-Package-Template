@@ -6,10 +6,8 @@ test_project_generation:
     # Test for all combinations of type checking and environment managers
     matrix:
       - ENV_MANAGER: uv
-        TYPING: [no_typing, loose, strict]
         HOST: [gitlab.ewi.tudelft.nl, github.com]
       - ENV_MANAGER: pixi
-        TYPING: [no_typing, loose, strict]
         HOST: [gitlab.ewi.tudelft.nl, github.com]
   before_script:
     - uv venv
@@ -29,7 +27,6 @@ test_project_generation:
           --trust
           --vcs-ref HEAD
           -d project_name=python-template-uv-example
-          -d typing=$TYPING
           -d environment_manager=$ENV_MANAGER
           -d host=$HOST
           . python-template-uv-example
