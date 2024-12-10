@@ -112,7 +112,6 @@ _message_after_copy: |
       DO THE FOLLOWING MANUAL STEPS TO FINISH UP THE SETUP
       ---------------------------------------------------
       ###################################################
-
           {% if _copier_conf.os not in ['linux', 'macos'] and environment_manager=='pixi' -%}
           - Enable running on DAIC/DelftBlue and fix the CI
             Add "linux-64" to the list of platforms in [tool.pixi.project] in the pyproject.toml
@@ -121,13 +120,14 @@ _message_after_copy: |
 
           - [Optional step] Set the remote to use ssh instead of https
 
-            git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
+              git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
 
           - Push the commit to a new repo on {{host}}
-
-              Go to {% if host=='github.com' %}https://github.com/new{% else %}https://{{host}}/projects/new{% endif %}
-              and create a new repository named `{{ project_name }}` as an empty repository,
-              then push your commits with:
+              {%- if host=='github.com' -%}
+              Go to https://github.com/new
+              and create a new repository named `{{ project_name }}` as an empty repository.
+              Then push your commits with:
+              {%- endif %}
 
               git push --set-upstream origin main
 
