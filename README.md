@@ -12,7 +12,6 @@ This template is designed to help you get started with a new Python project, or 
 - Automatic version number management with git tags via `hatch-vcs`
 - Documentation generation via `mkdocs`
 - Documentation deployment and pytest checks via CI/CD workflows for Gitlab and Github
-- Opt-in static type check via `mypy`
 
 A course that explains in detail how to use this template is given by the REIT team.
 The course materials can be consulted [here](https://reit.pages.ewi.tudelft.nl/course-python-best-practices/outline.html).
