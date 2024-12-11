@@ -29,6 +29,9 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 ## Setting up a new project
 
+Windows users are recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and follow the Linux instructions.
+Windows instructions are still provided for completeness.
+
 1. Install and configure [Git](https://git-scm.com/). Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
     * For Windows it is recommended to disable the LF to CRLF line ending conversion
 
