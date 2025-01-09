@@ -6,6 +6,8 @@ _skip_if_exists:
 
 _jinja_extensions:
   - jinja2_shell_extension.ShellExtension
+  - copier_templates_extensions.TemplateExtensionLoader
+  - extensions/context.py:ContextUpdater
 
 # PROMPT --------------------------------
 project_name:
