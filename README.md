@@ -53,7 +53,7 @@ Windows instructions are still provided for completeness.
 3. Install [copier](https://copier.readthedocs.io/en/stable/) and the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/)
 
     ```bash
-    uv tool install copier --with jinja2-shell-extension copier-templates-extensions
+    uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
     ```
 
 4. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
