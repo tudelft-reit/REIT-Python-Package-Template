@@ -8,8 +8,9 @@ pre_commit_update:
     - uv pip install pre-commit
     - git config --global user.email "gitlab-ci@example.com"
     - git config --global user.name "GitLab CI"
+    - git branch --delete --force pre-commit-update || echo "No branch to delete"
   script:
-    - git checkout -b pre-commit-update
+    - git switch --create pre-commit-update
     - uv run pre-commit autoupdate
     - cd project_template
     - mv .pre-commit-config.yaml.jinja .pre-commit-config.yaml
@@ -21,7 +22,8 @@ pre_commit_update:
     - >
       git commit -m "chore: update pre-commit hooks" || echo "No changes to commit"
     - >-
-      git push "https://${GITLAB_USER_LOGIN}:${CI_GIT_TOKEN}@gitlab.ewi.tudelft.nl/reit/python-package-template.git"
+      git push
+      "https://${GITLAB_USER_LOGIN}:${CI_GIT_TOKEN}@gitlab.ewi.tudelft.nl/reit/python-package-template.git"
       HEAD:pre-commit-update
-      -o merge_request.create
-      -o merge_request.target=main
+      --push-option="merge_request.create"
+      --push-option="merge_request.target=main"
