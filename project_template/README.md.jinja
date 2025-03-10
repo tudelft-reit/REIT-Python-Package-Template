@@ -19,17 +19,6 @@
 {% if environment_manager=='uv' %}
 1. Install [uv](https://docs.astral.sh/uv/):
 
-    - Linux and MacOS
-
-        ```bash
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        ```
-    - Windows
-
-        ```bash
-        powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-        ```
-
 2. Install the dependencies, including the dev dependencies
 
     ```bash
@@ -42,17 +31,6 @@
     ```
 {%- elif environment_manager=='pixi' %}
 1. Install [pixi](https://pixi.sh):
-
-    - Linux and MacOS
-
-        ```bash
-        curl -fsSL https://pixi.sh/install.sh | bash
-        ```
-    - Windows (powershell)
-
-        ```bash
-        iwr -useb https://pixi.sh/install.ps1 | iex
-        ```
 
 2. Install the dependencies, including the dev dependencies
 
