@@ -28,45 +28,20 @@ This template is based on the [Alan Turing Institute Python project template](ht
 
 ## Setting up a new project
 
-Windows users are recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and follow the Linux instructions.
-Windows instructions are still provided for completeness.
+Windows users are recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/).
 
-1. Install and configure [Git](https://git-scm.com/). Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
-    * For Windows it is recommended to disable the LF to CRLF line ending conversion
+1. Install and configure [Git](https://git-scm.com/).
+Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
+    * If you are on Windows and not using WSL it is recommended to disable the LF to CRLF line ending conversion `git config --global core.autocrlf false`.
 
-        ```bash
-        git config --global core.autocrlf false
-        ```
-
-2. Install [uv](https://docs.astral.sh/uv/):
-    * Linux and MacOS
-
-        ```bash
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        ```
-    * Windows
-
-        ```bash
-        powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-        ```
-
-3. Install [copier](https://copier.readthedocs.io/en/stable/) and the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/)
+3. Install [copier](https://copier.readthedocs.io/en/stable/), with the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/) and [copier-templates-extensions](https://github.com/copier-org/copier-templates-extensions) extensions.
+We recommend you install copier and the extensions with [uv](https://docs.astral.sh/uv/):
 
     ```bash
     uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
     ```
 
 4. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
-    * Linux and MacOS
-
-        ```bash
-        curl -fsSL https://pixi.sh/install.sh | bash
-        ```
-    * Windows
-
-        ```bash
-        iwr -useb https://pixi.sh/install.ps1 | iex
-      ```
 
 5. Run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
 
@@ -82,11 +57,12 @@ You will be prompted for the following information:
   project directory, the Python package, and the GitHub repository.
 - `host`: where to host your code: either `gitlab` or `github`
 - `project_short_description`: A short description of your project.
-- `license`: The license to use for your project — PRs for other choices are welcome! The current supported options include:
+- `license`: The license to use for your project. Choose from:
   - `MIT`
   - `BSD-3-Clause`
   - `Apache-2.0`
   - `GPL-3.0`
+  - `No license`
 - `python_name`: The name of your project when you do `import name` (and potentially `pip install name`). This should be a valid Python package name (use underscores instead of hyphens, for example).
 - `python_version_range`: The range of Python versions to support. This will be used to set the `python_requires` field in `pyproject.toml`. Defaults to `>=3.10`.
 - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
