@@ -2,6 +2,8 @@
 # This includes running pre-commit and pytest on the created project.
 test_project_generation:
   stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
   parallel:
     # Test for all combinations of type checking and environment managers
     matrix:
@@ -36,6 +38,8 @@ test_project_generation:
 
 # Run pre-commit checks for the project template itself.
 test_pre_commit:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
   stage: test
   before_script:
     - uv venv

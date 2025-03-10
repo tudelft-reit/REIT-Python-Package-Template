@@ -1,39 +1,27 @@
+# Update the versions in of the precommit hooks in the .pre-commit-config.yaml
+# files, both for this repo and for the template project.
 pre_commit_update:
-  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+  before_script:
+    - uv venv
+    - uv pip install pre-commit
+    - git config --global user.email "gitlab-ci@example.com"
+    - git config --global user.name "GitLab CI"
   script:
-    - echo "Dummy"
-
-# name: update pre-commit hooks
-
-# on:
-#   workflow_dispatch:
-#   schedule:
-#     - cron: 0 7 * * 1
-
-# jobs:
-#   update-template:
-#     if: github.repository == 'alan-turing-institute/python-project-template'
-#     runs-on: ubuntu-latest
-#     permissions:
-#       # Give the default GITHUB_TOKEN write permission to commit and push the
-#       # added or changed files to the repository.
-#       contents: write
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v4
-#       - name: Set up Python
-#         uses: actions/setup-python@v5
-#         with:
-#           python-version: 3.x
-#       - name: Install pre-commit
-#         run: pip install pre-commit
-#       - name: Update pre-commit hooks
-#         run: |
-#           cd project_template
-#           pre-commit autoupdate
-
-#       - name: Push changes
-#         uses: stefanzweifel/git-auto-commit-action@v5
-#         with:
-#           add_options: -u
-#           commit_message: 'chore: update pre-commit hooks'
+    - git checkout -b pre-commit-update
+    - uv run pre-commit autoupdate
+    - cd project_template
+    - mv .pre-commit-config.yaml.jinja .pre-commit-config.yaml
+    - uv run pre-commit autoupdate
+    - mv .pre-commit-config.yaml .pre-commit-config.yaml.jinja
+    - cd ..
+    - git add -u
+    # This line needs to be folded (>) to avoid a YAML syntax error
+    - >
+      git commit -m "chore: update pre-commit hooks" || echo "No changes to commit"
+    - >-
+      git push "https://${GITLAB_USER_LOGIN}:${CI_GIT_TOKEN}@gitlab.ewi.tudelft.nl/reit/python-package-template.git"
+      HEAD:pre-commit-update
+      -o merge_request.create
+      -o merge_request.target=main
