@@ -7,23 +7,6 @@ authors = [
 description = "{{ project_short_description }}"
 readme = "README.md"
 requires-python = ">={{ min_python_version }}"
-classifiers = [
-  "Development Status :: 1 - Planning",
-  "Intended Audience :: Science/Research",
-  "Intended Audience :: Developers",
-{%- if license == "BSD" %}
-  "License :: OSI Approved :: BSD License",
-{%- elif license == "Apache" %}
-  "License :: OSI Approved :: Apache Software License",
-{%- elif license == "MIT" %}
-  "License :: OSI Approved :: MIT License",
-{%- elif license == "GPL" %}
-  "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
-{%- endif %}
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3",
-  "Topic :: Scientific/Engineering",
-]
 dependencies = []
 
 {% if environment_manager=='pixi' -%}
@@ -128,7 +111,7 @@ pydocstyle.convention = "google"
 ]
 
 [tool.yamlfix]
-line_length = 88
+line_length = 120
 sequence_style = "keep_style"
 explicit_start = false
 whitelines = 1
