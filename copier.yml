@@ -56,7 +56,7 @@ python_name:
 
 full_name:
   type: str
-  help: Who's the main responsible for this code?
+  help: Who's the main person responsible for this code?
   default: "{{ 'git config user.name' | shell() | trim }}"
   validator: >-
     {% if not full_name %} You must provide a name (possibly yours) to place in
@@ -91,7 +91,7 @@ license:
 
 min_python_version:
   type: str
-  help: What is the minimum version of Python your project will support? (Defaults to minimum supported by NumPy)
+  help: What is the minimum version of Python your project will support?
   default: '3.10'
   validator: >-
     {% if not (min_python_version | regex_search('[3][.][0-9]+')) %}
