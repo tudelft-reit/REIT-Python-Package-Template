@@ -171,7 +171,7 @@ If you want to make your own changes to this template:
     ```
 3. Test your local changes by generating a new project with
     ```bash
-    copier copy --trust -r HEAD ./python-project-template ./my-test-project
+    copier copy --trust -r HEAD ./python-package-template ./my-test-project
     ```
 
 ## Inspiration
