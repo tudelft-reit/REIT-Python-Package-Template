@@ -6,15 +6,15 @@
 This template is designed to help you get started with a new Python project, or migrate an existing codebase. It includes:
 
 - The recommended `src/` layout for a Python package
-- A pre-configured `pyproject.toml` that controls your project metadata
-- Linting + formatting via `ruff` and `pre-commit`
-- `pytest` setup and configured
-- Automatic version number management with git tags via `hatch-vcs`
-- Documentation generation via `mkdocs`
-- Documentation deployment and pytest checks via CI/CD workflows for Gitlab and Github
+- A pre-configured `pyproject.toml` that controls your project metadata and dependencies
+- Linting + formatting via [ruff](https://docs.astral.sh/ruff/) and [pre-commit](https://pre-commit.com/)
+- [pytest](https://docs.pytest.org/en/stable/) setup and configured
+- Automatic version number management with git tags via [hatch-vcs](https://github.com/ofek/hatch-vcs)
+- Documentation generation via [mkdocs-material](https://squidfunk.github.io/mkdocs-material/)
+- Documentation deployment, pytest and linting checks via CI/CD workflows for GitLab and Github
 
 A course that explains in detail how to use this template is given by the REIT team.
-The course materials can be consulted [here](https://reit.pages.ewi.tudelft.nl/course-python-project/outline.html).
+The course materials can be accesed [here](https://reit.pages.ewi.tudelft.nl/course-python-project/outline.html).
 
 This template is based on the [Alan Turing Institute Python project template](https://github.com/alan-turing-institute/python-project-template).
 
@@ -53,31 +53,35 @@ The output will be created in a folder called `my-package-name`, and will be cre
 
 You will be prompted for the following information:
 
-- `project_name`: The name of your project. This will be used to name the
-  project directory, the Python package, and the GitHub repository.
-- `host`: where to host your code: either `gitlab` or `github`
-- `project_short_description`: A short description of your project.
-- `license`: The license to use for your project. Choose from:
-  - `MIT`
-  - `BSD-3-Clause`
-  - `Apache-2.0`
-  - `GPL-3.0`
-  - `No license`
-- `python_name`: The name of your project when you do `import name` (and potentially `pip install name`). This should be a valid Python package name (use underscores instead of hyphens, for example).
-- `python_version_range`: The range of Python versions to support. This will be used to set the `python_requires` field in `pyproject.toml`. Defaults to `>=3.10`.
+- `project_name`: the name of the project.
+This will be used to name the project directory, the Python package, and the GitLab/GitHub repository.
+- `org`: the GitLab/GitHub owner of the project.
+- `host`: where to host the code: either `gitlab.tudelft`, `gitlab.ewi.tudelft` or `github`
+- `python_name`: the name of the project when you do `import name` or `pip install name`.
+- `name` and `email`: the name and email of the author of the project.
+- `project_short_description`: a short description of the project.
+- `license`: the license to use for the project.
+- `min_python_version`: the lowest Python version that the project supports.
 - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
 
 Great! Copier will have now created a new project in the directory you specified by replacing `my-package-name`, and customized it based on the information you provided.
+It also created a virtual environment for you and installed the project and its dependencies in it.
 
-Your new project will have been set up with the following structure:
+It is recommended to install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
+
+**Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
+
+### File structure
+The project has the following structure:
 
 ```
 my-package-name/
+├── .venv or .pixi
 ├── .copier-answers.yml
 ├── .gitignore
 ├── .pre-commit-config.yaml
-├── <.gitlab/github>/workflows/test_code.yml
-├── <.gitlab/github>/workflows/deploy_docs.yml
+├── .gitlab or .github /workflows/test_code.yml
+├── .gitlab or .github /workflows/deploy_docs.yml
 ├── LICENSE
 ├── README.md
 ├── pyproject.toml
@@ -94,11 +98,13 @@ my-package-name/
 
 Here's a brief overview of the files and directories that have been created:
 
+- `.venv`: The python virtual environment folder if you chose UV
+- `.pixi`: The python virtual environment folder if you chose Pixi
 - `.copier-answers.yml`: A file containing all your answers to copier.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
 - `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
-- `<.gitlab/github>/workflows/test_code.yml`: A workflow for testing your code with a Github/Gitlab action.
-- `<.gitlab/github>/workflows/deploy_docs.yml`: A workflow for deploying your documentation with a Github/Gitlab action.
+- `.gitlab or .github /workflows/test_code.yml`: A workflow for testing your code with a GitLab/Github action.
+- `.gitlab or .github /workflows/deploy_docs.yml`: A workflow for deploying your documentation with a GitLab/Github action.
 - `LICENSE`: A copy of the license you chose for your project.
 - `README.md`: An overview of your project and instructions on how to manage it.
 - `pyproject.toml`: A TOML file that contains metadata about your project, including its name, version, description, and dependencies.
@@ -106,8 +112,6 @@ Here's a brief overview of the files and directories that have been created:
 - `src/`: A directory that contains your Python package code.
 - `tests/`: A directory that contains your tests.
 - `docs/`: A directory that contains your documentation.
-
-**Have a look at the README.md file that was generated. It contains important information about the project setup and management**
 
 ### Migrating an existing project
 
