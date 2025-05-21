@@ -113,7 +113,7 @@ Here's a brief overview of the files and directories that have been created:
 - `tests/`: A directory that contains your tests.
 - `docs/`: A directory that contains your documentation.
 
-### Migrating an existing project
+## Migrating an existing project
 
 If you're taking code you've already written and want to use this template, you'll need to perform the following steps:
 
