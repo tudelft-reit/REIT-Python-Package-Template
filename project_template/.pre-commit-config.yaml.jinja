@@ -30,3 +30,8 @@ repos:
     rev: 1.17.0
     hooks:
       - id: yamlfix
+        exclude: |
+          (?x)(
+              ^.copier-answers.yml|
+              ^.pre-commit-config.yaml
+          )
