@@ -120,23 +120,28 @@ _message_after_copy: |
             Commit and push
           {%- endif %}
 
+          {%- if is_new_project -%}
           - [Optional step] Set the remote to use ssh instead of https
 
               git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
 
           - Push the commit to a new repo on {{host}}
               {%- if host=='github.com' -%}
-              Go to https://github.com/new
+              . Go to https://github.com/new
               and create a new repository named `{{ project_name }}` as an empty repository.
               Then push your commits with:
               {%- endif %}
 
               git push --set-upstream origin main
+          {%- else -%}
+          - Have a look at the diff of each file that was modified and add back any changes that you want to keep.
+          {%- endif %}
 
           - Have a look at the repository README.md file for additional information
 
 _tasks:
-  - git init
+  - command: git init --initial-branch main
+    when: '{{ is_new_project }}'
 
     ###
     # uv environment management
@@ -159,8 +164,11 @@ _tasks:
     ###
     # Git repo setup
     ###
-  - git add --all
-  - git commit -m "REIT python template setup"
-  - git branch -M main
   - command: git remote add origin {{ url }}.git
-    when: "{{ ('git remote' | shell(cwd=_copier_conf.dst_path)) | trim == '' }}"
+    when: '{{ is_new_project }}'
+
+  - command: git add --all
+    when: '{{ is_new_project }}'
+
+  - command: git commit --message "REIT python template setup"
+    when: '{{ is_new_project }}'

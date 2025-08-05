@@ -24,7 +24,7 @@ This template is based on the [Alan Turing Institute Python project template](ht
 - [Migrating an existing project](#migrating-an-existing-project)
 - [Updating your project when the template changes](#updating-your-project-when-the-template-changes)
 - [Project template development](#project-template-development)
-- [Inspiration](#inspiration)
+- [Advance use cases](#advance-use-cases)
 
 ## Setting up a new project
 
@@ -34,7 +34,7 @@ Windows users are recommended to use [WSL](https://learn.microsoft.com/en-us/win
 Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
     * If you are on Windows and not using WSL it is recommended to disable the LF to CRLF line ending conversion `git config --global core.autocrlf false`.
 
-3. Install [copier](https://copier.readthedocs.io/en/stable/), with the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/) and [copier-templates-extensions](https://github.com/copier-org/copier-templates-extensions) extensions.
+3. Install [copier](https://copier.readthedocs.io/en/stable/), with the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/) and with the [copier-templates-extensions](https://github.com/copier-org/copier-templates-extensions).
 We recommend you install copier and the extensions with [uv](https://docs.astral.sh/uv/):
 
     ```bash
@@ -49,27 +49,27 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
     copier copy --trust git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
     ```
 
-The output will be created in a folder called `my-package-name`, and will be created if it doesn't exist.
+    The repository will be created in a folder called `my-package-name`.
 
-You will be prompted for the following information:
+    You will be prompted for the following information:
 
-- `project_name`: the name of the project.
-This will be used to name the project directory, the Python package, and the GitLab/GitHub repository.
-- `org`: the GitLab/GitHub owner of the project.
-- `host`: where to host the code: either `gitlab.tudelft`, `gitlab.ewi.tudelft` or `github`
-- `python_name`: the name of the project when you do `import name` or `pip install name`.
-- `name` and `email`: the name and email of the author of the project.
-- `project_short_description`: a short description of the project.
-- `license`: the license to use for the project.
-- `min_python_version`: the lowest Python version that the project supports.
-- `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
+    - `project_name`: the name of the project.
+    This will be used to name the project directory, the Python package, and the GitLab/GitHub repository.
+    - `org`: the GitLab/GitHub owner of the project.
+    - `host`: where to host the code: either `gitlab.tudelft`, `gitlab.ewi.tudelft` or `github`
+    - `python_name`: the name of the project when you do `import name` or `pip install name`.
+    - `name` and `email`: the name and email of the author of the project.
+    - `project_short_description`: a short description of the project.
+    - `license`: the license to use for the project.
+    - `min_python_version`: the lowest Python version that the project supports.
+    - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
 
-Great! Copier will have now created a new project in the directory you specified by replacing `my-package-name`, and customized it based on the information you provided.
-It also created a virtual environment for you and installed the project and its dependencies in it.
+    Great! Copier will have now created a new project in the directory you specified by replacing `my-package-name`, and customized it based on the information you provided.
+    It also created a virtual environment for you and installed the project and its dependencies in it.
 
-It is recommended to install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
+5. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
 
-**Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
+6. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
 
 ### File structure
 The project has the following structure:
@@ -117,35 +117,31 @@ Here's a brief overview of the files and directories that have been created:
 
 If you're taking code you've already written and want to use this template, you'll need to perform the following steps:
 
-- Make sure there are no untracked changes in your repository
-- Run the copier command from the [setting up a new project](#setting-up-a-new-project) section making sure you select the folder where your project is located.
-  - **Do not run any of the commands that are shown the end**
-- If you were not using pixi or uv, install and setup according to the instructions shown in the previous step
-- Move your library code into the `src/{{ python_name }}` directory.
-  - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
-- Move any tests you have into the `tests` directory.
-- Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `authors`, `license`, and `classifiers` fields.
-- Add your dependencies to the relevant section of the `pyproject.toml` file under the `install_requires` field. Dependencies are formatted like this:
-    ```
-    [project]
-    dependencies = [
-        "numpy >= 1.20,<3",
-        "pandas == 1.2.3",
-    ]
-    ```
-    where the first part is the package name, and the second part is the version specifier. You can find more information on version specifiers [here](https://www.python.org/dev/peps/pep-0440/#version-specifiers) to help you write these.
-- If you have conda dependencies, place them under the pixi section
-    ```
-    [tool.pixi.dependencies]
-    r-base = ">=4.4.1,<5"
-    ```
-- Commit your changes
-- Lint and format your whole repository
-  - Install `pre-commit` via uv or pixi
-  - Format with `pre-commit run --all`
-  - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally
-
-**Have a look at the README.md file that was generated. It contains important information about the project setup and management**
+1. Run the copier command from the [setting up a new project](#setting-up-a-new-project) section making sure you select the folder where your project is located.
+    - Do the manual steps that are shown at the end of the script output.
+2. Move your library code into the `src/{{ python_name }}` directory.
+    - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
+3. Move any tests you have into the `tests` directory.
+4. Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `authors` and `license` fields.
+5. Add your dependencies to the relevant section of the `pyproject.toml`.
+    - If you selected `uv` as the environment manager do it like so:
+        ```
+        [project]
+        dependencies = [
+            "numpy >= 1.20,<3",
+            "pandas == 1.2.3",
+        ]
+        ```
+    - If you selected `pixi` as the environment manager do it like so:
+        ```
+        [tool.pixi.dependencies]
+        r-base = ">=4.4.1,<5"
+        ```
+6. Commit your changes
+7. Lint and format your whole repository
+    - Run the linter and formatter with with `uv run pre-commit run --all` or with `pixi run -e dev pre-commit run --all-files`
+    - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally.
+    - Commit your changes
 
 ## Updating your project when the template changes
 
@@ -178,7 +174,7 @@ If you want to make your own changes to this template:
     copier copy --trust -r HEAD ./python-package-template ./my-test-project
     ```
 
-## Inspiration
+## Advance use cases
 
-For more advance use cases, check out the [Netherlands eScience Center Python Template](https://github.com/NLeSC/python-template).
+Check out the [Netherlands eScience Center Python Template](https://github.com/NLeSC/python-template).
 This includes badges, citation, github/gitlab actions for automatic code quality analysis and more.
