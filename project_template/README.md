@@ -78,9 +78,7 @@ Add dependencies by running
 ```bash
 uv add numpy
 ```
-if you want to install torch with CUDA support, you can do it via:
-```bash
-uv add torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121 --extra-index-url https://download.pytorch.org/whl/cu121
+if you want to install PyTorch have a look at https://docs.astral.sh/uv/guides/integration/pytorch/
 ```
 {%- elif environment_manager=='pixi' %}
 ### Pypi packages
@@ -88,35 +86,13 @@ Add dependencies by running
 ```bash
 pixi add --pypi numpy
 ```
-if you want to install torch with CUDA support, add the following line to the `pyproject.toml` under `[tool.pixi.project]`
-```toml
-pypi-options = { extra-index-urls = ["https://download.pytorch.org/whl/cu121"] }
-```
-then run
-```bash
-pixi add --pypi torch==2.4.1+cu121 torchaudio==2.4.1+cu121 torchvision==0.19.1+cu121
-```
+if you want to install PyTorch have a look at https://pixi.sh/latest/python/pytorch/#pytorch-index
 
 ### Conda packages
 Add dependencies by running
 ```bash
-pixi add numpy
+pixi add conda-forge::numpy
 ```
-to install pytorch with cuda support as a conda package add the additional channels to the `pyproject.toml`:
-```toml
-[tool.pixi.project]
-channels = ["nvidia", "conda-forge", "pytorch"]
-```
-and the add the dependencies manually with channel restrictions like so:
- ```toml
-[tool.pixi.dependencies]
-pytorch = {version=">=2.5.1,<3", channel="pytorch"}
-torchvision = {version=">=0.20.1,<1", channel="pytorch"}
-torchaudio = {version=">=2.5.1,<3", channel="pytorch"}
-pytorch-cuda = "12.4.*"
-```
-the run `pixi install` to download and install pytorch on the environment.
-For more information check out the [pixi channel logic section](https://pixi.sh/latest/advanced/channel_priority/#use-case-pytorch-and-nvidia-with-conda-forge).
 {% endif %}
 
 ## Running tests
