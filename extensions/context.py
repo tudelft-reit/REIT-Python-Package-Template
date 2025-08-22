@@ -29,7 +29,8 @@ class ContextUpdater(ContextHook):
             print("Configure the git user.email and try again.")
             exit(-1)
 
-        self.is_new_project = None
+        self.is_new_project: bool | None = None
+        self.is_python3_13_or_later: bool | None = None
 
 
     def hook(self, context: dict) -> dict:
@@ -48,4 +49,9 @@ class ContextUpdater(ContextHook):
                     exit(-1)
 
         context["is_new_project"] = self.is_new_project
+
+        if self.is_python3_13_or_later is None and context["_copier_phase"] == "render":
+            self.is_python3_13_or_later = Version(context["min_python_version"]) >= Version("3.13")
+
+        context["is_python3_13_or_later"] = self.is_python3_13_or_later
         return context

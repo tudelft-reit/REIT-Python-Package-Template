@@ -5,12 +5,17 @@ test_project_generation:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   parallel:
-    # Test for all combinations of type checking and environment managers
+    # Test for uv and pixi with with both hosts and two python versions
     matrix:
       - ENV_MANAGER: uv
         HOST: [gitlab.ewi.tudelft.nl, github.com]
+        PYTHON_VERSION: "3.10"
       - ENV_MANAGER: pixi
         HOST: [gitlab.ewi.tudelft.nl, github.com]
+        PYTHON_VERSION: "3.10"
+      - ENV_MANAGER: uv
+        HOST: gitlab.ewi.tudelft.nl
+        PYTHON_VERSION: "3.13"
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
@@ -31,6 +36,7 @@ test_project_generation:
           -d project_name=python-template-uv-example
           -d environment_manager=$ENV_MANAGER
           -d host=$HOST
+          -d min_python_version=$PYTHON_VERSION
           . python-template-uv-example
       - cd python-template-uv-example
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
