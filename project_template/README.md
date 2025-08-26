@@ -79,7 +79,6 @@ Add dependencies by running
 uv add numpy
 ```
 if you want to install PyTorch have a look at https://docs.astral.sh/uv/guides/integration/pytorch/
-```
 {%- elif environment_manager=='pixi' %}
 ### Pypi packages
 Add dependencies by running
