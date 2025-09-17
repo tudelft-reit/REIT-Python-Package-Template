@@ -193,6 +193,10 @@ In short, they boil down to running:
     ```bash
     uv publish
     ```
+
+If your package is private and you are using gitlab.ewi.tudelft.nl, you can publish it to it's private registry.
+This will let you do `pip install {{ project_name }}`.
+See the instructions [here](https://gitlab.ewi.tudelft.nl/reit/python-package-template/-/blob/main/GITLAB-PYPI.md).
 {%- elif environment_manager=='pixi' -%}
 Pixi does not support yet building and publishing conda packages.
 In the meantime, you can build and publish your package using [rattler-build](https://github.com/prefix-dev/rattler-build/) or [conda-build](https://docs.conda.io/projects/conda-build/en/latest/).
