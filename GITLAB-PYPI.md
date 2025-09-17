@@ -163,6 +163,7 @@ There are two options:
     ```
 
     > If the repository is not available under the group, use the project url instead.
+    >
     > url = "https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple"
 
 #### Build and upload
