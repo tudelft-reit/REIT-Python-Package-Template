@@ -160,6 +160,7 @@ There are two options:
     name = "gitlab"
     url = "https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple"
     publish-url = "https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi"
+    ignore-error-codes = [401,403]
     ```
 
     > If the repository is not available under the group, use the project url instead.
