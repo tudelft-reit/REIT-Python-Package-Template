@@ -158,9 +158,12 @@ There are two options:
     ```toml
     [[tool.uv.index]]
     name = "gitlab"
-    url = "https://gitlab.ewi.tudelft.nl/<group>/<repo name>/-/packages"
+    url = "https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple"
     publish-url = "https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi"
     ```
+
+    > If the repository is not available under the group, use the project url instead.
+    > url = "https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple"
 
 #### Build and upload
 
