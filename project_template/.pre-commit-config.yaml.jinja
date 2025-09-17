@@ -35,3 +35,9 @@ repos:
               ^.copier-answers.yml|
               ^.pre-commit-config.yaml
           )
+{% if environment_manager=='uv' %}
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.8.17
+    hooks:
+      - id: uv-lock
+{% endif -%}
