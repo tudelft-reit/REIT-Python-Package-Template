@@ -182,3 +182,35 @@ There are two options:
     ```bash
     uv publish --index gitlab
     ```
+
+## With `pixi`
+
+### Install a package
+
+#### One time setup
+
+1. Get a `PAT`, a `project ID`, a `group ID` and setup the `~/.netrc` file as described in the [section above](#one-time-setup).
+
+#### Install
+
+1. Add the index url to the `pyproject.toml` of your repo.
+    ```toml
+    [tool.pixi.pypi-options]
+    extra-index-urls = ["https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple"]
+    ```
+
+    > If the repository is not available under the group, use the project url instead.
+    >
+    > ```toml
+    > extra-index-urls = ["https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple"]
+    > ```
+
+2. Install the package
+    ```bash
+    pixi add --pypi <my package>
+    ```
+
+### Upload a package
+
+Gitlab EWI provides a PyPI registry, not a conda one.
+Hence it is not possible to upload conda packages to it.
