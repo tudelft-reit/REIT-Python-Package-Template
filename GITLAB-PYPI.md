@@ -3,6 +3,9 @@
 The GitLab EWI server can be used as a private PyPI package repository for your Python projects.
 This allows you to `pip install <your package>` in any python virtual environment while keeping your repository private.
 
+These instructions only work Linux and MacOS.
+If you are on Windows, you can use WSL or adapt the instructions to your OS.
+
 > The steps below do not work for GitHub because it does not have a python package registry.
 > Instead you can install directly from the repository:
 > ```bash
