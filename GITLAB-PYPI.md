@@ -24,6 +24,18 @@ The original source for the steps below can be found at
 1. Get a `PAT` (Personal Access Token) with `api` permission [for your EWI GitLab account](https://gitlab.ewi.tudelft.nl/-/user_settings/personal_access_tokens).
 2. Get the `project ID` of your repository and the `group ID` of the group the repository belongs to.
     * You can find it if you click on the three vertical dots next to the fork button for the project and next to the `New project` for the group.
+4. Add the credentials to `~/.netrc` to avoid typing the `PAT` each time.
+   Using the keystore is more secure but more complicated to setup.
+   If security is a concern, consider using it instead.
+    ```ini
+    machine gitlab.ewi.tudelft.nl
+        login __token__
+        password <PAT>
+    ```
+5. Restrict permissions to the file, as it contains passwords in plain text.
+    ```bash
+    chmod 600 .netrc
+    ```
 3. Configure the `~/.config/pip/pip.conf` file so that `pip` knows where to install packages from.
     ```ini
     [global]
@@ -48,16 +60,7 @@ The original source for the steps below can be found at
     >     https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple
     > ```
 
-4. Add the credentials to `~/.netrc` to avoid typing the `PAT` each time.
-    ```ini
-    machine gitlab.ewi.tudelft.nl
-        login __token__
-        password <PAT>
-    ```
-5. Restrict permissions to the file, as it contains passwords in plain text.
-    ```bash
-    chmod 600 .netrc
-    ```
+
 #### Install
 
 Install the package as usual
@@ -102,7 +105,7 @@ pip install <my package>
     > password = <PAT>
     > ```
 
-5. Restrict permissions to the file, as it contain passwords in plain text.
+5. Restrict permissions to the file, as it contains passwords in plain text.
     ```bash
     chmod 600 .pypirc
     ```
@@ -128,32 +131,37 @@ pip install <my package>
 
 #### One time setup
 
-1. Get a `PAT`, a `project ID` and a `group ID` as described in the [section above](#one-time-setup).
+1. Get a `PAT`, a `project ID`, a `group ID` and setup the `~/.netrc` file as described in the [section above](#one-time-setup).
 
 #### Install
 
-There are two options:
+Run the `uv add` command using the index of the group the repository belongs to:
 
-1. From the group that the repository belongs to (preferred)
-    ```bash
-    uv add \
-    --index-url https://<netid>:<PAT>@gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple \
-    <my package>
-    ```
+```bash
+uv add \
+--index-url https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple \
+<my package>
+```
 
-2. From the repository
-    ```bash
-    uv add \
-    --index-url https://<netid>:<PAT>@gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple \
-    <my package>
-    ```
+> If the repository is not available under the group, use the project url instead.
+> ```--index-url https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple ```
 
+> Alternatively, you can define the index in the `pyproject.toml` of your repo.
+>
+> ```toml
+> [[tool.uv.index]]
+> name = "gitlab"
+> url = "https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple"
+> ignore-error-codes = [401,403]
+> ```
+>
+> Then install the package with `uv add <my package>`.
 
 ### Upload a package
 
 #### One time setup
 
-1. Get a `PAT`, a `project ID` and a `group ID` as described in the [section above](#one-time-setup).
+1. Get a `PAT`, a `project ID`, a `group ID` and setup the `~/.netrc` file as described in the [section above](#one-time-setup).
 2. Define the index in `pyproject.toml` of your repo.
     ```toml
     [[tool.uv.index]]
