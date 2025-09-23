@@ -5,7 +5,7 @@ pre_commit_update:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   before_script:
     - uv venv
-    - uv pip install pre-commit
+    - uv pip install pre-commit Jinja2
     - git config --global user.email "gitlab-ci@example.com"
     - git config --global user.name "GitLab CI"
     - git branch --delete --force pre-commit-update || echo "No branch to delete"
@@ -13,9 +13,10 @@ pre_commit_update:
     - git switch --create pre-commit-update
     - uv run pre-commit autoupdate
     - cd project_template
-    - mv .pre-commit-config.yaml.jinja .pre-commit-config.yaml
+    - uv run ../render-precommit.py
     - uv run pre-commit autoupdate
     - mv .pre-commit-config.yaml .pre-commit-config.yaml.jinja
+    - uv run ../add-template-to-precommit.py
     - cd ..
     - git add -u
     # This line needs to be folded (>) to avoid a YAML syntax error
