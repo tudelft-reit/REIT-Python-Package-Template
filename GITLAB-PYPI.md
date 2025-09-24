@@ -3,20 +3,22 @@
 The GitLab EWI server can be used as a private PyPI package repository for your Python projects.
 This allows you to `pip install <your package>` in any python virtual environment while keeping your repository private.
 
-> The instructions below only work Linux and MacOS.
-> If you are on Windows, you can use WSL or adapt the instructions to your OS.
+This tutorial covers three different tools:
+- For `pip`, `twine` and `build`, go to the [pip, twine and build section](#with-pip-twine-and-build).
+- For `uv`, go to the [uv section](#with-uv).
+- For `pixi`, go to the [pixi section](#with-pixi).
 
+> [!note]
+> The instructions below only work Linux and MacOS.
+> If you are on Windows, you can use WSL or adapt the instructions manually to it.
+
+> [!caution]
 > The instructions below do not work for GitHub because it does not have a python package registry.
 > Instead you can install the code directly from the repository:
 > ```bash
 > pip install git+https://<username>:<PAT>@github.com/<repo>@<tag>
 > ```
 > where `<tag>` is the tag of the commit or a github tag.
-
-The original source for the steps below can be found at
-- https://docs.gitlab.com/user/packages/pypi_repository/
-- https://packaging.python.org/en/latest/specifications/pypirc/
-- https://pip.pypa.io/en/stable/topics/configuration/#naming
 
 ## With pip, twine and build
 
@@ -45,6 +47,7 @@ The original source for the steps below can be found at
     extra-index-url = https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple
     ```
 
+    > [!tip]
     > `pip` is configured with group access, so it has access to every repo under that group.
     > If you need access to more than one group, you can add new groups like so.
     >
@@ -55,6 +58,7 @@ The original source for the steps below can be found at
     >     https://gitlab.ewi.tudelft.nl/api/v4/groups/<other group ID>/-/packages/pypi/simple
     > ```
 
+    > [!tip]
     > `pip` can also be configured to access a single repo.
     >
     > ```ini
@@ -88,6 +92,7 @@ pip install <my package>
     password = <PAT>
     ```
 
+    > [!tip]
     > `twine` is configured per repository.
     > If you want to upload wheels for a new repository, you can do add new repos like so.
     >
@@ -146,9 +151,11 @@ uv add \
 <my package>
 ```
 
+> [!tip]
 > If the repository is not available under the group, use the project url instead.
 > ```--index-url https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple ```
 
+> [!tip]
 > Alternatively, you can define the index in the `pyproject.toml` of your repo.
 >
 > ```toml
@@ -174,6 +181,7 @@ uv add \
     ignore-error-codes = [401,403]
     ```
 
+    > [!tip]
     > If the repository is not available under the group, use the project url instead.
     >
     > url = "https://gitlab.ewi.tudelft.nl/api/v4/projects/<project ID>/packages/pypi/simple"
@@ -210,6 +218,7 @@ uv add \
     extra-index-urls = ["https://gitlab.ewi.tudelft.nl/api/v4/groups/<group ID>/-/packages/pypi/simple"]
     ```
 
+    > [!tip]
     > If the repository is not available under the group, use the project url instead.
     >
     > ```toml
@@ -225,3 +234,9 @@ uv add \
 
 Gitlab EWI provides a PyPI registry, not a conda one.
 Hence it is not possible to upload conda packages to it.
+
+## References
+
+- https://docs.gitlab.com/user/packages/pypi_repository/
+- https://packaging.python.org/en/latest/specifications/pypirc/
+- https://pip.pypa.io/en/stable/topics/configuration/#naming
