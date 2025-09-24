@@ -172,7 +172,7 @@ uv add \
 #### One time setup
 
 1. Get a `PAT`, a `project ID`, a `group ID` and setup the `~/.netrc` file as described in the [section above](#one-time-setup).
-2. Define the index in `pyproject.toml` of your repo.
+2. Define the index in the `pyproject.toml` of your repo.
     ```toml
     [[tool.uv.index]]
     name = "gitlab"
