@@ -12,6 +12,7 @@ dependencies = []
 {% if environment_manager=='pixi' -%}
 [project.optional-dependencies]
 dev = [
+  "pip>=25.2,<26",
 {%- elif environment_manager=='uv' -%}
 [tool.uv]
 dev-dependencies = [
