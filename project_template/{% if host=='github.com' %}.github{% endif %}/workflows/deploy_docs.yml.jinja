@@ -20,7 +20,7 @@ jobs:
           pixi-version: v0.55.0
       {%- elif environment_manager=='uv' -%}
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest
       {%- endif %}
