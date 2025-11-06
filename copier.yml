@@ -179,3 +179,6 @@ _tasks:
 
   - command: git commit --message "REIT python template setup"
     when: '{{ is_new_project }}'
+
+  - command: git tag v0.0.1
+    when: '{{ is_new_project }}'
