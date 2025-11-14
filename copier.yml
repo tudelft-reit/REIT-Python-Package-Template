@@ -23,10 +23,10 @@ project_name:
 host:
   type: str
   help: Where would you like to host your code?
-  default: gitlab.ewi.tudelft.nl
+  default: github.com
   choices:
-    gitlab.ewi.tudelft.nl [Recommended]: gitlab.ewi.tudelft.nl
     github.com: github.com
+    gitlab.ewi.tudelft.nl: gitlab.ewi.tudelft.nl
     gitlab.tudelft.nl [Discouraged]: gitlab.tudelft.nl
 
 org:
