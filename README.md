@@ -57,7 +57,6 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
     This will be used to name the project directory, the Python package, and the GitLab/GitHub repository.
     - `org`: the GitLab/GitHub owner of the project.
     - `host`: where to host the code: either `gitlab.tudelft`, `gitlab.ewi.tudelft` or `github`
-    - `python_name`: the name of the project when you do `import name` or `pip install name`.
     - `name` and `email`: the name and email of the author of the project.
     - `project_short_description`: a short description of the project.
     - `license`: the license to use for the project.
@@ -121,7 +120,7 @@ If you're taking code you've already written and want to use this template, you'
 
 1. Run the copier command from the [setting up a new project](#setting-up-a-new-project) section making sure you select the folder where your project is located.
     - Do the manual steps that are shown at the end of the script output.
-2. Move your library code into the `src/{{ python_name }}` directory.
+2. Move your library code into the `src/<project name>` directory.
     - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
 3. Move any tests you have into the `tests` directory.
 4. Go through the `pyproject.toml` file and make sure that the metadata is correct. This includes the `name`, `description`, `authors` and `license` fields.
