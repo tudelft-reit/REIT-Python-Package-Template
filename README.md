@@ -69,7 +69,9 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
 
 5. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
 
-6. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
+6. **Do the manual steps that are shown at the end of the script output.**.
+
+7. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
 
 ### File structure
 The project has the following structure:
