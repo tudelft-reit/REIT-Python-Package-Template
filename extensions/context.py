@@ -58,7 +58,7 @@ class ContextUpdater(ContextHook):
         context["is_python3_13_or_later"] = self.is_python3_13_or_later
 
 
-        if self.given_name is None or self.family_name is None and context["_copier_phase"] == "render":
+        if (self.given_name is None or self.family_name is None) and context["_copier_phase"] == "render":
             full_name: str = context["full_name"]
             if " " in full_name:
                 self.given_name, self.family_name = full_name.split(" ", 1)
