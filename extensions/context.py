@@ -31,6 +31,8 @@ class ContextUpdater(ContextHook):
 
         self.is_new_project: bool | None = None
         self.is_python3_13_or_later: bool | None = None
+        self.given_name: str | None = None
+        self.family_name: str | None = None
 
 
     def hook(self, context: dict) -> dict:
