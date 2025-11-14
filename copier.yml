@@ -53,6 +53,7 @@ python_name:
   type: str
   help: The Python package import name (for `import NAME` in Python code)
   default: "{{ project_name|lower|replace('-', '_')|replace(' ', '_') }}"
+  when: false  # Hide this question, we just have it to be able to compute the value
 
 full_name:
   type: str
