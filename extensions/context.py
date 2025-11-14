@@ -56,4 +56,16 @@ class ContextUpdater(ContextHook):
             self.is_python3_13_or_later = Version(context["min_python_version"]) >= Version("3.13")
 
         context["is_python3_13_or_later"] = self.is_python3_13_or_later
+
+
+        if self.given_name is None or self.family_name is None and context["_copier_phase"] == "render":
+            full_name: str = context["full_name"]
+            if " " in full_name:
+                self.given_name, self.family_name = full_name.split(" ", 1)
+            else:
+                self.given_name = full_name
+                self.family_name = ""
+
+        context["given_name"] = self.given_name
+        context["family_name"] = self.family_name
         return context
