@@ -17,7 +17,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.5
+    rev: v0.14.10
     hooks:
       # first, lint + autofix
       - id: ruff
@@ -27,7 +27,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/lyz-code/yamlfix
-    rev: 1.19.0
+    rev: 1.19.1
     hooks:
       - id: yamlfix
         exclude: |
@@ -37,7 +37,7 @@ repos:
           )
 {% if environment_manager=='uv' %}
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.9.11
+    rev: 0.9.18
     hooks:
       - id: uv-lock
 {% endif -%}
