@@ -92,7 +92,7 @@ license:
 
 min_python_version:
   type: str
-  help: What is the minimum version of Python your project will support?
+  help: What is the minimum version of Python your project will support? (must be 3.8 or higher)
   default: '3.10'
   validator: >-
     {% if not (min_python_version | regex_search('[3][.][0-9]+')) %}
