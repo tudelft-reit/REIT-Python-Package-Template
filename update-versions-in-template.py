@@ -2,9 +2,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
 
-template_file = Path(__file__).parent / "project_template/.pre-commit-config.yaml.jinja"
-rendered_file = Path(__file__).parent / "project_template/.pre-commit-config.yaml"
-temp_template_file = Path(__file__).parent / "project_template/.tmp-pre-commit-config.yaml.jinja"
+project_template_path = Path(__file__).parent / "project_template"
+
+template_file = project_template_path / ".pre-commit-config.yaml.jinja"
+rendered_file = project_template_path / ".pre-commit-config.yaml"
+temp_template_file = project_template_path / ".tmp-pre-commit-config.yaml.jinja"
 
 version_key = "rev:"
 
