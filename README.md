@@ -140,7 +140,7 @@ If you're taking code you've already written and want to use this template, you'
         ```
 6. Commit your changes
 7. Lint and format your whole repository
-    - Run the linter and formatter with with `uv run prek run --all` or with `pixi run -e dev prek run --all-files`
+    - Run the linter and formatter with with `uv run prek run --all-files` or with `pixi run -e dev prek run --all-files`
     - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally.
     - Commit your changes
 
