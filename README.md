@@ -7,7 +7,7 @@ This template is designed to help you get started with a new Python project, or 
 
 - The recommended `src/` layout for a Python package
 - A pre-configured `pyproject.toml` that controls your project metadata and dependencies
-- Linting + formatting via [ruff](https://docs.astral.sh/ruff/) and [pre-commit](https://pre-commit.com/)
+- Linting + formatting via [ruff](https://docs.astral.sh/ruff/) and [prek](https://prek.j178.dev)
 - [pytest](https://docs.pytest.org/en/stable/) setup and configured
 - Automatic version number management with git tags via [hatch-vcs](https://github.com/ofek/hatch-vcs)
 - Documentation generation via [mkdocs-material](https://squidfunk.github.io/mkdocs-material/)
@@ -103,7 +103,7 @@ Here's a brief overview of the files and directories that have been created:
 - `.pixi`: The python virtual environment folder if you chose Pixi
 - `.copier-answers.yml`: A file containing all your answers to copier.
 - `.gitignore`: A file that tells Git which files to ignore when committing changes.
-- `.pre-commit-config.yaml`: A configuration file for the `pre-commit` tool, which runs code checks and formatting on every commit.
+- `.pre-commit-config.yaml`: A configuration file for the `prek` tool, which runs code checks and formatting on every commit.
 - `.gitlab or .github /workflows/test_code.yml`: A workflow for testing your code with a GitLab/Github action.
 - `.gitlab or .github /workflows/deploy_docs.yml`: A workflow for deploying your documentation with a GitLab/Github action.
 - `LICENSE`: A copy of the license you chose for your project.
@@ -140,7 +140,7 @@ If you're taking code you've already written and want to use this template, you'
         ```
 6. Commit your changes
 7. Lint and format your whole repository
-    - Run the linter and formatter with with `uv run pre-commit run --all` or with `pixi run -e dev pre-commit run --all-files`
+    - Run the linter and formatter with with `uv run prek run --all` or with `pixi run -e dev prek run --all-files`
     - If there are too many linting errors, add `# noqa` flags via `uvx ruff check --add-noqa` and fix them incrementally.
     - Commit your changes
 
@@ -164,11 +164,11 @@ If you want to make your own changes to this template:
     ```bash
     git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
     ```
-2. Create a virtual environment and install pre-commit
+2. Create a virtual environment and install prek
     ```bash
     uv venv
-    uv pip install pre-commit
-    uv run pre-commit install
+    uv pip install prek
+    uv run prek install
     ```
 3. Test your local changes by generating a new project with
     ```bash

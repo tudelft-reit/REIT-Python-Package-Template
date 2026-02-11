@@ -5,26 +5,26 @@ pre_commit_update:
     - if: $CI_PIPELINE_SOURCE == "schedule"
   before_script:
     - uv venv
-    - uv pip install pre-commit Jinja2
+    - uv pip install prek Jinja2
     - git config --global user.email "gitlab-ci@example.com"
     - git config --global user.name "GitLab CI"
-    - git branch --delete --force pre-commit-update || echo "No branch to delete"
+    - git branch --delete --force prek-update || echo "No branch to delete"
   script:
-    - git switch --create pre-commit-update
-    - uv run pre-commit autoupdate
+    - git switch --create prek-update
+    - uv run prek autoupdate
     - cd project_template
     - uv run ../render-precommit.py
-    - uv run pre-commit autoupdate
+    - uv run prek autoupdate
     - mv .pre-commit-config.yaml .pre-commit-config.yaml.jinja
     - uv run ../add-template-to-precommit.py
     - cd ..
     - git add -u
     # This line needs to be folded (>) to avoid a YAML syntax error
     - >
-      git commit -m "chore: update pre-commit hooks" || echo "No changes to commit"
+      git commit -m "chore: update prek hooks" || echo "No changes to commit"
     - >-
       git push
       "https://${GITLAB_USER_LOGIN}:${CI_GIT_TOKEN}@gitlab.ewi.tudelft.nl/reit/python-package-template.git"
-      HEAD:pre-commit-update
+      HEAD:prek-update
       --push-option="merge_request.create"
       --push-option="merge_request.target=main"

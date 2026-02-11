@@ -10,10 +10,10 @@ pytest_commit:
     {%- endif %}
   script:
     {% if environment_manager=='pixi' -%}
-    - pixi run -e dev pre-commit run --all
+    - pixi run -e dev prek run --all-files
     - pixi run -e dev pytest --cov=src --cov-report term ./tests
     {%- elif environment_manager=='uv' -%}
-    - uv run pre-commit run --all
+    - uv run prek run --all-files
     - uv run pytest --cov=src --cov-report term ./tests
     {%- endif %}
 

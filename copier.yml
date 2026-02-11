@@ -156,7 +156,7 @@ _tasks:
     ###
   - command: uv sync
     when: "{{ environment_manager=='uv' }}"
-  - command: uv run pre-commit install
+  - command: uv run prek install
     when: "{{ environment_manager=='uv' }}"
 
     ###
@@ -166,7 +166,7 @@ _tasks:
     when: "{{ environment_manager=='pixi' }}"
   - command: pixi install --all
     when: "{{ environment_manager=='pixi' }}"
-  - command: pixi run --environment dev pre-commit install
+  - command: pixi run --environment dev prek install
     when: "{{ environment_manager=='pixi' }}"
 
     ###
