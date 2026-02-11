@@ -15,8 +15,8 @@ pre_commit_update:
     - cd project_template
     - uv run ../render-precommit.py
     - uv run prek auto-update
-    - mv .pre-commit-config.yaml .pre-commit-config.yaml.jinja
-    - uv run ../add-template-to-precommit.py
+    - uv run ../update-versions-in-template.py
+    - rm .pre-commit-config.yaml
     - cd ..
     - git add -u
     # This line needs to be folded (>) to avoid a YAML syntax error
