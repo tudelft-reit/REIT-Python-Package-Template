@@ -1,5 +1,5 @@
 # Check that creating a new project using the template works.
-# This includes running pre-commit and pytest on the created project.
+# This includes running prek and pytest on the created project.
 test_project_generation:
   stage: test
   rules:
@@ -42,13 +42,13 @@ test_project_generation:
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
       - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
 
-# Run pre-commit checks for the project template itself.
+# Run prek checks for the project template itself.
 test_pre_commit:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   stage: test
   before_script:
     - uv venv
-    - uv pip install pre-commit
+    - uv pip install prek
   script:
-    - uv run pre-commit run --all
+    - uv run prek run --all-files
