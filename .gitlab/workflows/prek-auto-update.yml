@@ -11,10 +11,10 @@ pre_commit_update:
     - git branch --delete --force prek-update || echo "No branch to delete"
   script:
     - git switch --create prek-update
-    - uv run prek autoupdate
+    - uv run prek auto-update
     - cd project_template
     - uv run ../render-precommit.py
-    - uv run prek autoupdate
+    - uv run prek auto-update
     - mv .pre-commit-config.yaml .pre-commit-config.yaml.jinja
     - uv run ../add-template-to-precommit.py
     - cd ..
