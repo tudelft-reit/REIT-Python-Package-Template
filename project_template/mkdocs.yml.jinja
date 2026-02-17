@@ -1,4 +1,3 @@
----
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: {{ project_name }}
 site_description: Documentation for {{ project_name }}
@@ -19,7 +18,7 @@ theme:
     repo: fontawesome/brands/github
   palette:
     # Light mode
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       primary: blue grey
       accent: orange
@@ -27,7 +26,7 @@ theme:
         icon: material/weather-night
         name: Switch to dark mode
     # Dark mode
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       primary: blue grey
       accent: orange
@@ -35,7 +34,7 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   font:
-    code: "JetBrains Mono"
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.top
@@ -65,9 +64,9 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.keys:
       key_map:
-        click: "Click"
-        left-click: "Left Click"
-        right-click: "Right Click"
+        click: Click
+        left-click: Left Click
+        right-click: Right Click
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.saneheaders
