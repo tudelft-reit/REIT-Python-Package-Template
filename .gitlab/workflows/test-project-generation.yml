@@ -39,8 +39,12 @@ test_project_generation:
           -d min_python_version=$PYTHON_VERSION
           . python-template-uv-example
       - cd python-template-uv-example
+
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
+      - if [ "$ENV_MANAGER" == "uv" ]; then uv run mkdocs build; fi
+
       - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
+      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev mkdocs build; fi
 
 # Run prek checks for the project template itself.
 test_pre_commit:
