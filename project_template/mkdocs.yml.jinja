@@ -1,15 +1,94 @@
-site_name: Documentation
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: {{ project_name }}
+site_description: Documentation for {{ project_name }}
+site_author: {{ full_name }}
+
+docs_dir: docs/
+repo_url: {{ url }}
 
 nav:
-  - Home: index.md
+  - Home:
+      - index.md
 
-theme: material
+theme:
+  name: material
+  language: en
+  icon:
+    logo: fontawesome/solid/book
+    repo: fontawesome/brands/github
+  palette:
+    # Light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: blue grey
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - content.code.annotate
+    - content.code.copy
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      guess_lang: false
+  - pymdownx.inlinehilite
+  - pymdownx.keys:
+      key_map:
+        click: Click
+        left-click: Left Click
+        right-click: Right Click
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.saneheaders
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
 
 plugins:
   - autorefs:
       resolve_closest: true
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
   - mkdocstrings:
       handlers:
         python:
           options:
+            show_docstring_attributes: true
+            show_root_toc_entry: false
             show_submodules: true
