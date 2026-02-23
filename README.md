@@ -72,6 +72,52 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
 
 7. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
 
+### Non-interactive installation
+
+For automated workflows or CI/CD pipelines, you can skip the interactive prompts using copier's `--defaults` flag combined with `--data` arguments.
+
+**Minimal command (accepts all defaults):**
+```bash
+copier copy --trust --defaults \
+  --data project_name=my-package \
+  git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
+```
+
+**With custom values:**
+```bash
+copier copy --trust --defaults \
+  --data project_name=my-package \
+  --data host=gitlab.ewi.tudelft.nl \
+  --data org=my-group \
+  --data license=MIT \
+  --data min_python_version=3.12 \
+  --data environment_manager=uv \
+  git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
+```
+
+**Using an answers file:**
+
+You can also provide answers via a YAML file. See `copier-answers-example.yml` for a template.
+
+```bash
+copier copy --trust --defaults \
+  --data-file copier-answers-example.yml \
+  git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
+```
+
+Available parameters and their defaults:
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `project_name` | (required) | Project name (no spaces) |
+| `host` | `github.com` | `github.com`, `gitlab.ewi.tudelft.nl`, or `gitlab.tudelft.nl` |
+| `org` | `$USER` | GitHub/GitLab user or group |
+| `full_name` | git config user.name | Author name |
+| `email` | git config user.email | Author email |
+| `project_short_description` | `A great package.` | Brief project description |
+| `license` | `GPL` | `GPL`, `BSD`, `Apache`, `MIT`, or `No license` |
+| `min_python_version` | `3.10` | Minimum Python version (3.8+) |
+| `environment_manager` | `uv` | `uv` or `pixi` |
+
 ### File structure
 The project has the following structure:
 

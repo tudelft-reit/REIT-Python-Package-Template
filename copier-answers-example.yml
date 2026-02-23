@@ -1,0 +1,37 @@
+# Example answers file for non-interactive copier installation
+# Usage: copier copy --trust --defaults --data-file copier-answers-example.yml \
+#          git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
+#
+# Copy this file, modify the values, and use it with the --data-file flag.
+# Parameters with defaults can be omitted to use the default value.
+
+# Required: Project name (no spaces allowed)
+project_name: my-package
+
+# Git hosting platform
+# Options: github.com, gitlab.ewi.tudelft.nl, gitlab.tudelft.nl
+host: github.com
+
+# GitHub/GitLab user or group name
+# Defaults to your system username if omitted
+org: my-username
+
+# Author name (defaults to git config user.name)
+full_name: Your Name
+
+# Author email (defaults to git config user.email)
+email: your.email@example.com
+
+# Brief project description
+project_short_description: A great package.
+
+# License type
+# Options: GPL, BSD, Apache, MIT, No license
+license: MIT
+
+# Minimum Python version (must be 3.8 or higher)
+min_python_version: "3.10"
+
+# Virtual environment manager
+# Options: uv (pip only), pixi (conda and pip)
+environment_manager: uv
