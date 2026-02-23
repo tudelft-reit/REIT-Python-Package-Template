@@ -74,30 +74,26 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
 
 ### Non-interactive installation
 
-For automated workflows or CI/CD pipelines, you can skip the interactive prompts using copier's `--defaults` flag combined with `--data` arguments.
+You can pre-fill answers using `--data` flags to skip specific prompts. Use `--defaults` to also accept default values for any remaining parameters.
 
-**Minimal command (accepts all defaults):**
+**Pre-fill specific values (prompts for the rest):**
 ```bash
-copier copy --trust --defaults \
+copier copy --trust \
   --data project_name=my-package \
+  --data host=gitlab.ewi.tudelft.nl \
   git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
 ```
 
-**With custom values:**
+**Fully non-interactive (accepts defaults for unprovided values):**
 ```bash
 copier copy --trust --defaults \
   --data project_name=my-package \
-  --data host=gitlab.ewi.tudelft.nl \
-  --data org=my-group \
-  --data license=MIT \
-  --data min_python_version=3.12 \
-  --data environment_manager=uv \
   git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package
 ```
 
 **Using an answers file:**
 
-You can also provide answers via a YAML file. See `copier-answers-example.yml` for a template.
+You can provide answers via a YAML file. See `copier-answers-example.yml` for a template.
 
 ```bash
 copier copy --trust --defaults \
