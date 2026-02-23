@@ -14,7 +14,7 @@ host: github.com
 
 # GitHub/GitLab user or group name
 # Defaults to your system username if omitted
-org: my-username
+org: TU-Delft
 
 # Author name (defaults to git config user.name)
 full_name: Your Name
