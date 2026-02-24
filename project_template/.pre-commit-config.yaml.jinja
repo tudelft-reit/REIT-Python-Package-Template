@@ -20,7 +20,7 @@ repos:
         args: ["--pytest-test-first"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.13
+    rev: v0.15.2
     hooks:
       # first, lint + autofix
       - id: ruff
@@ -40,7 +40,7 @@ repos:
           )
 {% if environment_manager=='uv' %}
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.9.26
+    rev: 0.10.4
     hooks:
       - id: uv-lock
 {% endif -%}
