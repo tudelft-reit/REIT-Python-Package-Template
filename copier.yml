@@ -42,12 +42,19 @@ org:
     {%- endif -%}
   validator: >-
     {% if not org %} You must provide a org for the project. It might just be
-    your user name on the site (like GitHub) you are targeting. {% endif %}
+    your user name on the site (like GitHub) you are targeting.
+    {% elif org != (org | trim) %}
+    Your must provide an org without leading or trailing spaces.
+    {% endif %}
 
 url:
   type: str
   help: Provide/modify the url to the {{host}} repository if needed.
   default: https://{{host}}/{{org}}/{{project_name}}
+  validator: >-
+    {% if ' ' in url %}
+    You must provide a url without spaces.
+    {% endif %}
 
 python_name:
   type: str
@@ -61,7 +68,10 @@ full_name:
   default: "{{ 'git config user.name' | shell() | trim }}"
   validator: >-
     {% if not full_name %} You must provide a name (possibly yours) to place in
-    your config files. {% endif %}
+    your config files.
+    {% elif full_name != (full_name | trim) %}
+    Your must provide a name without leading or trailing spaces.
+    {% endif %}
 
 email:
   type: str
