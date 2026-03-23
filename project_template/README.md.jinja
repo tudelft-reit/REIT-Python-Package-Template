@@ -144,11 +144,11 @@ This will run the checks on all files in your git project, regardless of whether
 Generate the documentation locally with
 {% if environment_manager=='uv' %}
 ```bash
-uv run mkdocs serve --livereload --watch ./
+uv run zensical serve
 ```
 {%- elif environment_manager=='pixi' %}
 ```bash
-pixi run -e dev mkdocs serve --livereload --watch ./
+pixi run -e dev zensical serve
 ```
 {% endif %}
 
