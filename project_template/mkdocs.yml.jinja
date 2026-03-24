@@ -1,9 +1,7 @@
-# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: {{ project_name }}
 site_description: Documentation for {{ project_name }}
 site_author: {{ full_name }}
 
-docs_dir: docs/
 repo_url: {{ url }}
 
 nav:
@@ -11,88 +9,72 @@ nav:
       - index.md
 
 theme:
-  name: material
   language: en
   icon:
     logo: fontawesome/solid/book
-    repo: fontawesome/brands/github
-  palette:
-    # Light mode
-    - media: '(prefers-color-scheme: light)'
-      scheme: default
-      primary: blue grey
-      accent: orange
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-    # Dark mode
-    - media: '(prefers-color-scheme: dark)'
-      scheme: slate
-      primary: blue grey
-      accent: orange
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-  font:
-    code: JetBrains Mono
+    {% if host=='github.com' %}repo: fontawesome/brands/github{% elif 'gitlab' in host %}repo: fontawesome/brands/gitlab{% endif %}
   features:
-    - navigation.tabs
-    - navigation.top
-    - navigation.indexes
+    - content.action.edit
+    - content.action.view
     - content.code.annotate
     - content.code.copy
-
-markdown_extensions:
-  - abbr
-  - admonition
-  - attr_list
-  - def_list
-  - footnotes
-  - toc:
-      permalink: true
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.caret
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.highlight:
-      guess_lang: false
-  - pymdownx.inlinehilite
-  - pymdownx.keys:
-      key_map:
-        click: Click
-        left-click: Left Click
-        right-click: Right Click
-  - pymdownx.magiclink
-  - pymdownx.mark
-  - pymdownx.saneheaders
-  - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
+    - content.tooltips
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+  palette:  # Automatic light/dark mode: https://zensical.org/docs/setup/colors/#automatic-light-dark-mode
+    - media: (prefers-color-scheme)
+      toggle:
+        icon: lucide/sun-moon
+        name: Switch to light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      toggle:
+        icon: lucide/sun
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      toggle:
+        icon: lucide/moon
+        name: Switch to system preference
 
 plugins:
-  - autorefs:
-      resolve_closest: true
-  - search
-  - git-revision-date-localized:
-      enable_creation_date: true
-      fallback_to_build_date: true
   - mkdocstrings:
       handlers:
-        python:
+        python:  # Based on recommended settings: https://mkdocstrings.github.io/python/usage/#recommended-settings
+          paths: [src]
+          inventories:
+            - https://docs.python.org/3/objects.inv
           options:
-            show_root_toc_entry: false
-            separate_signature: true
+            # Docstrings
             docstring_options:
               ignore_init_summary: true
-            merge_init_into_class: true
-            show_signature_annotations: true
+            docstring_section_style: list
+            # Cross referencing
+            relative_crossrefs: true
+            scoped_crossrefs: true
             signature_crossrefs: true
+            unwrap_annotated: true
+            # Members
+            inherited_members: true
+            summary: true
+            # Headings
+            heading_level: 1
+            parameter_headings: true
+            type_parameter_headings: true
+            show_root_heading: false
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            # Signatures
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true
+            show_signature_type_parameters: true
+            # Other
+            backlinks: tree
+            show_bases: false
+            show_inheritance_diagram: true
