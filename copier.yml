@@ -88,6 +88,10 @@ project_short_description:
   type: str
   help: Write a short description of your project.
   default: A great package.
+  validator: >-
+    {% if project_short_description != (project_short_description | trim) %}
+    Your must provide a description without leading or trailing spaces.
+    {% endif %}
 
 license:
   type: str
