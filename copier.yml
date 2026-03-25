@@ -109,8 +109,12 @@ min_python_version:
   help: What is the minimum version of Python your project will support? (must be 3.8 or higher)
   default: '3.10'
   validator: >-
-    {% if not (min_python_version | regex_search('[3][.][0-9]+')) %}
-    Please supply a valid Python 3 version (e.g. 3.11).
+    {% if min_python_version != (min_python_version | trim) %}
+    Please provide the Python version without leading or trailing spaces.
+    {% elif not (min_python_version | regex_search('^3\.[0-9]+(?:\.[0-9]+)?$')) %}
+    Please supply a valid Python 3 version in the form 3.X or 3.X.Y (e.g. 3.11 or 3.11.4).
+    {% elif (min_python_version.split('.')[1] | int) < 8 %}
+    Please supply a minimum Python version of 3.8 or higher.
     {% endif %}
 
 environment_manager:
