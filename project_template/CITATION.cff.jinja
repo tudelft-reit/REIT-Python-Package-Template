@@ -7,7 +7,9 @@ type: software
 version: 0.0.1
 authors:
   - given-names: {{ given_name }}
+{%- if family_name %}
     family-names: {{ family_name }}
+{%- endif %}
     email: {{ email }}
     affiliation: TU Delft
 repository-code: {{ url }}
