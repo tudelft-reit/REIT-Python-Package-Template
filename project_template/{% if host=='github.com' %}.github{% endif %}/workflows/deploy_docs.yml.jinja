@@ -7,9 +7,14 @@ on:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: {% raw %}${{ steps.deployment.outputs.page_url }}{% endraw %}
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+      id-token: write
+      pages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,9 +38,16 @@ jobs:
         run: uv sync
         {%- endif %}
 
-      - name: Build and deploy with mkdocs
+      - name: Build and deploy with zensical
         {% if environment_manager=='pixi' -%}
-        run: pixi run -e dev mkdocs gh-deploy --force
+        run: pixi run -e dev zensical build --clean
         {%- elif environment_manager=='uv' -%}
-        run: uv run mkdocs gh-deploy --force
+        run: uv run zensical build --clean
         {%- endif %}
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - uses: actions/deploy-pages@v4
+        id: deployment
