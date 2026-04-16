@@ -10,12 +10,11 @@ pages:
     {%- endif %}
   script:
     {% if environment_manager=='pixi' -%}
-    - pixi run -e dev mkdocs build --strict --verbose --site-dir public
+    - pixi run -e dev zensical build --clean
     {%- elif environment_manager=='uv' -%}
-    - uv run mkdocs build --strict --verbose --site-dir public
+    - uv run zensical build --clean
     {%- endif %}
-  artifacts:
-    paths:
-      - public
+  pages:
+    publish: site
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH  # Only run on the main branch
