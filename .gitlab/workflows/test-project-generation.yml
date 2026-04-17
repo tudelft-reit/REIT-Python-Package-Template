@@ -8,6 +8,7 @@
     - uv venv
     - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
   script:
+      - set -x
       - export PATH="/root/.local/bin:$PATH"
       - git config --global user.name "$GIT_NAME"
       - git config --global user.email "python-template@tudelft.nl"
