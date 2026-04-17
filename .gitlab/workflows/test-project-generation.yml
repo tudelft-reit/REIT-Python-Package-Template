@@ -25,7 +25,7 @@
           -d environment_manager=$ENV_MANAGER
           ${HOST:+-d host=$HOST}
           ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
-          ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description=$PROJECT_SHORT_DESCRIPTION}
+          ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
           . $PROJECT_DIR
       - cd $PROJECT_DIR
 
