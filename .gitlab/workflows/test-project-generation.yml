@@ -1,28 +1,16 @@
 # Check that creating a new project using the template works.
 # This includes running prek and pytest on the created project.
-test_project_generation:
+.test_project_generation_base:
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
-  parallel:
-    # Test for uv and pixi with with both hosts and two python versions
-    matrix:
-      - ENV_MANAGER: uv
-        HOST: [gitlab.ewi.tudelft.nl, github.com]
-        PYTHON_VERSION: "3.10"
-      - ENV_MANAGER: pixi
-        HOST: [gitlab.ewi.tudelft.nl, github.com]
-        PYTHON_VERSION: "3.10"
-      - ENV_MANAGER: uv
-        HOST: gitlab.ewi.tudelft.nl
-        PYTHON_VERSION: "3.13"
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
   script:
       - export PATH="/root/.local/bin:$PATH"
-      - git config --global user.name "Python Template"
-      - git config --global user.email "pyton-template@tudelft.nl"
+      - git config --global user.name "$GIT_NAME"
+      - git config --global user.email "python-template@tudelft.nl"
       - >
         if [ "$ENV_MANAGER" == "pixi" ]; then
           curl -fsSL https://pixi.sh/install.sh | bash
@@ -33,18 +21,58 @@ test_project_generation:
           --defaults
           --trust
           --vcs-ref HEAD
-          -d project_name=python-template-uv-example
+          -d project_name=$PROJECT_DIR
           -d environment_manager=$ENV_MANAGER
-          -d host=$HOST
-          -d min_python_version=$PYTHON_VERSION
-          . python-template-uv-example
-      - cd python-template-uv-example
+          ${HOST:+-d host=$HOST}
+          ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
+          ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description=$PROJECT_SHORT_DESCRIPTION}
+          . $PROJECT_DIR
+      - cd $PROJECT_DIR
 
       - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
-      - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build; fi
+      - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
 
       - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
-      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build; fi
+      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
+
+test_project_generation:
+  extends: .test_project_generation_base
+  parallel:
+    # Test for uv and pixi with both hosts and two python versions
+    matrix:
+      - ENV_MANAGER: uv
+        HOST: [gitlab.ewi.tudelft.nl, github.com]
+        PYTHON_VERSION: "3.10"
+      - ENV_MANAGER: pixi
+        HOST: [gitlab.ewi.tudelft.nl, github.com]
+        PYTHON_VERSION: "3.10"
+      - ENV_MANAGER: uv
+        HOST: gitlab.ewi.tudelft.nl
+        PYTHON_VERSION: "3.13"
+  variables:
+    PROJECT_DIR: python-template-uv-example
+    GIT_NAME: "Python Template"
+
+test_project_generation_defaults:
+  extends: .test_project_generation_base
+  variables:
+    ENV_MANAGER: uv
+    PROJECT_DIR: python-template-defaults-example
+    GIT_NAME: "Python Template"
+
+test_project_generation_no_surname:
+  extends: .test_project_generation_base
+  variables:
+    ENV_MANAGER: uv
+    PROJECT_DIR: python-template-no-surname
+    GIT_NAME: "Python-Template-No-Surname"
+
+test_project_generation_long_description:
+  extends: .test_project_generation_base
+  variables:
+    ENV_MANAGER: uv
+    PROJECT_DIR: python-template-long-description
+    PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
 
 # Run prek checks for the project template itself.
 test_pre_commit:
