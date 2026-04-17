@@ -4,6 +4,8 @@
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
+  variables:
+    PROJECT_DIR: python-template-example
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
@@ -36,6 +38,9 @@
     - if [ "${ENV_MANAGER:-uv}" == "pixi" ]; then pixi run -e dev pytest; fi
     - if [ "${ENV_MANAGER:-uv}" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
 
+test_project_generation_defaults:
+  extends: .test_project_generation_base
+
 test_project_generation:
   extends: .test_project_generation_base
   parallel:
@@ -50,24 +55,15 @@ test_project_generation:
       - ENV_MANAGER: uv
         HOST: gitlab.ewi.tudelft.nl
         PYTHON_VERSION: "3.13"
-  variables:
-    PROJECT_DIR: python-template-uv-example
-
-test_project_generation_defaults:
-  extends: .test_project_generation_base
-  variables:
-    PROJECT_DIR: python-template-defaults-example
 
 test_project_generation_no_surname:
   extends: .test_project_generation_base
   variables:
-    PROJECT_DIR: python-template-no-surname
     GIT_NAME: "Python-Template-No-Surname"
 
 test_project_generation_long_description:
   extends: .test_project_generation_base
   variables:
-    PROJECT_DIR: python-template-long-description
     PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
 
 # Run prek checks for the project template itself.
