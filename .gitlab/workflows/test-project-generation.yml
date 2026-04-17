@@ -73,6 +73,7 @@ test_project_generation_long_description:
     ENV_MANAGER: uv
     PROJECT_DIR: python-template-long-description
     PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
+    GIT_NAME: "Python Template"
 
 # Run prek checks for the project template itself.
 test_pre_commit:
