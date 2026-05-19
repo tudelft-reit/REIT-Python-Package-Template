@@ -6,6 +6,7 @@
     - if: $CI_PIPELINE_SOURCE == "push"
   variables:
     PROJECT_DIR: python-template-example
+    ENV_MANAGER: uv
   before_script:
     - uv venv
     - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
@@ -15,7 +16,7 @@
     - git config --global user.name "${GIT_NAME:-Python Template}"
     - git config --global user.email "python-template@tudelft.nl"
     - >
-      if [ "${ENV_MANAGER:-uv}" == "pixi" ]; then
+      if [ "$ENV_MANAGER" == "pixi" ]; then
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
@@ -25,18 +26,18 @@
         --trust
         --vcs-ref HEAD
         -d project_name=$PROJECT_DIR
-        -d environment_manager=${ENV_MANAGER:-uv}
+        -d environment_manager=$ENV_MANAGER
         ${HOST:+-d host=$HOST}
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
         . $PROJECT_DIR
     - cd $PROJECT_DIR
 
-    - if [ "${ENV_MANAGER:-uv}" == "uv" ]; then uv run pytest; fi
-    - if [ "${ENV_MANAGER:-uv}" == "uv" ]; then uv run zensical build --clean; fi
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
 
-    - if [ "${ENV_MANAGER:-uv}" == "pixi" ]; then pixi run -e dev pytest; fi
-    - if [ "${ENV_MANAGER:-uv}" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
 
 test_project_generation_defaults:
   extends: .test_project_generation_base
