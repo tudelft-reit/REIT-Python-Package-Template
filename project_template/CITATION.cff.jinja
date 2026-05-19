@@ -13,7 +13,18 @@ authors:
     email: {{ email }}
     affiliation: TU Delft
 repository-code: {{ url }}
-license: {{ license }}
+{%- if license in ["GPL", "BSD", "Apache", "MIT"] %}
+license: >-
+  {%- if license == "GPL" -%}
+    GPL-3.0-or-later
+  {%- elif license == "BSD" -%}
+    BSD-4-Clause
+  {%- elif license == "Apache" -%}
+    Apache-2.0
+  {%- elif license == "MIT" -%}
+    MIT
+  {%- endif -%}
+{%- endif %}
 # identifiers:
 #   - type: doi
 #     value: 10.5281/zenodo.1234 # Uncomment this and replace it with a real DOI

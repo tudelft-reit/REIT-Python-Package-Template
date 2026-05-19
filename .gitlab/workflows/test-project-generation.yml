@@ -29,6 +29,7 @@
         ${HOST:+-d host=$HOST}
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
+        ${LICENSE:+-d license="$LICENSE"}
         . $PROJECT_DIR
     - cd $PROJECT_DIR
 
@@ -67,6 +68,12 @@ test_project_generation_long_description:
   extends: .test_project_generation_base
   variables:
     PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
+
+test_project_generation_licenses:
+  extends: .test_project_generation_base
+  parallel:
+    matrix:
+      - LICENSE: [GPL, BSD, Apache, MIT, "No license (others may not use, share or modify the code)"]
 
 # Run prek checks for the project template itself.
 test_pre_commit:
