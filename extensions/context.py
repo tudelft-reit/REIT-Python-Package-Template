@@ -31,8 +31,28 @@ class ContextUpdater(ContextHook):
 
         self.is_new_project: bool | None = None
         self.is_python3_13_or_later: bool | None = None
+        self.has_ssh_access: bool | None = None
         self.given_name: str | None = None
         self.family_name: str | None = None
+
+    def _can_connect_via_ssh(self, host: str) -> bool:
+        try:
+            ret = subprocess.run(["ssh", "-T", "-o", "ConnectTimeout=3", f"git@{host}"],
+                capture_output=True,
+                text=True,
+                timeout=5,
+            )
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            return False
+
+        output = (ret.stdout + ret.stderr).lower()
+        if "permission denied" in output:
+            return False
+
+        return (
+            "You've successfully authenticated".lower() in output
+            or "Welcome to GitLab".lower() in output
+        )
 
 
     def hook(self, context: dict) -> dict:
@@ -51,6 +71,11 @@ class ContextUpdater(ContextHook):
                     exit(-1)
 
         context["is_new_project"] = self.is_new_project
+
+        if self.has_ssh_access is None and context["_copier_phase"] == "render":
+            self.has_ssh_access = self._can_connect_via_ssh(context["host"])
+
+        context["has_ssh_access"] = self.has_ssh_access
 
         if self.is_python3_13_or_later is None and context["_copier_phase"] == "render":
             self.is_python3_13_or_later = Version(context["min_python_version"]) >= Version("3.13")

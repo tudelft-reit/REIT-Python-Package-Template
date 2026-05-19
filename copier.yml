@@ -147,10 +147,6 @@ _message_after_copy: |
           {% endif %}
 
           {%- if is_new_project -%}
-          - [Optional step] Set the remote to use ssh instead of https
-
-              git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
-
           - Push the commit to a new repo on {{host}}
               {%- if host=='github.com' -%}
               . Go to https://github.com/new
@@ -190,7 +186,12 @@ _tasks:
     ###
     # Git repo setup
     ###
-  - command: git remote add origin {{ url }}.git
+  - command: >-
+      {% if has_ssh_access %}
+      git remote add origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
+      {% else %}
+      git remote add origin {{ url }}.git
+      {% endif %}
     when: '{{ is_new_project }}'
 
   - command: git add --all
