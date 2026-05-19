@@ -13,7 +13,10 @@ authors:
     email: {{ email }}
     affiliation: TU Delft
 repository-code: {{ url }}
-license: {{ license }}
+{%- set license_map = {"GPL": "GPL-3.0-or-later", "BSD": "BSD-3-Clause", "Apache": "Apache-2.0", "MIT": "MIT"} %}
+{%- if license in license_map %}
+license: {{ license_map[license] }}
+{%- endif %}
 # identifiers:
 #   - type: doi
 #     value: 10.5281/zenodo.1234 # Uncomment this and replace it with a real DOI
