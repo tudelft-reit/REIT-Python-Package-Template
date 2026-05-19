@@ -44,7 +44,7 @@ test_project_generation_defaults:
 test_project_generation:
   extends: .test_project_generation_base
   parallel:
-    # Test for uv and pixi with both hosts and two python versions
+    # Test for uv and pixi with both hosts, also test uv with a different python python version.
     matrix:
       - ENV_MANAGER: uv
         HOST: [gitlab.ewi.tudelft.nl, github.com]
