@@ -46,8 +46,6 @@ class ContextUpdater(ContextHook):
             return False
 
         output = (ret.stdout + ret.stderr).lower()
-        if "permission denied" in output:
-            return False
 
         return (
             "You've successfully authenticated".lower() in output
