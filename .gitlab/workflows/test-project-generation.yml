@@ -1,11 +1,53 @@
 # Check that creating a new project using the template works.
 # This includes running prek and pytest on the created project.
-test_project_generation:
+.test_project_generation_base:
   stage: test
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
+  variables:
+    PROJECT_DIR: python-template-example
+    ENV_MANAGER: uv
+  before_script:
+    - uv venv
+    - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
+  script:
+    - export PATH="/root/.local/bin:$PATH"
+    - git config --global user.name "${GIT_NAME:-Python Template}"
+    - git config --global user.email "python-template@tudelft.nl"
+    - >
+      if [ "$ENV_MANAGER" == "pixi" ]; then
+        curl -fsSL https://pixi.sh/install.sh | bash
+        export PATH="/root/.pixi/bin:$PATH"
+      fi
+    - >
+        copier copy
+        --defaults
+        --trust
+        --vcs-ref HEAD
+        -d project_name=$PROJECT_DIR
+        -d environment_manager=$ENV_MANAGER
+        ${HOST:+-d host=$HOST}
+        ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
+        ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
+        ${LICENSE:+-d license="$LICENSE"}
+        . $PROJECT_DIR
+    - cd $PROJECT_DIR
+
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
+
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
+
+    - uvx cffconvert --validate -i CITATION.cff
+
+test_project_generation_defaults:
+  extends: .test_project_generation_base
+
+test_project_generation:
+  extends: .test_project_generation_base
   parallel:
-    # Test for uv and pixi with with both hosts and two python versions
+    # Test for uv and pixi with both hosts, also test uv with a different python version.
     matrix:
       - ENV_MANAGER: uv
         HOST: [gitlab.ewi.tudelft.nl, github.com]
@@ -16,35 +58,22 @@ test_project_generation:
       - ENV_MANAGER: uv
         HOST: gitlab.ewi.tudelft.nl
         PYTHON_VERSION: "3.13"
-  before_script:
-    - uv venv
-    - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
-  script:
-      - export PATH="/root/.local/bin:$PATH"
-      - git config --global user.name "Python Template"
-      - git config --global user.email "pyton-template@tudelft.nl"
-      - >
-        if [ "$ENV_MANAGER" == "pixi" ]; then
-          curl -fsSL https://pixi.sh/install.sh | bash
-          export PATH="/root/.pixi/bin:$PATH"
-        fi
-      - >
-          copier copy
-          --defaults
-          --trust
-          --vcs-ref HEAD
-          -d project_name=python-template-uv-example
-          -d environment_manager=$ENV_MANAGER
-          -d host=$HOST
-          -d min_python_version=$PYTHON_VERSION
-          . python-template-uv-example
-      - cd python-template-uv-example
 
-      - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
-      - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build; fi
+test_project_generation_no_surname:
+  extends: .test_project_generation_base
+  variables:
+    GIT_NAME: "Python-Template-No-Surname"
 
-      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
-      - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build; fi
+test_project_generation_long_description:
+  extends: .test_project_generation_base
+  variables:
+    PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
+
+test_project_generation_licenses:
+  extends: .test_project_generation_base
+  parallel:
+    matrix:
+      - LICENSE: [GPL, BSD, Apache, MIT, "No license (others may not use, share or modify the code)"]
 
 # Run prek checks for the project template itself.
 test_pre_commit:
