@@ -71,6 +71,9 @@ line-length = 88  # how long you want lines to be
 [tool.ruff.format]
 docstring-code-format = true  # code snippets in docstrings will be formatted
 
+[tool.ruff.lint.isort]
+known-first-party = ["{{ python_name }}"]
+
 [tool.ruff.lint]
 # For more strict linting and code simplifications, replace this with
 # https://github.com/NLeSC/python-template/blob/main/template/pyproject.toml.jinja#L121-L136
