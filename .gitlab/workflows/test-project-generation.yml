@@ -38,6 +38,8 @@
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
 
+    - uvx cffconvert --validate -i CITATION.cff
+
 test_project_generation_defaults:
   extends: .test_project_generation_base
 
