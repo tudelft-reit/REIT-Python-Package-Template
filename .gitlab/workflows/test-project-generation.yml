@@ -24,7 +24,7 @@
         export PATH="/root/.pixi/bin:$PATH"
       fi
     - cd ../
-    - mkdir -p $PROJECT_DIR
+    - mkdir -p $PROJECT_DIR && rm -rf $PROJECT_DIR/* && mkdir -p $PROJECT_DIR
     - cd $PROJECT_DIR
     - git init
     - git remote add origin "https://gitlab.ewi.tudelft.nl/reit/test-ci.git"
