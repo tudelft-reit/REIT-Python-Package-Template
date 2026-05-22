@@ -23,8 +23,13 @@
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
+
+    # Work on a separate folder, copier doesn't like an empty git repo in the template folder.
     - cd ../
+
+    # The folder is not cleaned up by the CI by default, make sure it is empty before starting.
     - mkdir -p $PROJECT_DIR && rm -rf $PROJECT_DIR && mkdir -p $PROJECT_DIR
+
     - cd $PROJECT_DIR
     - git init
     - git remote add origin "https://gitlab.ewi.tudelft.nl/reit/test-ci.git"
