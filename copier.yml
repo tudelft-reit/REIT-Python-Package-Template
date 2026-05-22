@@ -13,47 +13,12 @@ _jinja_extensions:
 project_name:
   type: str
   help: Please provide the name of your project.
+  default: '{{ repo_project_name }}'
   validator: >-
     {% if not project_name %}
       You must provide a name for the project.
     {% elif ' ' in project_name %}
       You must provide a project name without spaces.
-    {% endif %}
-
-host:
-  type: str
-  help: Where would you like to host your code?
-  default: github.com
-  choices:
-    github.com: github.com
-    gitlab.ewi.tudelft.nl: gitlab.ewi.tudelft.nl
-    gitlab.tudelft.nl [Discouraged]: gitlab.tudelft.nl
-
-org:
-  type: str
-  help: What {{host}} user is this project under? For gitlab, this is your netid or group.
-  # Get the username of this computer, by expanding the system variables, _copier_conf
-  # is not available. So we manually check if the variable was expanded.
-  default: >-
-    {%- if "$USER" | expandvars != "$USER" -%}
-      {{ "$USER" | expandvars }}
-    {%- else -%}
-      {{ "$UserName" | expandvars }}
-    {%- endif -%}
-  validator: >-
-    {% if not org %} You must provide a org for the project. It might just be
-    your user name on the site (like GitHub) you are targeting.
-    {% elif org != (org | trim) %}
-    Your must provide an org without leading or trailing spaces.
-    {% endif %}
-
-url:
-  type: str
-  help: Provide/modify the url to the {{host}} repository if needed.
-  default: https://{{host}}/{{org}}/{{project_name}}
-  validator: >-
-    {% if ' ' in url %}
-    You must provide a url without spaces.
     {% endif %}
 
 python_name:
@@ -147,18 +112,10 @@ _message_after_copy: |
           {% endif %}
 
           {%- if is_new_project -%}
-          - [Optional step] Set the remote to use ssh instead of https
+          - Push the initial commit and tag to {{host}}
 
-              git remote set-url origin git@{{ url | replace("https://", "") | replace("/" ~ org, ":" ~ org ) }}.git
-
-          - Push the commit to a new repo on {{host}}
-              {%- if host=='github.com' -%}
-              . Go to https://github.com/new
-              and create a new repository named `{{ project_name }}` as an empty repository.
-              Then push your commits with:
-              {%- endif %}
-
-              git push --set-upstream origin main
+              git push
+              git push --tags
           {%- else -%}
           - Have a look at the diff of each file that was modified and add back any changes that you want to keep.
           {%- endif %}
@@ -166,20 +123,17 @@ _message_after_copy: |
           - Have a look at the repository README.md file for additional information
 
 _tasks:
-  - command: git init --initial-branch main
-    when: '{{ is_new_project }}'
-
-    ###
-    # uv environment management
-    ###
+  ###
+  # uv environment management
+  ###
   - command: uv sync
     when: "{{ environment_manager=='uv' }}"
   - command: uv run prek install
     when: "{{ environment_manager=='uv' }}"
 
-    ###
-    # pixi environment management
-    ##
+  ###
+  # pixi environment management
+  ##
   - command: pixi init --format pyproject
     when: "{{ environment_manager=='pixi' }}"
   - command: pixi install --all
@@ -187,12 +141,9 @@ _tasks:
   - command: pixi run --environment dev prek install
     when: "{{ environment_manager=='pixi' }}"
 
-    ###
-    # Git repo setup
-    ###
-  - command: git remote add origin {{ url }}.git
-    when: '{{ is_new_project }}'
-
+  ###
+  # Git repo setup
+  ###
   - command: git add --all
     when: '{{ is_new_project }}'
 
