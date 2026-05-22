@@ -9,10 +9,10 @@
     ENV_MANAGER: uv
   before_script:
     - uv venv
-    - >
-      uv tool install copier
-        --with jinja2-shell-extension
-        --with copier-templates-extensions
+    - >-
+        uv tool install copier \
+        --with jinja2-shell-extension \
+        --with copier-templates-extensions \
         --with giturlparse
   script:
     - export PATH="/root/.local/bin:$PATH"
