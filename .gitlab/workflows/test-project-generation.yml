@@ -23,6 +23,7 @@
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
+    - cd ../
     - mkdir -p $PROJECT_DIR
     - cd $PROJECT_DIR
     - git init
@@ -38,7 +39,7 @@
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
         ${LICENSE:+-d license="$LICENSE"}
-        ../ ./
+        ../python-package-template ./
 
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
