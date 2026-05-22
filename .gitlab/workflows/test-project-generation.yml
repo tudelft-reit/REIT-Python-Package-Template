@@ -9,7 +9,11 @@
     ENV_MANAGER: uv
   before_script:
     - uv venv
-    - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
+    - >
+      uv tool install copier
+        --with jinja2-shell-extension
+        --with copier-templates-extensions
+        --with giturlparse
   script:
     - export PATH="/root/.local/bin:$PATH"
     - git config --global user.name "${GIT_NAME:-Python Template}"
@@ -19,6 +23,10 @@
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
+    - mkdir -p $PROJECT_DIR
+    - cd $PROJECT_DIR
+    - git init
+    - git remote add origin "https://${CI_SERVER_HOST}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}.git"
     - >
         copier copy
         --defaults
@@ -30,8 +38,7 @@
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
         ${LICENSE:+-d license="$LICENSE"}
-        . $PROJECT_DIR
-    - cd $PROJECT_DIR
+        ../ $PROJECT_DIR
 
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
