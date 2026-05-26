@@ -43,7 +43,6 @@ class ContextUpdater(ContextHook):
         self.given_name: str | None = None
         self.family_name: str | None = None
         self.host: str | None = None
-        self.org: str | None = None
         self.url: str | None = None
         self.repo_project_name: str | None = None
 
@@ -110,7 +109,6 @@ class ContextUpdater(ContextHook):
             parsed_url = self._get_parsed_git_url(dst_path)
 
             self.host = parsed_url.host
-            self.org = parsed_url.owner
             self.url = parsed_url.url2https.replace(".git", "")
             self.repo_project_name = parsed_url.repo
 
@@ -123,7 +121,6 @@ class ContextUpdater(ContextHook):
 
         context["is_new_project"] = self.is_new_project
         context["host"] = self.host
-        context["org"] = self.org
         context["url"] = self.url
         context["repo_project_name"] = self.repo_project_name
 
