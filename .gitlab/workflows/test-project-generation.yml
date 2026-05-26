@@ -24,6 +24,7 @@
         export PATH="/root/.pixi/bin:$PATH"
       fi
 
+    # TODO (@edortaperez) Remove this workaround when https://github.com/copier-org/copier/issues/2692 is fixed.
     # Work on a separate folder, copier doesn't like an empty git repo in the template folder.
     - cd ../
 
