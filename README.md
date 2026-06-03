@@ -38,39 +38,44 @@ Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_inst
 We recommend you install copier and the extensions with [uv](https://docs.astral.sh/uv/):
 
     ```bash
-    uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
+    uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions --with giturlparse
     ```
 
 4. If your project will use conda, install [pixi](https://pixi.sh). Otherwise skip this step.
 
-5. Run the following command to start the template configuration (but replace `my-package-name` with the name of your package):
+5. Create an empty repository on GitHub or GitLab, then clone it locally:
 
     ```bash
-    copier copy --trust git+https://gitlab.ewi.tudelft.nl/reit/python-package-template my-package-name
+    git clone <your-empty-repo-url>
     ```
 
-    The repository will be created in a folder called `my-package-name`.
+6. Run the following command from inside the cloned repository to start the template configuration:
+
+    ```bash
+    cd <your-empty-repo>
+    ```
+
+    ```bash
+    copier copy --trust git+https://gitlab.ewi.tudelft.nl/reit/python-package-template .
+    ```
 
     You will be prompted for the following information:
 
     - `project_name`: the name of the project.
-    This will be used to name the project directory, the Python package, and the GitLab/GitHub repository.
-    - `org`: the GitLab/GitHub owner of the project.
-    - `host`: where to host the code: either `gitlab.tudelft`, `gitlab.ewi.tudelft` or `github`
     - `name` and `email`: the name and email of the author of the project.
     - `project_short_description`: a short description of the project.
     - `license`: the license to use for the project.
     - `min_python_version`: the lowest Python version that the project supports.
     - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
 
-    Great! Copier will have now created a new project in the directory you specified by replacing `my-package-name`, and customized it based on the information you provided.
+    Great! Copier will now customize the cloned repository based on the information you provided.
     It also created a virtual environment for you and installed the project and its dependencies in it.
 
-5. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
+7. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
 
-6. **Do the manual steps that are shown at the end of the script output.**.
+8. **Do the manual steps that are shown at the end of the script output.**.
 
-7. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
+9. **Have a look at the README.md file that was generated. It contains important information about the project setup and management**.
 
 ### File structure
 The project has the following structure:
