@@ -7,9 +7,14 @@
   variables:
     PROJECT_DIR: python-template-example
     ENV_MANAGER: uv
+    HOST: gitlab.ewi.tudelft.nl
   before_script:
     - uv venv
-    - uv tool install copier --with jinja2-shell-extension --with copier-templates-extensions
+    - >
+      uv tool install copier
+      --with jinja2-shell-extension
+      --with copier-templates-extensions
+      --with giturlparse
   script:
     - export PATH="/root/.local/bin:$PATH"
     - git config --global user.name "${GIT_NAME:-Python Template}"
@@ -19,6 +24,17 @@
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
+
+    # TODO (@edortaperez) Remove this workaround when https://github.com/copier-org/copier/issues/2692 is fixed.
+    # Work on a separate folder, copier doesn't like an empty git repo in the template folder.
+    - cd ../
+
+    # The folder is not cleaned up by the CI by default, make sure it is empty before starting.
+    - mkdir -p $PROJECT_DIR && rm -rf $PROJECT_DIR && mkdir -p $PROJECT_DIR
+
+    - cd $PROJECT_DIR
+    - git init
+    - git remote add origin "https://$HOST/reit/test-ci.git"
     - >
         copier copy
         --defaults
@@ -26,12 +42,10 @@
         --vcs-ref HEAD
         -d project_name=$PROJECT_DIR
         -d environment_manager=$ENV_MANAGER
-        ${HOST:+-d host=$HOST}
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
         ${LICENSE:+-d license="$LICENSE"}
-        . $PROJECT_DIR
-    - cd $PROJECT_DIR
+        ../python-package-template ./
 
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
