@@ -8,6 +8,11 @@ repos:
       - id: check-yaml
       - id: check-toml
       - id: check-json
+        exclude: |
+          (?x)(
+              ^.vscode/launch.json|
+              ^.vscode/settings.json
+          )
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending
