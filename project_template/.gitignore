@@ -153,6 +153,3 @@ Thumbs.db
 
 # Hatch-vcs version file
 _version.py
-
-# VS Code IDE project settings
-.vscode/
