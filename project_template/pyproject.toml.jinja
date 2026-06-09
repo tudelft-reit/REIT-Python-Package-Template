@@ -113,7 +113,10 @@ pydocstyle.convention = "google"
     "S101",   # Use of assert is detected
     "INP001", # Missing __init__.py file
 ]
-
+{% if environment_manager=='uv' %}
+[tool.uv]
+exclude-newer = "1 week"
+{% endif %}
 [tool.yamlfix]
 line_length = 120
 sequence_style = "keep_style"
