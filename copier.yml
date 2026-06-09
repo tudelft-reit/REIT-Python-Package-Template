@@ -141,6 +141,10 @@ _tasks:
   - command: pixi run --environment dev prek install
     when: "{{ environment_manager=='pixi' }}"
 
+  # TODO: implement when flag is added https://github.com/prefix-dev/pixi/issues/5018
+  # - command: pixi workspace exclude-newer "1 week"
+  #   when: "{{ environment_manager=='pixi' }}"
+
   ###
   # Git repo setup
   ###
