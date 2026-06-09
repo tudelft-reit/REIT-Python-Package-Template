@@ -152,8 +152,8 @@ If you're taking code you've already written and want to use this template, you'
 ## Updating your project when the template changes
 
 > [!warning] Currently broken
-> This is broken due to an upstream bug, see #39
-> In the time being, run `copier copy` if for updates
+> This is broken due to an upstream bug, see #39. In the time being, run
+> `copier copy` for updates.
 
 Copier has [instructions on how to update a template to the latest version](https://copier.readthedocs.io/en/stable/updating/), which I'll repeat here for completeness.
 
