@@ -8,7 +8,6 @@
     ENV_MANAGER: uv
     HOST: gitlab.ewi.tudelft.nl
   before_script:
-    - uv venv
     - >
       uv tool install copier
       --with jinja2-shell-extension
