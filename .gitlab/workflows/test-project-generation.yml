@@ -8,13 +8,11 @@
     ENV_MANAGER: uv
     HOST: gitlab.ewi.tudelft.nl
   before_script:
-    - uv venv
     - >
       uv tool install copier
       --with jinja2-shell-extension
       --with copier-templates-extensions
       --with giturlparse
-  script:
     - export PATH="/root/.local/bin:$PATH"
     - git config --global user.name "${GIT_NAME:-Python Template}"
     - git config --global user.email "python-template@tudelft.nl"
@@ -23,7 +21,7 @@
         curl -fsSL https://pixi.sh/install.sh | bash
         export PATH="/root/.pixi/bin:$PATH"
       fi
-
+  script:
     # Copier does not support copying into an empty git repository inside the template repository.
     # Gitlab only cleans up the template repository folder.
     # So we create a separate tmp folder and clean it up ourselves.
