@@ -5,7 +5,6 @@
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   variables:
-    PROJECT_DIR: python-template-example
     ENV_MANAGER: uv
     HOST: gitlab.ewi.tudelft.nl
   before_script:
@@ -25,12 +24,16 @@
         export PATH="/root/.pixi/bin:$PATH"
       fi
 
+    # Copier does not support copying into an empty git repository inside the template repository.
+    # Gitlab only cleans up the template repository folder.
+    # So we create a separate tmp folder and clean it up ourselves.
     - TEMPLATE_DIR="$PWD"
     - TMP_DIR="$(mktemp -d)"
-    - trap 'echo "Cleaning dir" && rm -rf "$TMP_DIR"' EXIT
+    - trap 'rm -rf "$TMP_DIR"' EXIT
     - cd "$TMP_DIR"
     - git init
     - git remote add origin "https://$HOST/reit/test-ci.git"
+
     - >
         copier copy
         --defaults
