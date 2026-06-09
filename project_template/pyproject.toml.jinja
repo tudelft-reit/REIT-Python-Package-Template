@@ -114,6 +114,13 @@ pydocstyle.convention = "google"
     "INP001", # Missing __init__.py file
 ]
 
+{% if environment_manager=='pixi' -%}
+[tool.pixi]
+{%- elif environment_manager=='uv' -%}
+[tool.uv]
+{%- endif %}
+exclude-newer = "1 week"
+
 [tool.yamlfix]
 line_length = 120
 sequence_style = "keep_style"
