@@ -124,7 +124,6 @@ Here's a brief overview of the files and directories that have been created:
 If you're taking code you've already written and want to use this template, you'll need to perform the following steps:
 
 1. Run the copier command from the [setting up a new project](#setting-up-a-new-project) section making sure you select the folder where your project is located.
-    - Do the manual steps that are shown at the end of the script output.
 2. Move your library code into the `src/<project name>` directory.
     - By library code, I mean the code that you want to be importable by other Python code. If you have things like experiments, scripts, or notebooks, you should keep them in the root directory under a different name (e.g. `examples`, `notebooks` etc.)
 3. Move any tests you have into the `tests` directory.
@@ -143,11 +142,11 @@ If you're taking code you've already written and want to use this template, you'
         [tool.pixi.dependencies]
         r-base = ">=4.4.1,<5"
         ```
-6. Commit your changes
-7. Lint and format your whole repository
-    - Run the linter and formatter with with `uv run prek run --all-files` or with `pixi run -e dev prek run --all-files`
-    - If there are too many linting errors, add `# noqa` flags via `uv run ruff check --add-noqa` and fix them incrementally.
-    - Commit your changes
+6. Lint and format
+    - With `uv run prek run --all-files` or with `pixi run -e dev prek run --all-files`
+    - Fix the issues, `git add` the changes and run the linter again until all issues are gone
+        - If you don't have the time to fix the issues, in the next step commit with `git commit --no-verify`
+7. Commit your changes
 
 ## Updating your project when the template changes
 

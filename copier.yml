@@ -146,7 +146,7 @@ _tasks:
   #   when: "{{ environment_manager=='pixi' }}"
 
   ###
-  # Git repo setup
+  # New repo setup
   ###
   - command: git add --all
     when: '{{ is_new_project }}'
@@ -156,3 +156,21 @@ _tasks:
 
   - command: git tag v0.0.1
     when: '{{ is_new_project }}'
+
+  ###
+  # Existing repo setup uv
+  ###
+  - command: uv run ruff format
+    when: "{{ not is_new_project and environment_manager=='uv'}}"
+
+  - command: uv run ruff check --add-noqa
+    when: "{{ not is_new_project and environment_manager=='uv'}}"
+
+  ###
+  # Existing repo setup pixi
+  ###
+  - command: pixi run --environment dev ruff format
+    when: "{{ not is_new_project and environment_manager=='pixi'}}"
+
+  - command: pixi run --environment dev ruff check --add-noqa
+    when: "{{ not is_new_project and environment_manager=='pixi'}}"
