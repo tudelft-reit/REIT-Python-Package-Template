@@ -44,9 +44,11 @@
         ${LICENSE:+-d license="$LICENSE"}
         "$TEMPLATE_DIR" ./
 
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run python ./src/python_template_example/main.py; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
 
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run python ./src/python_template_example/main.py; fi
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
 
