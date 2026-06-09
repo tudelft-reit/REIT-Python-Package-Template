@@ -27,7 +27,7 @@
 
     - TEMPLATE_DIR="$PWD"
     - TMP_DIR="$(mktemp -d)"
-    - trap 'rm -rf "$TMP_DIR"' EXIT
+    - trap 'echo "Cleaning dir" && rm -rf "$TMP_DIR"' EXIT
     - cd "$TMP_DIR"
     - git init
     - git remote add origin "https://$HOST/reit/test-ci.git"
