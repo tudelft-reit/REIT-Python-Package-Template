@@ -9,13 +9,10 @@ readme = "README.md"
 requires-python = ">={{ min_python_version }}"
 dependencies = []
 
-{% if environment_manager=='pixi' -%}
-[project.optional-dependencies]
-dev = [
-  "pip>=26.0.1",
-{%- elif environment_manager=='uv' -%}
 [dependency-groups]
 dev = [
+{%- if environment_manager=='pixi' %}
+  "pip>=26.0.1",
 {%- endif %}
   "hatch>=1.16.3",
   "mkdocstrings-python>=2.0.3",
