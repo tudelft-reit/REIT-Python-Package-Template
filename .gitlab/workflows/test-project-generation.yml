@@ -81,17 +81,9 @@ test_project_generation_existing_repo:
         PYTHON_VERSION: "3.10"
   script:
     - !reference [.test_project_generation_base, script]
-    - ls -la # TODO REMOVE
-    - |
-        cat > src/python_template_example/new-file.py <<'EOF'
-        def foo():
-          a = 1
-          c = 0
-          return a
-        EOF
+    - cp "$TEMPLATE_DIR/.gitlab/workflows/test-file-before.py" src/python_template_example/new-file.py
     - git add .
     - git commit --no-verify -m "Add new file with linting errors"
-    - git status # TODO REMOVE
     - >
         copier copy
         --defaults
@@ -107,7 +99,7 @@ test_project_generation_existing_repo:
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
     - uvx cffconvert --validate -i CITATION.cff
-    - cat src/python_template_example/new-file.py # TODO REMOVE
+    - diff -u "$TEMPLATE_DIR/.gitlab/workflows/test-file-after.py" src/python_template_example/new-file.py
 
 test_project_generation_no_surname:
   extends: .test_project_generation_base
