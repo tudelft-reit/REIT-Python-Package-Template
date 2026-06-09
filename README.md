@@ -151,6 +151,10 @@ If you're taking code you've already written and want to use this template, you'
 
 ## Updating your project when the template changes
 
+> [!warning] Currently broken
+> This is broken due to an upstream bug, see #39
+> In the time being, run `copier copy` if for updates
+
 Copier has [instructions on how to update a template to the latest version](https://copier.readthedocs.io/en/stable/updating/), which I'll repeat here for completeness.
 
 If you want to update your project with the latest version of this template, you can run the following command at the root folder of your repository (ensuring that your current project is committed and that you have no uncommitted changes, since the update will overwrite some files!):
