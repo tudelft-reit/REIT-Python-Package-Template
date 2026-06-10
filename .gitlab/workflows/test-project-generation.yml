@@ -72,6 +72,35 @@ test_project_generation:
         HOST: gitlab.ewi.tudelft.nl
         PYTHON_VERSION: "3.13"
 
+test_project_generation_existing_repo:
+  extends: .test_project_generation_base
+  parallel:
+    matrix:
+      - ENV_MANAGER: [uv, pixi]
+        HOST: gitlab.ewi.tudelft.nl
+        PYTHON_VERSION: "3.10"
+  script:
+    - !reference [.test_project_generation_base, script]
+    - cp "$TEMPLATE_DIR/.gitlab/workflows/test-file-before.py" src/python_template_example/new-file.py
+    - git add .
+    - git commit --no-verify -m "Add new file with linting errors"
+    - >
+        copier copy
+        --defaults
+        --overwrite
+        --trust
+        --vcs-ref HEAD
+        -d project_name=python-template-example
+        -d environment_manager=$ENV_MANAGER
+        ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
+        "$TEMPLATE_DIR" ./
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
+    - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev pytest; fi
+    - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
+    - uvx cffconvert --validate -i CITATION.cff
+    - diff -u "$TEMPLATE_DIR/.gitlab/workflows/test-file-after.py" src/python_template_example/new-file.py
+
 test_project_generation_no_surname:
   extends: .test_project_generation_base
   variables:
