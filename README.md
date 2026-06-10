@@ -10,7 +10,7 @@ This template is designed to help you get started with a new Python project, or 
 - Linting + formatting via [ruff](https://docs.astral.sh/ruff/) and [prek](https://prek.j178.dev)
 - [pytest](https://docs.pytest.org/en/stable/) setup and configured
 - Automatic version number management with git tags via [hatch-vcs](https://github.com/ofek/hatch-vcs)
-- Documentation generation via [mkdocs-material](https://squidfunk.github.io/mkdocs-material/)
+- Documentation generation via [zensical](https://zensical.org/docs)
 - Documentation deployment, pytest and linting checks via CI/CD workflows for GitLab and Github
 
 A course that explains in detail how to use this template is given by the REIT team.
@@ -114,7 +114,7 @@ Here's a brief overview of the files and directories that have been created:
 - `LICENSE`: A copy of the license you chose for your project.
 - `README.md`: An overview of your project and instructions on how to manage it.
 - `pyproject.toml`: A TOML file that contains metadata about your project, including its name, version, description, and dependencies.
-- `mkdocs.yml`: A configuration file for `mkdocs`, which generates documentation for your code.
+- `mkdocs.yml`: A configuration file for `zensical`, which generates documentation for your code.
 - `src/`: A directory that contains your Python package code.
 - `tests/`: A directory that contains your tests.
 - `docs/`: A directory that contains your documentation.
