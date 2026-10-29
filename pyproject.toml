@@ -1,0 +1,19 @@
+# Tooling to develop this template, the generated projects get their own pyproject.toml
+[project]
+name = "python-package-template"
+version = "0.0.0"
+requires-python = ">=3.11"
+# Copier with the extensions used in copier.yml and extensions/context.py
+dependencies = [
+    "copier>=9.6.0",
+    "copier-templates-extensions",
+    "giturlparse",
+    "jinja2-shell-extension",
+    "packaging",
+]
+
+[dependency-groups]
+dev = ["prek"]
+
+[tool.uv]
+package = false
