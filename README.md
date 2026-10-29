@@ -67,6 +67,7 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
     - `license`: the license to use for the project.
     - `min_python_version`: the lowest Python version that the project supports.
     - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
+    - `manual_lint_fixes`: whether to enable linting rules that sometimes need manual fixes, or only the ones ruff always fixes automatically.
 
     Great! Copier will now customize the cloned repository based on the information you provided.
     It also created a virtual environment for you and installed the project and its dependencies in it.

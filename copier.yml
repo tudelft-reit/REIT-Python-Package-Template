@@ -90,6 +90,14 @@ environment_manager:
     uv   (pip dependencies only) [Recommended]: uv
     pixi (conda and pip dependencies): pixi
 
+manual_lint_fixes:
+  type: bool
+  help: Enable extra code checks?
+  default: true
+  choices:
+    Yes (finds more bugs, but some fixes are manual): true
+    No  (fully automatic, but catches less): false
+
 _message_after_copy: |
   Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!
 
