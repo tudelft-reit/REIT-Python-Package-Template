@@ -4,11 +4,4 @@ test_extensions:
     - if: $CI_PIPELINE_SOURCE == "push"
   stage: test
   script:
-    - >-
-      uv run
-      --no-project
-      --with pytest
-      --with copier
-      --with copier-templates-extensions
-      --with giturlparse
-      pytest tests
+    - uv run --locked --no-dev pytest

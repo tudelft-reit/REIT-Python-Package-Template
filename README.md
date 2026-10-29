@@ -207,7 +207,11 @@ If you want to make your own changes to this template:
     uv sync
     uv run prek install
     ```
-3. Test your local changes by generating a new project.
+3. Run the unit tests of the copier extensions
+    ```bash
+    uv run pytest
+    ```
+4. Test your local changes by generating a new project.
 The template needs a git repository with an `origin` remote, and it can't be inside the template repository:
     ```bash
     mkdir ../my-test-project
