@@ -23,7 +23,7 @@ class ContextUpdater(ContextHook):
             error_message="Git does not seem to be installed. Please install it and try again.",
         )
 
-        _, git_user_name = self._run_git(
+        git_user_name = self._run_git(
             ["config", "user.name"],
             error_message="Configure the git user.name and try again.",
         )
@@ -31,7 +31,7 @@ class ContextUpdater(ContextHook):
             print("Configure the git user.name and try again.")
             exit(-1)
 
-        _, git_user_email = self._run_git(
+        git_user_email = self._run_git(
             ["config", "user.email"],
             error_message="Configure the git user.email and try again.",
         )
@@ -52,14 +52,13 @@ class ContextUpdater(ContextHook):
         args: list[str],
         cwd: Path | None = None,
         error_message: str | None = None,
-        allow_error: bool = False,
-    ) -> tuple[int, str]:
+    ) -> str:
         ret = subprocess.run(["git", *args], capture_output=True, cwd=cwd)
         stdout = ret.stdout.decode("utf-8").strip()
-        if ret.returncode != 0 and not allow_error:
+        if ret.returncode != 0:
             print(error_message or f"Running 'git {' '.join(args)}' failed.")
             exit(-1)
-        return ret.returncode, stdout
+        return stdout
 
     def _check_is_valid_git_repository(self, dst_path: Path) -> None:
             if not dst_path.exists():
@@ -69,7 +68,7 @@ class ContextUpdater(ContextHook):
                 )
                 exit(-1)
 
-            _, status_porcelain = self._run_git(
+            status_porcelain = self._run_git(
                 ["status", "--porcelain"],
                 cwd=dst_path,
                 error_message=(
@@ -86,7 +85,7 @@ class ContextUpdater(ContextHook):
                 exit(-1)
 
     def _get_parsed_git_url(self, dst_path: Path) -> giturlparse.GitUrlParsed:
-        _, origin_remote = self._run_git(
+        origin_remote = self._run_git(
             ["remote", "get-url", "origin"],
             cwd=dst_path,
             error_message=(
@@ -102,6 +101,12 @@ class ContextUpdater(ContextHook):
 
         return parsed_url
 
+    def _check_is_new_project(self, dst_path: Path) -> bool:
+        # A repository without commits, or with only the files that online git hosts
+        # offer to create with the repository and that the template overwrites, is new
+        tracked_files = self._run_git(["ls-files"], cwd=dst_path)
+        return set(tracked_files.splitlines()) <= {"README.md", "LICENSE", ".gitignore"}
+
     def hook(self, context: dict) -> dict:
         if self.is_new_project is None and context["_copier_phase"] == "prompt":
             dst_path = Path(context["_copier_conf"]["dst_path"]).resolve()
@@ -113,12 +118,7 @@ class ContextUpdater(ContextHook):
             self.url = parsed_url.url2https.replace(".git", "")
             self.repo_project_name = parsed_url.repo
 
-            rev_parse_return_code, _ = self._run_git(
-                ["rev-parse", "--verify", "--quiet", "HEAD"],
-                cwd=dst_path,
-                allow_error=True,
-            )
-            self.is_new_project = rev_parse_return_code != 0
+            self.is_new_project = self._check_is_new_project(dst_path)
 
         context["is_new_project"] = self.is_new_project
         context["host"] = self.host

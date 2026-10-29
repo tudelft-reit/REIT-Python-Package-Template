@@ -1,5 +1,17 @@
 # Check that creating a new project using the template works.
 # This includes running prek and pytest on the created project.
+.setup_tmp_repo:
+  script:
+    # Copier does not support copying into an empty git repository inside the template repository.
+    # Gitlab only cleans up the template repository folder.
+    # So we create a separate tmp folder and clean it up ourselves.
+    - TEMPLATE_DIR="$PWD"
+    - TMP_DIR="$(mktemp -d)"
+    - trap 'rm -rf "$TMP_DIR"' EXIT
+    - cd "$TMP_DIR"
+    - git init
+    - git remote add origin "https://$HOST/reit/test-ci.git"
+
 .test_project_generation_base:
   stage: test
   rules:
@@ -22,15 +34,7 @@
         export PATH="/root/.pixi/bin:$PATH"
       fi
   script:
-    # Copier does not support copying into an empty git repository inside the template repository.
-    # Gitlab only cleans up the template repository folder.
-    # So we create a separate tmp folder and clean it up ourselves.
-    - TEMPLATE_DIR="$PWD"
-    - TMP_DIR="$(mktemp -d)"
-    - trap 'rm -rf "$TMP_DIR"' EXIT
-    - cd "$TMP_DIR"
-    - git init
-    - git remote add origin "https://$HOST/reit/test-ci.git"
+    - !reference [.setup_tmp_repo, script]
 
     - >
         copier copy
@@ -102,6 +106,30 @@ test_project_generation_existing_repo:
     - if [ "$ENV_MANAGER" == "pixi" ]; then pixi run -e dev zensical build --clean; fi
     - uvx cffconvert --validate -i CITATION.cff
     - diff -u "$TEMPLATE_DIR/.gitlab/workflows/test-file-after.py" src/python_template_example/new-file.py
+
+# An online repository created with a README, LICENSE and .gitignore is still a new project.
+test_project_generation_initial_commit_repo:
+  extends: .test_project_generation_base
+  script:
+    - !reference [.setup_tmp_repo, script]
+    - echo "# test-ci" > README.md
+    - echo "Initial license" > LICENSE
+    - echo "*.pyc" > .gitignore
+    - git add .
+    - git commit -m "Initial commit"
+    - >
+        copier copy
+        --defaults
+        --overwrite
+        --trust
+        --vcs-ref HEAD
+        -d project_name=python-template-example
+        -d environment_manager=$ENV_MANAGER
+        "$TEMPLATE_DIR" ./
+    - test "$(git log -1 --format=%s)" == "REIT python template setup"
+    - test "$(git describe --tags --exact-match)" == "v0.0.1"
+    - test -z "$(git status --porcelain)"
+    - uv run pytest
 
 test_project_generation_no_surname:
   extends: .test_project_generation_base

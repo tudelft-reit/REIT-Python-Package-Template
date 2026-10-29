@@ -1,0 +1,14 @@
+# Unit tests for the copier extensions used by the template.
+test_extensions:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+  stage: test
+  script:
+    - >-
+      uv run
+      --no-project
+      --with pytest
+      --with copier
+      --with copier-templates-extensions
+      --with giturlparse
+      pytest tests
