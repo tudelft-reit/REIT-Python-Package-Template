@@ -201,11 +201,10 @@ If you want to make your own changes to this template:
     ```bash
     git clone https://gitlab.ewi.tudelft.nl/reit/python-package-template.git
     ```
-2. Create a virtual environment and install prek
+2. Create a virtual environment with copier, its extensions and prek
     ```bash
     cd python-package-template
-    uv venv
-    uv pip install prek
+    uv sync
     uv run prek install
     ```
 3. Test your local changes by generating a new project.

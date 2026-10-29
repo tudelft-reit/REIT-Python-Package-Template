@@ -20,11 +20,7 @@
     ENV_MANAGER: uv
     HOST: gitlab.ewi.tudelft.nl
   before_script:
-    - >
-      uv tool install copier
-      --with jinja2-shell-extension
-      --with copier-templates-extensions
-      --with giturlparse
+    - uv tool install copier --with-requirements pyproject.toml
     - export PATH="/root/.local/bin:$PATH"
     - git config --global user.name "${GIT_NAME:-Python Template}"
     - git config --global user.email "python-template@tudelft.nl"
@@ -157,8 +153,5 @@ test_pre_commit:
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   stage: test
-  before_script:
-    - uv venv
-    - uv pip install prek
   script:
-    - uv run prek run --all-files
+    - uv run --locked prek run --all-files
