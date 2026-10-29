@@ -45,6 +45,7 @@
         ${MANUAL_LINT_FIXES:+-d manual_lint_fixes=$MANUAL_LINT_FIXES}
         "$TEMPLATE_DIR" ./
 
+    - test -s LICENSE
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run python ./src/python_template_example/main.py; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run pytest; fi
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run zensical build --clean; fi
@@ -121,7 +122,7 @@ test_project_generation_licenses:
   extends: .test_project_generation_base
   parallel:
     matrix:
-      - LICENSE: [GPL, BSD, Apache, MIT, "No license (others may not use, share or modify the code)"]
+      - LICENSE: [GPL, BSD, Apache, MIT, "No license"]
 
 # Run prek checks for the project template itself.
 test_pre_commit:

@@ -63,11 +63,11 @@ license:
   help: Select a license
   default: GPL
   choices:
-    - GPL
-    - BSD
-    - Apache
-    - MIT
-    - No license (others may not use, share or modify the code)
+    GPL: GPL
+    BSD: BSD
+    Apache: Apache
+    MIT: MIT
+    No license (others may not use, share or modify the code): No license
 
 min_python_version:
   type: str
