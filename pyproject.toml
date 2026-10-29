@@ -14,6 +14,13 @@ dependencies = [
 
 [dependency-groups]
 dev = ["prek"]
+test = ["pytest"]
 
 [tool.uv]
 package = false
+default-groups = ["dev", "test"]
+
+[tool.pytest.ini_options]
+# The template extensions are loaded by copier from a path, they are not an installed package
+pythonpath = ["extensions"]
+testpaths = ["tests"]
