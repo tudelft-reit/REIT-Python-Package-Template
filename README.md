@@ -73,6 +73,7 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
     It also created a virtual environment for you and installed the project and its dependencies in it.
 
 7. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
+VS Code will offer to install it when you open the project, and it will then fix and format your code on save.
 
 8. **Do the manual steps that are shown at the end of the script output.**.
 
