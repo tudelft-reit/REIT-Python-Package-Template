@@ -122,7 +122,7 @@ _message_after_copy: |
           {%- if is_new_project -%}
           - Push the initial commit and tag to {{host}}
 
-              git push --tags
+              git push --set-upstream origin HEAD --tags
           {%- else -%}
           - Have a look at the diff of each file that was modified and add back any changes that you want to keep.
           - If your project doesn't have version tags, create and push the first one with
