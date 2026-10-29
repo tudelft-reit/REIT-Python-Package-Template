@@ -1,5 +1,6 @@
 include:
   - local: .gitlab/workflows/test-project-generation.yml
+  - local: .gitlab/workflows/test-extensions.yml
   - local: .gitlab/workflows/prek-auto-update.yml
 
 image: ghcr.io/astral-sh/uv:python3.11-bookworm
