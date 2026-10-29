@@ -34,7 +34,7 @@ Windows users are recommended to use [WSL](https://learn.microsoft.com/en-us/win
 Follow the instructions [here](https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html) to do so.
     * If you are on Windows and not using WSL it is recommended to disable the LF to CRLF line ending conversion `git config --global core.autocrlf false`.
 
-3. Install [copier](https://copier.readthedocs.io/en/stable/), with the [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/) and with the [copier-templates-extensions](https://github.com/copier-org/copier-templates-extensions).
+3. Install [copier](https://copier.readthedocs.io/en/stable/), with [jinja2-shell-extension](https://pypi.org/project/jinja2-shell-extension/),  [copier-templates-extensions](https://github.com/copier-org/copier-templates-extensions) and [giturlparse](https://pypi.org/project/giturlparse/).
 We recommend you install copier and the extensions with [uv](https://docs.astral.sh/uv/):
 
     ```bash
