@@ -42,6 +42,7 @@
         ${PYTHON_VERSION:+-d min_python_version=$PYTHON_VERSION}
         ${PROJECT_SHORT_DESCRIPTION:+-d project_short_description="$PROJECT_SHORT_DESCRIPTION"}
         ${LICENSE:+-d license="$LICENSE"}
+        ${MANUAL_LINT_FIXES:+-d manual_lint_fixes=$MANUAL_LINT_FIXES}
         "$TEMPLATE_DIR" ./
 
     - if [ "$ENV_MANAGER" == "uv" ]; then uv run python ./src/python_template_example/main.py; fi
@@ -64,10 +65,10 @@ test_project_generation:
     matrix:
       - ENV_MANAGER: uv
         HOST: [gitlab.ewi.tudelft.nl, github.com]
-        PYTHON_VERSION: "3.10"
+        PYTHON_VERSION: "3.11"
       - ENV_MANAGER: pixi
         HOST: [gitlab.ewi.tudelft.nl, github.com]
-        PYTHON_VERSION: "3.10"
+        PYTHON_VERSION: "3.11"
       - ENV_MANAGER: uv
         HOST: gitlab.ewi.tudelft.nl
         PYTHON_VERSION: "3.13"
@@ -78,7 +79,7 @@ test_project_generation_existing_repo:
     matrix:
       - ENV_MANAGER: [uv, pixi]
         HOST: gitlab.ewi.tudelft.nl
-        PYTHON_VERSION: "3.10"
+        PYTHON_VERSION: "3.11"
   script:
     - !reference [.test_project_generation_base, script]
     - cp "$TEMPLATE_DIR/.gitlab/workflows/test-file-before.py" src/python_template_example/new-file.py
@@ -110,6 +111,11 @@ test_project_generation_long_description:
   extends: .test_project_generation_base
   variables:
     PROJECT_SHORT_DESCRIPTION: "A very long project description that exceeds the typical length limit for project descriptions in the template. This should be more than 120 line length."
+
+test_project_generation_autofix_only:
+  extends: .test_project_generation_base
+  variables:
+    MANUAL_LINT_FIXES: "false"
 
 test_project_generation_licenses:
   extends: .test_project_generation_base

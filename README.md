@@ -67,11 +67,13 @@ We recommend you install copier and the extensions with [uv](https://docs.astral
     - `license`: the license to use for the project.
     - `min_python_version`: the lowest Python version that the project supports.
     - `environment_manager`: whether to use `uv` or `pixi` for managing the python environment.
+    - `manual_lint_fixes`: whether to enable linting rules that sometimes need manual fixes, or only the ones ruff always fixes automatically.
 
     Great! Copier will now customize the cloned repository based on the information you provided.
     It also created a virtual environment for you and installed the project and its dependencies in it.
 
 7. [Optional] Install ruff in your editor, for vscode see the [ruff extension](https://marketplace.visualstudio.com/items?itemName=charliermarsh.ruff).
+VS Code will offer to install it when you open the project, and it will then fix and format your code on save.
 
 8. **Do the manual steps that are shown at the end of the script output.**.
 

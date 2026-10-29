@@ -71,15 +71,15 @@ license:
 
 min_python_version:
   type: str
-  help: What is the minimum version of Python your project will support? (must be 3.8 or higher)
-  default: '3.10'
+  help: What is the minimum version of Python your project will support? (must be 3.11 or higher)
+  default: '3.11'
   validator: >-
     {% if min_python_version != (min_python_version | trim) %}
     Please provide the Python version without leading or trailing spaces.
     {% elif not (min_python_version | regex_search('^3\.[0-9]+(?:\.[0-9]+)?$')) %}
     Please supply a valid Python 3 version in the form 3.X or 3.X.Y (e.g. 3.11 or 3.11.4).
-    {% elif (min_python_version.split('.')[1] | int) < 8 %}
-    Please supply a minimum Python version of 3.8 or higher.
+    {% elif (min_python_version.split('.')[1] | int) < 11 %}
+    Please supply a minimum Python version of 3.11 or higher.
     {% endif %}
 
 environment_manager:
@@ -89,6 +89,14 @@ environment_manager:
   choices:
     uv   (pip dependencies only) [Recommended]: uv
     pixi (conda and pip dependencies): pixi
+
+manual_lint_fixes:
+  type: bool
+  help: Enable extra code checks?
+  default: true
+  choices:
+    Yes (finds more bugs, but some fixes are manual): true
+    No  (fully automatic, but catches less): false
 
 _message_after_copy: |
   Your project "{{ project_name }}" has been successfully created in {{ _copier_conf.dst_path }} folder!

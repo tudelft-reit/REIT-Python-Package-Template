@@ -74,6 +74,7 @@ known-first-party = ["{{ python_name }}"]
 # For more strict linting and code simplifications, replace this with
 # https://github.com/NLeSC/python-template/blob/main/template/pyproject.toml.jinja#L121-L136
 select = [
+{%- if manual_lint_fixes %}
   "E", "F", "W", # flake8
   "B",           # flake8-bugbear
   "I",           # isort
@@ -95,6 +96,22 @@ select = [
   "EXE",         # flake8-executable
   # "D",           # pydocstyle, uncomment to have the docstrings linted
   # "ANN",         # flake8-annotations, uncomment to have type hint annotations linted
+{%- else %}
+  "E401", "E703", "E713", "E714",                     # pycodestyle errors
+  "W292", "W605",                                     # pycodestyle warnings
+  "F632",                                             # pyflakes
+  "B014",                                             # flake8-bugbear
+  "I001", "I002",                                     # isort
+  "G010",                                             # flake8-logging-format
+  "PIE808",                                           # flake8-pie
+  "PLC0208", "PLW0245",                               # pylint
+  "PT024", "PT025",                                   # flake8-pytest-style
+  "RET502",                                           # flake8-return
+  "RUF021", "RUF101",                                 # Ruff-specific
+  "SIM208",                                           # flake8-simplify
+  "UP001", "UP005", "UP009", "UP011", "UP012",        # pyupgrade
+  "UP015", "UP021", "UP024", "UP025", "UP034",        # pyupgrade
+{%- endif %}
 ]
 ignore = [
   "PLR",    # Design related pylint codes
