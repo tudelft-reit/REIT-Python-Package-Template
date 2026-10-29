@@ -1,3 +1,4 @@
+import datetime
 import subprocess
 from pathlib import Path
 
@@ -140,4 +141,5 @@ class ContextUpdater(ContextHook):
 
         context["given_name"] = self.given_name
         context["family_name"] = self.family_name
+        context["current_year"] = datetime.date.today().year
         return context
